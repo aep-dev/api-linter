@@ -20,7 +20,7 @@ import (
 	"github.com/googleapis/api-linter/rules/internal/testutils"
 )
 
-func TestHttpNameField(t *testing.T) {
+func TestHttpPathField(t *testing.T) {
 	tests := []struct {
 		testName   string
 		URI        string

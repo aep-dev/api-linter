@@ -27,10 +27,10 @@ func TestHttpNameField(t *testing.T) {
 		MethodName string
 		problems   testutils.Problems
 	}{
-		{"Valid", "/v1/{name=publishers/*/books/*}", "DeleteBook", nil},
-		{"ValidRevision", "/v1/{name=publishers/*/books/*}:deleteRevision", "DeleteBookRevision", nil},
-		{"InvalidVarName", "/v1/{book=publishers/*/books/*}", "DeleteBook", testutils.Problems{{Message: "`name`"}}},
-		{"NoVarName", "/v1/publishers/*/books/*", "DeleteBook", testutils.Problems{{Message: "`name`"}}},
+		{"Valid", "/v1/{path=publishers/*/books/*}", "DeleteBook", nil},
+		{"ValidRevision", "/v1/{path=publishers/*/books/*}:deleteRevision", "DeleteBookRevision", nil},
+		{"InvalidVarName", "/v1/{book=publishers/*/books/*}", "DeleteBook", testutils.Problems{{Message: "`path`"}}},
+		{"NoVarName", "/v1/publishers/*/books/*", "DeleteBook", testutils.Problems{{Message: "`path`"}}},
 		{"Irrelevant", "/v1/{book=publishers/*/books/*}", "AcquireBook", nil},
 	}
 
