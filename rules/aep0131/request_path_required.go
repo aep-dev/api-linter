@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC
+// Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,18 +22,18 @@ import (
 	"github.com/jhump/protoreflect/desc"
 )
 
-var requestNameReferenceType = &lint.FieldRule{
-	Name: lint.NewRuleName(131, "request-name-reference-type"),
-	OnlyIf: func(f *desc.FieldDescriptor) bool {
-		return utils.IsGetRequestMessage(f.GetOwner()) && f.GetName() == "name" && utils.GetResourceReference(f) != nil
-	},
-	LintField: func(f *desc.FieldDescriptor) []lint.Problem {
-		if ref := utils.GetResourceReference(f); ref.GetType() == "" {
+// The Get standard method should have some required fields.
+var requestPathRequired = &lint.MessageRule{
+	Name:   lint.NewRuleName(131, "request-path-required"),
+	OnlyIf: utils.IsGetRequestMessage,
+	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
+		if m.FindFieldByName("path") == nil {
 			return []lint.Problem{{
-				Message:    fmt.Sprintf("The `%s` field `google.api.resource_reference` annotation should be a direct `type` reference.", f.GetName()),
-				Descriptor: f,
+				Message:    fmt.Sprintf("Method %q has no `path` field", m.GetName()),
+				Descriptor: m,
 			}}
 		}
+
 		return nil
 	},
 }

@@ -28,8 +28,8 @@ func TestRequestHasNameField(t *testing.T) {
 		FieldName   string
 		problems    testutils.Problems
 	}{
-		{"Valid", "GetBookRequest", "name", testutils.Problems{}},
-		{"InvalidName", "GetBookRequest", "id", testutils.Problems{{Message: "name"}}},
+		{"Valid", "GetBookRequest", "path", testutils.Problems{}},
+		{"InvalidName", "GetBookRequest", "id", testutils.Problems{{Message: "path"}}},
 		{"Irrelevant", "AcquireBookRequest", "id", testutils.Problems{}},
 	}
 
@@ -42,7 +42,7 @@ func TestRequestHasNameField(t *testing.T) {
 			}`, test)
 
 			// Run the lint rule, and establish that it returns the correct problems.
-			problems := requestNameRequired.Lint(f)
+			problems := requestPathRequired.Lint(f)
 			if diff := test.problems.SetDescriptor(f.GetMessageTypes()[0]).Diff(problems); diff != "" {
 				t.Errorf("Problems did not match: %v", diff)
 			}

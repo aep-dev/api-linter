@@ -25,7 +25,7 @@ import (
 )
 
 var allowedFields = stringset.New(
-	"name",       // AEP-131
+	"path",       // AEP-131
 	"request_id", // AEP-155
 	"read_mask",  // AEP-157
 	"view",       // AEP-157

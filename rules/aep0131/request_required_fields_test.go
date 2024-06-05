@@ -67,15 +67,15 @@ func TestRequiredFieldTests(t *testing.T) {
 				service Library {
 					rpc GetBook(GetBookRequest) returns (Book) {
 						option (google.api.http) = {
-							get: "/v1/{name=publishers/*/books/*}"
+							get: "/v1/{path=publishers/*/books/*}"
 						};
 					}
 				}
 
 				message GetBookRequest {
-					// The name of the book to retrieve.
+					// The path of the book to retrieve.
 					// Format: publishers/{publisher}/books/{book}
-					string name = 1 [
+					string path = 1 [
 					    (google.api.field_behavior) = REQUIRED,
 						(google.api.resource_reference) = {
 							type: "library.googleapis.com/Book"
@@ -89,7 +89,7 @@ func TestRequiredFieldTests(t *testing.T) {
 						type: "library.googleapis.com/Book"
 						pattern: "publishers/{publisher}/books/{book}"
 					};
-					string name = 1;
+					string path = 1;
 				}
 			`, test)
 			var dbr desc.Descriptor = f.FindMessage("GetBookRequest")

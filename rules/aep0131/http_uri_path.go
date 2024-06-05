@@ -17,13 +17,11 @@ package aep0131
 import (
 	"github.com/googleapis/api-linter/lint"
 	"github.com/googleapis/api-linter/rules/internal/utils"
-	"github.com/jhump/protoreflect/desc"
 )
 
-var requestNameBehavior = &lint.FieldRule{
-	Name: lint.NewRuleName(131, "request-name-behavior"),
-	OnlyIf: func(f *desc.FieldDescriptor) bool {
-		return utils.IsGetRequestMessage(f.GetOwner()) && f.GetName() == "name"
-	},
-	LintField: utils.LintRequiredField,
+// Get methods should have a proper HTTP pattern.
+var httpPathField = &lint.MethodRule{
+	Name:       lint.NewRuleName(131, "http-uri-path"),
+	OnlyIf:     utils.IsGetMethod,
+	LintMethod: utils.LintHTTPURIHasPathVariable,
 }

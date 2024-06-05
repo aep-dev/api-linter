@@ -29,7 +29,7 @@ var requestRequiredFields = &lint.MessageRule{
 	OnlyIf: utils.IsGetRequestMessage,
 	LintMessage: func(m *desc.MessageDescriptor) (problems []lint.Problem) {
 		// Rule check: Establish that there are no unexpected fields.
-		allowedRequiredFields := stringset.New("name")
+		allowedRequiredFields := stringset.New("path")
 
 		for _, f := range m.GetFields() {
 			if !utils.GetFieldBehavior(f).Contains("REQUIRED") {

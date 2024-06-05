@@ -23,5 +23,5 @@ import (
 var httpNameField = &lint.MethodRule{
 	Name:       lint.NewRuleName(135, "http-uri-name"),
 	OnlyIf:     utils.IsDeleteMethod,
-	LintMethod: utils.LintHTTPURIHasNameVariable,
+	LintMethod: utils.LintHTTPURIHasPathVariable,
 }

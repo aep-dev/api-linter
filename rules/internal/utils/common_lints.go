@@ -235,10 +235,10 @@ func LintHTTPURIVariableCount(m *desc.MethodDescriptor, n int) []lint.Problem {
 	return nil
 }
 
-// LintHTTPURIHasNameVariable returns a problem if any of the given method's HTTP rules do not
-// have a name variable in the URI.
-func LintHTTPURIHasNameVariable(m *desc.MethodDescriptor) []lint.Problem {
-	return LintHTTPURIHasVariable(m, "name")
+// LintHTTPURIHasPathVariable returns a problem if any of the given method's HTTP rules do not
+// have a path variable in the URI.
+func LintHTTPURIHasPathVariable(m *desc.MethodDescriptor) []lint.Problem {
+	return LintHTTPURIHasVariable(m, "path")
 }
 
 func max(x, y int) int {

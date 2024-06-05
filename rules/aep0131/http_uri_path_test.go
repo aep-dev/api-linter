@@ -27,9 +27,9 @@ func TestHttpNameField(t *testing.T) {
 		MethodName string
 		problems   testutils.Problems
 	}{
-		{"Valid", "/v1/{name=publishers/*/books/*}", "GetBook", testutils.Problems{}},
-		{"InvalidVarName", "/v1/{book=publishers/*/books/*}", "GetBook", testutils.Problems{{Message: "`name`"}}},
-		{"NoVarName", "/v1/publishers/*/books/*", "GetBook", testutils.Problems{{Message: "`name`"}}},
+		{"Valid", "/v1/{path=publishers/*/books/*}", "GetBook", testutils.Problems{}},
+		{"InvalidVarName", "/v1/{book=publishers/*/books/*}", "GetBook", testutils.Problems{{Message: "`path`"}}},
+		{"NoVarName", "/v1/publishers/*/books/*", "GetBook", testutils.Problems{{Message: "`path`"}}},
 		{"Irrelevant", "/v1/{book=publishers/*/books/*}", "AcquireBook", testutils.Problems{}},
 	}
 
@@ -48,7 +48,7 @@ func TestHttpNameField(t *testing.T) {
 				message {{.MethodName}}Response {}
 			`, test)
 			method := f.GetServices()[0].GetMethods()[0]
-			if diff := test.problems.SetDescriptor(method).Diff(httpNameField.Lint(f)); diff != "" {
+			if diff := test.problems.SetDescriptor(method).Diff(httpPathField.Lint(f)); diff != "" {
 				t.Error(diff)
 			}
 		})

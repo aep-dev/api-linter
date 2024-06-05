@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,27 +20,25 @@ import (
 	"github.com/googleapis/api-linter/rules/internal/testutils"
 )
 
-func TestRequestNameBehavior(t *testing.T) {
+func TestRequestNameReferenceType(t *testing.T) {
 	for _, test := range []struct {
-		name          string
-		FieldName     string
-		FieldBehavior string
-		problems      testutils.Problems
+		testName  string
+		Reference string
+		problems  testutils.Problems
 	}{
-		{"Valid", "name", " [(google.api.field_behavior) = REQUIRED]", testutils.Problems{}},
-		{"Missing", "name", "", testutils.Problems{{Message: "(google.api.field_behavior) = REQUIRED"}}},
-		{"Irrelevant", "something_else", "", testutils.Problems{}},
+		{"Valid", "type", nil},
+		{"Invalid", "child_type", testutils.Problems{{Message: "should be a direct"}}},
 	} {
-		t.Run(test.name, func(t *testing.T) {
+		t.Run(test.testName, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/field_behavior.proto";
+				import "google/api/resource.proto";
 				message GetBookRequest {
-					string {{.FieldName}} = 1{{.FieldBehavior}};
+					string path = 1 [(google.api.resource_reference).{{.Reference}} = "library.googleapis.com/Book"];
 				}
 			`, test)
 			field := f.GetMessageTypes()[0].GetFields()[0]
-			if diff := test.problems.SetDescriptor(field).Diff(requestNameBehavior.Lint(f)); diff != "" {
-				t.Errorf(diff)
+			if diff := test.problems.SetDescriptor(field).Diff(requestPathReferenceType.Lint(f)); diff != "" {
+				t.Error(diff)
 			}
 		})
 	}

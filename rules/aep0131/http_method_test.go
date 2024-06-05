@@ -41,7 +41,7 @@ func TestHttpMethod(t *testing.T) {
 				service Library {
 					rpc {{.MethodName}}({{.MethodName}}Request) returns (Book) {
 						option (google.api.http) = {
-							{{.Method}}: "/v1/{name=publishers/*/books/*}"
+							{{.Method}}: "/v1/{path=publishers/*/books/*}"
 						};
 					}
 				}

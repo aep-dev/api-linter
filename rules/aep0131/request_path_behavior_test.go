@@ -20,28 +20,27 @@ import (
 	"github.com/googleapis/api-linter/rules/internal/testutils"
 )
 
-func TestRequestNameFieldType(t *testing.T) {
-	tests := []struct {
+func TestRequestNameBehavior(t *testing.T) {
+	for _, test := range []struct {
 		name          string
-		MessageName   string
-		NameFieldType string
+		FieldName     string
+		FieldBehavior string
 		problems      testutils.Problems
 	}{
-		{"StringNameFieldType_Valid", "GetBookRequest", "string", nil},
-		{"BytesNameFieldType_Invalid", "GetBookRequest", "bytes", testutils.Problems{{Suggestion: "string"}}},
-		{"NotGetRequest_BytesNameFieldType_Valid", "SomeMessage", "bytes", nil},
-	}
-
-	for _, test := range tests {
+		{"Valid", "path", " [(google.api.field_behavior) = REQUIRED]", testutils.Problems{}},
+		{"Missing", "path", "", testutils.Problems{{Message: "(google.api.field_behavior) = REQUIRED"}}},
+		{"Irrelevant", "something_else", "", testutils.Problems{}},
+	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-			message {{.MessageName}} {
-				{{.NameFieldType}} name = 1;
-			}`, test)
-
-			problems := requestNameField.Lint(f)
-			if diff := test.problems.SetDescriptor(f.GetMessageTypes()[0].GetFields()[0]).Diff(problems); diff != "" {
-				t.Errorf("Problems did not match: %v", diff)
+				import "google/api/field_behavior.proto";
+				message GetBookRequest {
+					string {{.FieldName}} = 1{{.FieldBehavior}};
+				}
+			`, test)
+			field := f.GetMessageTypes()[0].GetFields()[0]
+			if diff := test.problems.SetDescriptor(field).Diff(requestPathBehavior.Lint(f)); diff != "" {
+				t.Errorf(diff)
 			}
 		})
 	}
