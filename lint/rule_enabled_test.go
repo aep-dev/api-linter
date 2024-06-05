@@ -104,8 +104,8 @@ func TestRuleIsEnabled(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Error building test message")
 			}
-			if ruleIsEnabled(mustRule, f.GetMessageTypes()[0], nil, aliases, false) {
-				t.Errorf("Expected the test rule to return false from ruleIsEnabled on must rule, got true")
+			if !ruleIsEnabled(mustRule, f.GetMessageTypes()[0], nil, aliases, false) {
+				t.Errorf("Expected the test rule to return true from ruleIsEnabled on must rule, got false")
 			}
 		})
 	}

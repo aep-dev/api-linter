@@ -68,7 +68,7 @@ var descriptorDisableChecks = []func(d desc.Descriptor) bool{
 func ruleIsEnabled(rule ProtoRule, d desc.Descriptor, l *dpb.SourceCodeInfo_Location,
 	aliasMap map[string]string, ignoreCommentDisables bool) bool {
 	if(rule.GetRuleType() == MustRule) {
-		return false;
+		return true;
 	}
 
 	// If the rule is disabled because of something on the descriptor itself
