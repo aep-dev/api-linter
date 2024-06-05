@@ -25,12 +25,12 @@ func TestRequestNameReference(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
 			import "google/api/resource.proto";
 			message GetBookRequest {
-				string name = 1 [(google.api.resource_reference) = {
+				string path = 1 [(google.api.resource_reference) = {
 					type: "library.googleapis.com/Book"
 				}];
 			}
 		`)
-		if diff := (testutils.Problems{}).Diff(requestNameReference.Lint(f)); diff != "" {
+		if diff := (testutils.Problems{}).Diff(requestPathReference.Lint(f)); diff != "" {
 			t.Errorf(diff)
 		}
 	})
@@ -40,7 +40,7 @@ func TestRequestNameReference(t *testing.T) {
 			FieldName string
 			problems  testutils.Problems
 		}{
-			{"Error", "name", testutils.Problems{{Message: "google.api.resource_reference"}}},
+			{"Error", "path", testutils.Problems{{Message: "google.api.resource_reference"}}},
 			{"Irrelevant", "something_else", testutils.Problems{}},
 		} {
 			t.Run(test.name, func(t *testing.T) {
@@ -51,7 +51,7 @@ func TestRequestNameReference(t *testing.T) {
 					}
 				`, test)
 				field := f.GetMessageTypes()[0].GetFields()[0]
-				if diff := test.problems.SetDescriptor(field).Diff(requestNameReference.Lint(f)); diff != "" {
+				if diff := test.problems.SetDescriptor(field).Diff(requestPathReference.Lint(f)); diff != "" {
 					t.Errorf(diff)
 				}
 			})

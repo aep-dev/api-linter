@@ -24,4 +24,5 @@ var httpBody = &lint.MethodRule{
 	Name:       lint.NewRuleName(131, "http-body"),
 	OnlyIf:     utils.IsGetMethod,
 	LintMethod: utils.LintNoHTTPBody,
+	RuleType:   lint.NewRuleType(lint.MustRule),
 }

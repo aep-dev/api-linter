@@ -27,6 +27,7 @@ import (
 var requestRequiredFields = &lint.MessageRule{
 	Name:   lint.NewRuleName(131, "request-required-fields"),
 	OnlyIf: utils.IsGetRequestMessage,
+	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMessage: func(m *desc.MessageDescriptor) (problems []lint.Problem) {
 		// Rule check: Establish that there are no unexpected fields.
 		allowedRequiredFields := stringset.New("path")

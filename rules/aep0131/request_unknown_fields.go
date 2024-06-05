@@ -37,6 +37,7 @@ var unknownFields = &lint.FieldRule{
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		return utils.IsGetRequestMessage(f.GetOwner())
 	},
+	RuleType: lint.NewRuleType(lint.MustRule),
 	LintField: func(field *desc.FieldDescriptor) []lint.Problem {
 		if !allowedFields.Contains(field.GetName()) {
 			return []lint.Problem{{

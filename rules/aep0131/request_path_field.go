@@ -27,4 +27,5 @@ var requestPathField = &lint.FieldRule{
 		return utils.IsGetRequestMessage(f.GetOwner()) && f.GetName() == "path"
 	},
 	LintField: utils.LintSingularStringField,
+	RuleType: lint.NewRuleType(lint.MustRule),
 }

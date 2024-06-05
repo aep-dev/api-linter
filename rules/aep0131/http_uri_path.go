@@ -24,4 +24,5 @@ var httpPathField = &lint.MethodRule{
 	Name:       lint.NewRuleName(131, "http-uri-path"),
 	OnlyIf:     utils.IsGetMethod,
 	LintMethod: utils.LintHTTPURIHasPathVariable,
+	RuleType: lint.NewRuleType(lint.MustRule),
 }

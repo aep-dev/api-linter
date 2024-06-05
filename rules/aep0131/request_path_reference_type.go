@@ -36,4 +36,5 @@ var requestPathReferenceType = &lint.FieldRule{
 		}
 		return nil
 	},
+	RuleType: lint.NewRuleType(lint.MustRule),
 }
