@@ -39,7 +39,7 @@ func TestHttpBody(t *testing.T) {
 				service Library {
 					rpc {{.MethodName}}({{.MethodName}}Request) returns (Book) {
 						option (google.api.http) = {
-							get: "/v1/{name=publishers/*/book/*}"
+							get: "/v1/{path=publishers/*/book/*}"
 							body: "{{.Body}}"
 						};
 					}

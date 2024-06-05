@@ -27,7 +27,7 @@ with the prefix `Get` removed.
 // Incorrect.
 rpc GetBook(GetBookRequest) returns (GetBookResponse) {  // Should be `Book`.
   option (google.api.http) = {
-    get: "/v1/{name=publishers/*/books/*}"
+    get: "/v1/{path=publishers/*/books/*}"
   };
 }
 ```
@@ -38,7 +38,7 @@ rpc GetBook(GetBookRequest) returns (GetBookResponse) {  // Should be `Book`.
 // Correct.
 rpc GetBook(GetBookRequest) returns (Book) {
   option (google.api.http) = {
-    get: "/v1/{name=publishers/*/books/*}"
+    get: "/v1/{path=publishers/*/books/*}"
   };
 }
 ```
@@ -49,11 +49,11 @@ If you need to violate this rule, use a leading comment above the method.
 Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
-// (-- api-linter: core::0131::response-message-name=disabled
+// (-- api-linter: core::0131::response-message-path=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 rpc GetBook(GetBookRequest) returns (GetBookResponse) {
   option (google.api.http) = {
-    get: "/v1/{name=publishers/*/books/*}"
+    get: "/v1/{path=publishers/*/books/*}"
   };
 }
 ```

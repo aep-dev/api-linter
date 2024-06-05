@@ -26,7 +26,7 @@ the HTTP `body` field is set.
 // Incorrect.
 rpc GetBook(GetBookRequest) returns (Book) {
   option (google.api.http) = {
-    get: "/v1/{name=publishers/*/books/*}"
+    get: "/v1/{path=publishers/*/books/*}"
     body: "*"  // This should be absent.
   };
 }
@@ -38,7 +38,7 @@ rpc GetBook(GetBookRequest) returns (Book) {
 // Correct.
 rpc GetBook(GetBookRequest) returns (Book) {
   option (google.api.http) = {
-    get: "/v1/{name=publishers/*/books/*}"
+    get: "/v1/{path=publishers/*/books/*}"
   };
 }
 ```
@@ -54,7 +54,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 rpc GetBook(GetBookRequest) returns (Book) {
   option (google.api.http) = {
-    post: "/v1/{name=publishers/*/books/*}"
+    post: "/v1/{path=publishers/*/books/*}"
     body: "*"
   };
 }

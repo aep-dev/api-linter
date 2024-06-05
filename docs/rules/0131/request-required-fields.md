@@ -18,7 +18,7 @@ required fields, as mandated in [AEP-131][].
 This rule looks at any message matching `Get*Request` and complains if it
 comes across any required fields other than:
 
-- `string name` ([AEP-131][])
+- `string path` ([AEP-131][])
 
 ## Examples
 
@@ -27,9 +27,9 @@ comes across any required fields other than:
 ```proto
 // Incorrect.
 message GetBookRequest {
-  // The name of the book to retrieve.
+  // The path of the book to retrieve.
   // Format: publishers/{publisher}/books/{book}
-  string name = 1 [
+  string path = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
       type: "library.googleapis.com/Book"
@@ -45,9 +45,9 @@ message GetBookRequest {
 ```proto
 // Correct.
 message GetBookRequest {
-  // The name of the book to retrieve.
+  // The path of the book to retrieve.
   // Format: publishers/{publisher}/books/{book}
-  string name = 1 [
+  string path = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
       type: "library.googleapis.com/Book"
@@ -64,9 +64,9 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 message GetBookRequest {
-  // The name of the book to retrieve.
+  // The path of the book to retrieve.
   // Format: publishers/{publisher}/books/{book}
-  string name = 1 [
+  string path = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
       type: "library.googleapis.com/Book"

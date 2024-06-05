@@ -18,7 +18,7 @@ fields, as mandated in [AEP-131][].
 This rule looks at any message matching `Get*Request` and complains if it comes
 across any fields other than:
 
-- `string name` ([AEP-131][])
+- `string path` ([AEP-131][])
 - `string request_id` ([AEP-155][])
 - `google.protobuf.FieldMask read_mask` ([AEP-157][])
 - `View view` ([AEP-157][])
@@ -30,7 +30,7 @@ across any fields other than:
 ```proto
 // Incorrect.
 message GetBookRequest {
-  string name = 1;
+  string path = 1;
   string library_id = 2;  // Non-standard field.
 }
 ```
@@ -40,7 +40,7 @@ message GetBookRequest {
 ```proto
 // Correct.
 message GetBookRequest {
-  string name = 1;
+  string path = 1;
 }
 ```
 
@@ -51,7 +51,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 message GetBookRequest {
-  string name = 1;
+  string path = 1;
 
   // (-- api-linter: core::0131::request-unknown-fields=disabled
   //     aep.dev/not-precedent: We really need this field because reasons. --)

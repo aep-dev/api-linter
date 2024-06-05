@@ -1,22 +1,22 @@
 ---
 rule:
   aep: 131
-  name: [core, '0131', request-name-required]
-  summary: Get RPCs must have a `name` field in the request.
-permalink: /131/request-name-required
+  name: [core, '0131', request-path-required]
+  summary: Get RPCs must have a `path` field in the request.
+permalink: /131/request-path-required
 redirect_from:
-  - /0131/request-name-required
+  - /0131/request-path-required
 ---
 
 # Get methods: Name field
 
-This rule enforces that all `Get` standard methods have a `string name` field
+This rule enforces that all `Get` standard methods have a `string path` field
 in the request message, as mandated in [AEP-131][].
 
 ## Details
 
 This rule looks at any message matching `Get*Request` and complains if
-the `name` field is missing.
+the `path` field is missing.
 
 ## Examples
 
@@ -25,7 +25,7 @@ the `name` field is missing.
 ```proto
 // Incorrect.
 message GetBookRequest {
-  string book = 1 [  // Field name should be `name`.
+  string book = 1 [  // Field path should be `path`.
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
@@ -37,7 +37,7 @@ message GetBookRequest {
 ```proto
 // Correct.
 message GetBookRequest {
-  string name = 1 [
+  string path = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
@@ -50,7 +50,7 @@ If you need to violate this rule, use a leading comment above the message.
 Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
-// (-- api-linter: core::0131::request-name-required=disabled
+// (-- api-linter: core::0131::request-path-required=disabled
 //     aep.dev/not-precedent: This is named "book" for historical reasons. --)
 message GetBookRequest {
   string book = 1 [

@@ -1,24 +1,24 @@
 ---
 rule:
   aep: 131
-  name: [core, '0131', request-name-reference-type]
+  name: [core, '0131', request-path-reference-type]
   summary: |
-    The `google.api.resource_reference` on the `name` field of a Get RPC request
+    The `google.api.resource_reference` on the `path` field of a Get RPC request
     message should use `type`, not `child_type`.
-permalink: /131/request-name-reference-type
+permalink: /131/request-path-reference-type
 redirect_from:
-  - /0131/request-name-reference-type
+  - /0131/request-path-reference-type
 ---
 
 # Get methods: Resource reference
 
-This rule enforces that the `google.api.resource_reference` on the `name` field
+This rule enforces that the `google.api.resource_reference` on the `path` field
 of a Get RPC request message uses `type`, not `child_type`, as suggested in
 [AEP-131][].
 
 ## Details
 
-This rule looks at the `google.api.resource_reference` annotation on the `name`
+This rule looks at the `google.api.resource_reference` annotation on the `path`
 field of any message matching `Get*Request` and complains if it does not use a
 direct `type` reference.
 
@@ -31,7 +31,7 @@ direct `type` reference.
 message GetBookRequest {
   // The `google.api.resource_reference` annotation should be a direct `type`
   // reference.
-  string name = 1 [
+  string path = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference).child_type = "library.googleapis.com/Book"
   ];
@@ -43,7 +43,7 @@ message GetBookRequest {
 ```proto
 // Correct.
 message GetBookRequest {
-  string name = 1 [
+  string path = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
@@ -57,9 +57,9 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 message GetBookRequest {
-  // (-- api-linter: core::0131::request-name-reference-type=disabled
+  // (-- api-linter: core::0131::request-path-reference-type=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
-  string name = 1 [
+  string path = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference).child_type = "library.googleapis.com/Book"
   ];
