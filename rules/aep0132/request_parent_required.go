@@ -14,6 +14,7 @@ import (
 var requestParentRequired = &lint.MessageRule{
 	Name:   lint.NewRuleName(132, "request-parent-required"),
 	OnlyIf: utils.IsListRequestMessage,
+	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		// Rule check: Establish that a `parent` field is present.
 		if m.FindFieldByName("parent") == nil {

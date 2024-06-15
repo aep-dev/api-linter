@@ -24,4 +24,5 @@ var requestMessageName = &lint.MethodRule{
 	Name:       lint.NewRuleName(132, "request-message-name"),
 	OnlyIf:     utils.IsListMethod,
 	LintMethod: utils.LintMethodHasMatchingRequestName,
+	RuleType: lint.NewRuleType(lint.MustRule),
 }

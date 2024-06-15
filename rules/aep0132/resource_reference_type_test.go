@@ -60,7 +60,7 @@ option (google.api.resource) = {
 				}
 				message Book {
 					{{ .ResourceAnnotation }}
-					string name = 1;
+					string path = 1;
 				}
 			`, test)
 			field := file.GetServices()[0].GetMethods()[0].GetInputType().FindFieldByName("parent")

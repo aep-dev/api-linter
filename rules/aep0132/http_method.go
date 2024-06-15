@@ -24,4 +24,5 @@ var httpMethod = &lint.MethodRule{
 	Name:       lint.NewRuleName(132, "http-method"),
 	OnlyIf:     utils.IsListMethod,
 	LintMethod: utils.LintHTTPMethod("GET"),
+	RuleType: lint.NewRuleType(lint.MustRule),
 }

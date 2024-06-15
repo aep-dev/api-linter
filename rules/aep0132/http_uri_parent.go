@@ -27,4 +27,5 @@ var httpURIParent = &lint.MethodRule{
 		return utils.IsListMethod(m) && m.GetInputType().FindFieldByName("parent") != nil
 	},
 	LintMethod: utils.LintHTTPURIHasParentVariable,
+	RuleType: lint.NewRuleType(lint.MustRule),
 }

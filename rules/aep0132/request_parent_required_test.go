@@ -54,7 +54,7 @@ func TestRequestParentRequired(t *testing.T) {
 					option (google.api.resource) = {
 						pattern: "books/{book}"
 					};
-					string name = 1;
+					string path = 1;
 				}
 			`, test)
 			problems := requestParentRequired.Lint(f)

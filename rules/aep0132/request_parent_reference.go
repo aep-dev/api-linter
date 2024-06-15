@@ -26,4 +26,5 @@ var requestParentReference = &lint.FieldRule{
 		return utils.IsListRequestMessage(f.GetOwner()) && f.GetName() == "parent"
 	},
 	LintField: utils.LintFieldResourceReference,
+	RuleType: lint.NewRuleType(lint.MustRule),
 }
