@@ -1,23 +1,22 @@
 ---
 rule:
   aep: 155
-  name: [core, '0155', request-id-format]
-  summary: Annotate request_id with UUID4 format.
+  name: [core, '0155', request-id-type]
+  summary: request_id should have type aep.api.IdempotencyKey
 permalink: /155/request-id-format
 redirect_from:
-  - /0155/request-id-format
+  - /0155/request-id-type
 ---
 
-# `request_id` format annotation
+# `request_id` type
 
-This rule encourages the use of the `UUID4` format annotation on the
-`request_id` field, as mandated in [AEP-155][].
+This rule mandates that all fields named `request_id` have type
+aep.api.IdempotencyKey.
 
 ## Details
 
 This rule looks on for fields named `request_id` and complains if it does not
-have the `(google.api.field_info).format = UUID4` annotation or has a format
-other than `UUID4`.
+have the type aep.api.IdempotencyKey.
 
 ## Examples
 
@@ -30,7 +29,7 @@ message CreateBookRequest {
 
   Book book = 2;
 
-  string request_id = 3; // missing (google.api.field_info).format = UUID4
+  string request_id = 3; // wrong type.
 }
 ```
 
@@ -43,7 +42,7 @@ message CreateBookRequest {
 
   Book book = 2;
 
-  string request_id = 3 [(google.api.field_info).format = UUID4];
+  aep.api.IdempotencyKey request_id = 3;
 }
 ```
 

@@ -16,25 +16,24 @@ package aep0155
 
 import (
 	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
-	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 var requestIdFormat = &lint.FieldRule{
 	Name: lint.NewRuleName(155, "request-id-format"),
+	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(fd *desc.FieldDescriptor) bool {
-		return fd.GetType() == descriptorpb.FieldDescriptorProto_TYPE_STRING &&
-			fd.GetName() == "request_id"
+		return fd.GetName() == "request_id" && 
+		fd.GetType() != descriptorpb.FieldDescriptorProto_TYPE_MESSAGE;
 	},
 	LintField: func(fd *desc.FieldDescriptor) []lint.Problem {
-		if !utils.HasFormat(fd) || utils.GetFormat(fd) != annotations.FieldInfo_UUID4 {
+		if(fd.GetMessageType().GetFullyQualifiedName() != "aep.api.IdempotencyKey") {
 			return []lint.Problem{{
-				Message:    "The `request_id` field should have a `(google.api.field_info).format = UUID4` annotation.",
+				Message:    "The `request_id` field should have type `aep.api.IdempotencyKey`",
 				Descriptor: fd,
 			}}
-		}
+	}
 
 		return nil
 	},
