@@ -33,6 +33,7 @@ import (
 	_ "google.golang.org/genproto/googleapis/type/date"
 	_ "google.golang.org/genproto/googleapis/type/datetime"
 	_ "google.golang.org/genproto/googleapis/type/timeofday"
+	// TODO: Add aep to genproto to make linter tests pass.
 )
 
 // ParseProtoStrings parses a map representing a proto files, and returns
