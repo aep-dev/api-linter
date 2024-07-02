@@ -15,8 +15,8 @@
 package aep0133
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 )
 
 // Create methods should use the HTTP POST verb.
@@ -24,5 +24,5 @@ var httpMethod = &lint.MethodRule{
 	Name:       lint.NewRuleName(133, "http-method"),
 	OnlyIf:     utils.IsCreateMethod,
 	LintMethod: utils.LintHTTPMethod("POST"),
-	RuleType: lint.NewRuleType(lint.MustRule),
+	RuleType:   lint.NewRuleType(lint.MustRule),
 }

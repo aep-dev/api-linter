@@ -17,14 +17,14 @@ package aep0159
 import (
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var hardcodedHyphen = &lint.MethodRule{
-	Name: lint.NewRuleName(159, "hardcoded-hyphen"),
+	Name:     lint.NewRuleName(159, "hardcoded-hyphen"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMethod: func(m *desc.MethodDescriptor) []lint.Problem {
 		for _, http := range utils.GetHTTPRules(m) {

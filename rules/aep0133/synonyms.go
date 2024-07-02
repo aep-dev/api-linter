@@ -18,14 +18,14 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // Create methods should use "create", not synonyms.
 var synonyms = &lint.MethodRule{
-	Name: lint.NewRuleName(133, "synonyms"),
+	Name:     lint.NewRuleName(133, "synonyms"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMethod: func(m *desc.MethodDescriptor) []lint.Problem {
 		name := m.GetName()

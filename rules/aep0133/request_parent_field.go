@@ -15,8 +15,8 @@
 package aep0133
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
@@ -27,5 +27,5 @@ var requestParentField = &lint.FieldRule{
 		return utils.IsCreateRequestMessage(f.GetOwner()) && f.GetName() == "parent"
 	},
 	LintField: utils.LintSingularStringField,
-	RuleType: lint.NewRuleType(lint.MustRule),
+	RuleType:  lint.NewRuleType(lint.MustRule),
 }

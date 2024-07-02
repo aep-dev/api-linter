@@ -19,18 +19,18 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var identifierRegexp = regexp.MustCompile("^{[a-z][_a-z0-9]*[a-z0-9]}$")
 
 var resourceNameComponentsAlternate = &lint.MessageRule{
-	Name:   lint.NewRuleName(4, "resource-name-components-alternate"),
+	Name:     lint.NewRuleName(4, "resource-name-components-alternate"),
 	RuleType: lint.NewRuleType(lint.MustRule),
-	OnlyIf: utils.IsResource,
+	OnlyIf:   utils.IsResource,
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		var problems []lint.Problem
 		resource := utils.GetResource(m)

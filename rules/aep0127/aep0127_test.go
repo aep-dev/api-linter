@@ -16,7 +16,7 @@ package aep0127
 import (
 	"testing"
 
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/lint"
 )
 
 func TestAddRules(t *testing.T) {

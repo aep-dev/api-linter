@@ -22,8 +22,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/googleapis/api-linter/internal"
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/internal"
+	"github.com/aep-dev/api-linter/lint"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/desc/protoparse"
 	"github.com/spf13/pflag"

@@ -17,13 +17,13 @@ package aep0192
 import (
 	"regexp"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var noHTML = &lint.DescriptorRule{
-	Name: lint.NewRuleName(192, "no-html"),
+	Name:     lint.NewRuleName(192, "no-html"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(d desc.Descriptor) bool {
 		return d.GetSourceInfo() != nil

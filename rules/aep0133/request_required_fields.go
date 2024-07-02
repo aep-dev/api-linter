@@ -18,15 +18,15 @@ import (
 	"fmt"
 
 	"bitbucket.org/creachadair/stringset"
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // The create request message should not have unrecognized fields.
 var requestRequiredFields = &lint.MethodRule{
-	Name:   lint.NewRuleName(133, "request-required-fields"),
-	OnlyIf: utils.IsCreateMethod,
+	Name:     lint.NewRuleName(133, "request-required-fields"),
+	OnlyIf:   utils.IsCreateMethod,
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMethod: func(m *desc.MethodDescriptor) []lint.Problem {
 		ot := utils.GetResponseType(m)

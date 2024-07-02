@@ -19,9 +19,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
@@ -86,7 +86,7 @@ func allDeps(f *desc.FileDescriptor, deps map[string]*desc.FileDescriptor) map[s
 }
 
 var duplicateResource = &lint.FileRule{
-	Name: lint.NewRuleName(4, "duplicate-resource"),
+	Name:     lint.NewRuleName(4, "duplicate-resource"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintFile: func(f *desc.FileDescriptor) []lint.Problem {
 		defsInFile := resourceDefsInFile(f, map[string][]resourceDef{})

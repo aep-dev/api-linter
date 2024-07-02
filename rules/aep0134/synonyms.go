@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
 	"github.com/jhump/protoreflect/desc"
 )
 

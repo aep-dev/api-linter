@@ -17,14 +17,14 @@ package aep0004
 import (
 	"fmt"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var resourceTypeName = &lint.MessageRule{
-	Name: lint.NewRuleName(4, "resource-type-name"),
+	Name:     lint.NewRuleName(4, "resource-type-name"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(m *desc.MessageDescriptor) bool {
 		return utils.GetResource(m) != nil

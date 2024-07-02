@@ -16,7 +16,7 @@
 package aep0121
 
 import (
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/lint"
 )
 
 // AddRules accepts a register function and registers each of

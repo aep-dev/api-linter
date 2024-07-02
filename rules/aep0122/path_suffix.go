@@ -17,15 +17,15 @@ package aep0122
 import (
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var pathSuffix = &lint.FieldRule{
 	Name: lint.NewRuleName(122, "path-suffix"),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
-		return strings.HasSuffix(f.GetName(), "_path");
+		return strings.HasSuffix(f.GetName(), "_path")
 	},
 
 	LintField: func(f *desc.FieldDescriptor) []lint.Problem {

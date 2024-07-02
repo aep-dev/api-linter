@@ -17,15 +17,15 @@ package aep0004
 import (
 	"fmt"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var resourceSingular = &lint.MessageRule{
-	Name:   lint.NewRuleName(4, "resource-singular"),
-	OnlyIf: hasResourceAnnotation,
+	Name:     lint.NewRuleName(4, "resource-singular"),
+	OnlyIf:   hasResourceAnnotation,
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		r := utils.GetResource(m)

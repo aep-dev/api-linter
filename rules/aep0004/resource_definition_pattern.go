@@ -15,16 +15,16 @@
 package aep0004
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var resourceDefinitionPatterns = &lint.FileRule{
-	Name:   lint.NewRuleName(4, "resource-definition-pattern"),
+	Name:     lint.NewRuleName(4, "resource-definition-pattern"),
 	RuleType: lint.NewRuleType(lint.MustRule),
-	OnlyIf: hasResourceDefinitionAnnotation,
+	OnlyIf:   hasResourceDefinitionAnnotation,
 	LintFile: func(f *desc.FileDescriptor) []lint.Problem {
 		var problems []lint.Problem
 		resources := utils.GetResourceDefinitions(f)

@@ -6,7 +6,7 @@ import (
 	"os"
 	"sort"
 
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/lint"
 	"github.com/olekukonko/tablewriter"
 )
 

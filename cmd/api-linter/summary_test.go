@@ -17,8 +17,8 @@ package main
 import (
 	"testing"
 
+	"github.com/aep-dev/api-linter/lint"
 	"github.com/google/go-cmp/cmp"
-	"github.com/googleapis/api-linter/lint"
 )
 
 func TestCreateSummary(t *testing.T) {

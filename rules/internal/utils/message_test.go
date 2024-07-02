@@ -16,8 +16,8 @@ package utils
 import (
 	"testing"
 
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/google/go-cmp/cmp"
-	"github.com/googleapis/api-linter/rules/internal/testutils"
 )
 
 func TestListResponseResourceName(t *testing.T) {

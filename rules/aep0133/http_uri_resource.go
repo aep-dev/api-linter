@@ -18,15 +18,15 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // The resource name used in the Create method's URI should match the name used
 // in the resource definition.
 var httpURIResource = &lint.MethodRule{
-	Name: lint.NewRuleName(133, "http-uri-resource"),
+	Name:     lint.NewRuleName(133, "http-uri-resource"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(m *desc.MethodDescriptor) bool {
 		return utils.IsCreateMethod(m) && len(utils.GetHTTPRules(m)) > 0

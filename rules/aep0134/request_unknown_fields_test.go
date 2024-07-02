@@ -16,7 +16,7 @@ package aep0134
 import (
 	"testing"
 
-	"github.com/googleapis/api-linter/rules/internal/testutils"
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/desc/builder"
 	fpb "google.golang.org/genproto/protobuf/field_mask"

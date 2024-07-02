@@ -18,7 +18,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/googleapis/api-linter/rules/internal/testutils"
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 )
 
 func TestFindMessage(t *testing.T) {
@@ -48,7 +48,7 @@ func TestFindMessage(t *testing.T) {
 func TestFindFieldDotNotation(t *testing.T) {
 	file := testutils.ParseProto3String(t, `
 		package test;
-		
+
 		message CreateBookRequest {
 			string parent = 1;
 

@@ -15,7 +15,7 @@
 // Package aep0126 contains rules defined in https://aep.dev/126.
 package aep0126
 
-import "github.com/googleapis/api-linter/lint"
+import "github.com/aep-dev/api-linter/lint"
 
 // AddRules adds all of the AEP-126 rules to the provided registry.
 func AddRules(r lint.RuleRegistry) error {

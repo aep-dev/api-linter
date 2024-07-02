@@ -17,7 +17,7 @@ package aep0192
 import (
 	"testing"
 
-	"github.com/googleapis/api-linter/rules/internal/testutils"
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 )
 
 // These are split up since templating doesn't play nicely with inserting protobuf options.
@@ -148,7 +148,7 @@ func TestDeprecatedEnum(t *testing.T) {
 		{{.EnumComment}}
 		enum State {
 			option deprecated = true;
-			
+
 			STATE_UNSPECIFIED = 0;
 		}
       `, test)

@@ -16,13 +16,13 @@ package aep0148
 
 import (
 	"bitbucket.org/creachadair/stringset"
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var fieldBehavior = &lint.FieldRule{
-	Name: lint.NewRuleName(148, "field-behavior"),
+	Name:     lint.NewRuleName(148, "field-behavior"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		return utils.IsResource(f.GetOwner()) && outputOnlyFields.Contains(f.GetName())

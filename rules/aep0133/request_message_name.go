@@ -15,8 +15,8 @@
 package aep0133
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 )
 
 // Create method should have a properly named input message.
@@ -24,5 +24,5 @@ var inputName = &lint.MethodRule{
 	Name:       lint.NewRuleName(133, "request-message-name"),
 	OnlyIf:     utils.IsCreateMethod,
 	LintMethod: utils.LintMethodHasMatchingRequestName,
-	RuleType: lint.NewRuleType(lint.MustRule),
+	RuleType:   lint.NewRuleType(lint.MustRule),
 }

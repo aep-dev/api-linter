@@ -20,8 +20,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules"
 )
 
 var (

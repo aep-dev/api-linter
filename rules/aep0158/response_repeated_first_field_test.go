@@ -17,7 +17,7 @@ package aep0158
 import (
 	"testing"
 
-	"github.com/googleapis/api-linter/rules/internal/testutils"
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 )
 
 func TestResponseRepeatedFirstField(t *testing.T) {

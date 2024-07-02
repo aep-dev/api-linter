@@ -1,4 +1,4 @@
-module github.com/googleapis/api-linter
+module github.com/aep-dev/api-linter
 
 go 1.20
 

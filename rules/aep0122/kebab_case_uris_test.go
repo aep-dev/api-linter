@@ -17,7 +17,7 @@ package aep0122
 import (
 	"testing"
 
-	"github.com/googleapis/api-linter/rules/internal/testutils"
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 )
 
 func TestHttpUriField(t *testing.T) {

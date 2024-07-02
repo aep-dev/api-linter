@@ -18,13 +18,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var filename = &lint.FileRule{
-	Name: lint.NewRuleName(191, "filenames"),
+	Name:     lint.NewRuleName(191, "filenames"),
 	RuleType: lint.NewRuleType(lint.ShouldRule),
 	LintFile: func(f *desc.FileDescriptor) []lint.Problem {
 		fn := strings.ReplaceAll(filepath.Base(f.GetName()), ".proto", "")

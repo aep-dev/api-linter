@@ -18,17 +18,17 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
 
 var resourceVariables = &lint.MessageRule{
-	Name:   lint.NewRuleName(4, "resource-variables"),
-	OnlyIf: hasResourceAnnotation,
+	Name:     lint.NewRuleName(4, "resource-variables"),
+	OnlyIf:   hasResourceAnnotation,
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		resource := utils.GetResource(m)

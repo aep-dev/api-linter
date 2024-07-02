@@ -18,16 +18,16 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // Create methods should have an HTTP body, and the body value should be resource.
 var httpBody = &lint.MethodRule{
-	Name:   lint.NewRuleName(133, "http-body"),
-	OnlyIf: utils.IsCreateMethod,
+	Name:     lint.NewRuleName(133, "http-body"),
+	OnlyIf:   utils.IsCreateMethod,
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMethod: func(m *desc.MethodDescriptor) []lint.Problem {
 		resourceMsgName := utils.GetResourceMessageName(m, "Create")

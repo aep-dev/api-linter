@@ -17,7 +17,7 @@ package aep0164
 import (
 	"fmt"
 
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/lint"
 	"github.com/jhump/protoreflect/desc"
 )
 
