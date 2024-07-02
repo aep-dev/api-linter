@@ -18,14 +18,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // Protobuf package must match the directory structure.
 var protoPkg = &lint.FileRule{
-	Name: lint.NewRuleName(191, "proto-package"),
+	Name:     lint.NewRuleName(191, "proto-package"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintFile: func(f *desc.FileDescriptor) []lint.Problem {
 		dir := filepath.Dir(f.GetName())

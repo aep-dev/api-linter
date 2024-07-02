@@ -18,13 +18,13 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var noMarkdownHeadings = &lint.DescriptorRule{
-	Name: lint.NewRuleName(192, "no-markdown-headings"),
+	Name:     lint.NewRuleName(192, "no-markdown-headings"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintDescriptor: func(d desc.Descriptor) []lint.Problem {
 		for _, cmt := range utils.SeparateInternalComments(d.GetSourceInfo().GetLeadingComments()).External {

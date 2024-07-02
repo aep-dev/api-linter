@@ -15,14 +15,14 @@
 package aep0191
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // APIs must use proto3.
 var syntax = &lint.FileRule{
-	Name: lint.NewRuleName(191, "proto-version"),
+	Name:     lint.NewRuleName(191, "proto-version"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintFile: func(f *desc.FileDescriptor) []lint.Problem {
 		if !f.IsProto3() {

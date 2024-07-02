@@ -17,8 +17,8 @@ package aep0148
 import (
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -31,7 +31,7 @@ var ipAddressFormats = []annotations.FieldInfo_Format{
 }
 
 var ipAddressFormat = &lint.FieldRule{
-	Name: lint.NewRuleName(148, "ip-address-format"),
+	Name:     lint.NewRuleName(148, "ip-address-format"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(fd *desc.FieldDescriptor) bool {
 		return fd.GetType() == descriptorpb.FieldDescriptorProto_TYPE_STRING && (fd.GetName() == "ip_address" || strings.HasSuffix(fd.GetName(), "_ip_address"))

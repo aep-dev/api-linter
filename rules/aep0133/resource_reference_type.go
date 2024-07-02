@@ -15,16 +15,16 @@
 package aep0133
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // Create methods should reference the target resource via `child_type` or the
 // parent directly via `type`.
 var resourceReferenceType = &lint.MethodRule{
-	Name: lint.NewRuleName(133, "resource-reference-type"),
+	Name:     lint.NewRuleName(133, "resource-reference-type"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(m *desc.MethodDescriptor) bool {
 		ot := utils.GetResponseType(m)

@@ -15,8 +15,8 @@
 package aep0131
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
@@ -26,5 +26,5 @@ var requestPathReference = &lint.FieldRule{
 		return utils.IsGetRequestMessage(f.GetOwner()) && f.GetName() == "path"
 	},
 	LintField: utils.LintFieldResourceReference,
-	RuleType: lint.NewRuleType(lint.ShouldRule),
+	RuleType:  lint.NewRuleType(lint.ShouldRule),
 }

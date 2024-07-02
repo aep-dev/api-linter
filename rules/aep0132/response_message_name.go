@@ -15,8 +15,8 @@
 package aep0132
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 )
 
 // List messages should use a `ListFoosResponse` response message.

@@ -18,9 +18,9 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
@@ -30,7 +30,7 @@ var httpURICase = &lint.MethodRule{
 	LintMethod: func(m *desc.MethodDescriptor) (problems []lint.Problem) {
 		// Establish that the URI does not include a `_` character.
 		for _, httpRule := range utils.GetHTTPRules(m) {
-			if(HasUpper(httpRule.GetPlainURI())) {
+			if HasUpper(httpRule.GetPlainURI()) {
 				problems = append(problems, lint.Problem{
 					Message:    "HTTP URI patterns should use kebab-case, not camelCase.",
 					Descriptor: m,
@@ -66,10 +66,10 @@ var httpURICase = &lint.MethodRule{
 }
 
 func HasUpper(s string) bool {
-    for _, r := range s {
-        if unicode.IsUpper(r) && unicode.IsLetter(r) {
-            return true;
-        }
-    }
-    return false;
+	for _, r := range s {
+		if unicode.IsUpper(r) && unicode.IsLetter(r) {
+			return true
+		}
+	}
+	return false
 }

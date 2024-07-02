@@ -15,15 +15,15 @@
 package aep0004
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var resourceAnnotation = &lint.MessageRule{
-	Name:   lint.NewRuleName(4, "resource-annotation"),
+	Name:     lint.NewRuleName(4, "resource-annotation"),
 	RuleType: lint.NewRuleType(lint.MustRule),
-	OnlyIf: isResourceMessage,
+	OnlyIf:   isResourceMessage,
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		if utils.GetResource(m) == nil {
 			return []lint.Problem{{

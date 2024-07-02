@@ -16,7 +16,7 @@ package utils
 import (
 	"testing"
 
-	"github.com/googleapis/api-linter/rules/internal/testutils"
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 )
 
 func TestIsCreateMethod(t *testing.T) {

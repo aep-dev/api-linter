@@ -18,7 +18,7 @@ package aep0191
 import (
 	"regexp"
 
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/lint"
 )
 
 // AddRules adds all of the AEP-191 rules to the provided registry.

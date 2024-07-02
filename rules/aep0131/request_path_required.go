@@ -17,15 +17,15 @@ package aep0131
 import (
 	"fmt"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // The Get standard method should have some required fields.
 var requestPathRequired = &lint.MessageRule{
-	Name:   lint.NewRuleName(131, "request-path-required"),
-	OnlyIf: utils.IsGetRequestMessage,
+	Name:     lint.NewRuleName(131, "request-path-required"),
+	OnlyIf:   utils.IsGetRequestMessage,
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		if m.FindFieldByName("path") == nil {

@@ -15,14 +15,14 @@
 package aep0004
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var resourceReferenceType = &lint.FieldRule{
-	Name: lint.NewRuleName(4, "resource-reference-type"),
+	Name:     lint.NewRuleName(4, "resource-reference-type"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		return utils.GetResourceReference(f) != nil

@@ -19,13 +19,13 @@ import (
 	"strings"
 
 	"bitbucket.org/creachadair/stringset"
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var declarativeFriendlyRequired = &lint.MessageRule{
-	Name: lint.NewRuleName(148, "declarative-friendly-fields"),
+	Name:     lint.NewRuleName(148, "declarative-friendly-fields"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(m *desc.MessageDescriptor) bool {
 		if resource := utils.DeclarativeFriendlyResource(m); resource == m {

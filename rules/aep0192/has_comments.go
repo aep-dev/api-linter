@@ -17,15 +17,15 @@ package aep0192
 import (
 	"fmt"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // hasComments complains if there is no comment above something.
 var hasComments = &lint.DescriptorRule{
-	Name: lint.NewRuleName(192, "has-comments"),
+	Name:     lint.NewRuleName(192, "has-comments"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintDescriptor: func(d desc.Descriptor) (problems []lint.Problem) {
 		comment := utils.SeparateInternalComments(d.GetSourceInfo().GetLeadingComments())

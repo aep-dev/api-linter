@@ -17,13 +17,13 @@ package aep0148
 import (
 	"fmt"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var humanNames = &lint.FieldRule{
-	Name: lint.NewRuleName(148, "human-names"),
+	Name:     lint.NewRuleName(148, "human-names"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintField: func(f *desc.FieldDescriptor) []lint.Problem {
 		for got, want := range corrections {

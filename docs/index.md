@@ -3,7 +3,7 @@
 
 # Google API Linter
 
-![ci](https://github.com/googleapis/api-linter/workflows/ci/badge.svg)
+![ci](https://github.com/aep-dev/api-linter/workflows/ci/badge.svg)
 ![latest release](https://img.shields.io/github/v/release/googleapis/api-linter)
 ![go version](https://img.shields.io/github/go-mod/go-version/googleapis/api-linter)
 
@@ -36,7 +36,7 @@ Each linter rule has its own [rule documentation][], and rules can be
 To install `api-linter`, use `go install`:
 
 ```sh
-go install github.com/googleapis/api-linter/cmd/api-linter@latest
+go install github.com/aep-dev/api-linter/cmd/api-linter@latest
 ```
 
 It will install `api-linter` into your local Go binary directory

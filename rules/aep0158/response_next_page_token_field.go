@@ -15,8 +15,8 @@
 package aep0158
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 )
 
 var responsePaginationNextPageToken = &lint.MessageRule{

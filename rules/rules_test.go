@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/lint"
 )
 
 func TestAddAEPRules(t *testing.T) {

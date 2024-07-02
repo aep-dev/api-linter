@@ -15,14 +15,14 @@
 package aep0004
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var resourcePathField = &lint.MessageRule{
-	Name:   lint.NewRuleName(4, "resource-path-field"),
-	OnlyIf: utils.IsResource,
+	Name:     lint.NewRuleName(4, "resource-path-field"),
+	OnlyIf:   utils.IsResource,
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		f := "path"

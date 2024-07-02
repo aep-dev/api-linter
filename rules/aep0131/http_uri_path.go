@@ -15,8 +15,8 @@
 package aep0131
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 )
 
 // Get methods should have a proper HTTP pattern.
@@ -24,5 +24,5 @@ var httpPathField = &lint.MethodRule{
 	Name:       lint.NewRuleName(131, "http-uri-path"),
 	OnlyIf:     utils.IsGetMethod,
 	LintMethod: utils.LintHTTPURIHasPathVariable,
-	RuleType: lint.NewRuleType(lint.MustRule),
+	RuleType:   lint.NewRuleType(lint.MustRule),
 }

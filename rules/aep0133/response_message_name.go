@@ -17,16 +17,16 @@ package aep0133
 import (
 	"fmt"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // Create method should use the resource as the output message
 var outputName = &lint.MethodRule{
-	Name:   lint.NewRuleName(133, "response-message-name"),
-	OnlyIf: utils.IsCreateMethod,
+	Name:     lint.NewRuleName(133, "response-message-name"),
+	OnlyIf:   utils.IsCreateMethod,
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMethod: func(m *desc.MethodDescriptor) []lint.Problem {
 		want := utils.GetResourceMessageName(m, "Create")

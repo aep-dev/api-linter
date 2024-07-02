@@ -16,7 +16,7 @@
 package aep0159
 
 import (
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/lint"
 )
 
 // AddRules adds all of the AIP-159 rules to the provided registry.

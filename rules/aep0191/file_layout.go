@@ -15,12 +15,12 @@
 package aep0191
 
 import (
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/lint"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var fileLayout = &lint.FileRule{
-	Name: lint.NewRuleName(191, "file-layout"),
+	Name:     lint.NewRuleName(191, "file-layout"),
 	RuleType: lint.NewRuleType(lint.ShouldRule),
 	LintFile: func(f *desc.FileDescriptor) (problems []lint.Problem) {
 		// Verify that services precede messages.

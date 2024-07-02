@@ -15,13 +15,13 @@
 package aep0133
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var requestResourceBehavior = &lint.FieldRule{
-	Name: lint.NewRuleName(133, "request-resource-behavior"),
+	Name:     lint.NewRuleName(133, "request-resource-behavior"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		message := f.GetOwner()

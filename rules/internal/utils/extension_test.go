@@ -18,8 +18,8 @@ import (
 	"testing"
 
 	"bitbucket.org/creachadair/stringset"
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/google/go-cmp/cmp"
-	"github.com/googleapis/api-linter/rules/internal/testutils"
 	apb "google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 )
@@ -642,7 +642,7 @@ func TestHasFieldInfo(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 			import "google/api/field_info.proto";
-			
+
 			message CreateBookRequest {
 				string foo = 1 {{.FieldInfo}};
 			}
@@ -673,7 +673,7 @@ func TestGetFieldInfo(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 			import "google/api/field_info.proto";
-			
+
 			message CreateBookRequest {
 				string foo = 1 {{.FieldInfo}};
 			}
@@ -706,7 +706,7 @@ func TestHasFormat(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 			import "google/api/field_info.proto";
-			
+
 			message CreateBookRequest {
 				string foo = 1 [(google.api.field_info) = {
 					{{.Format}}
@@ -740,7 +740,7 @@ func TestGetFormat(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 			import "google/api/field_info.proto";
-			
+
 			message CreateBookRequest {
 				string foo = 1 [(google.api.field_info) = {
 					{{.Format}}

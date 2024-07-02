@@ -15,13 +15,13 @@
 package aep0157
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var requestReadMaskField = &lint.FieldRule{
-	Name: lint.NewRuleName(157, "request-read-mask-field"),
+	Name:     lint.NewRuleName(157, "request-read-mask-field"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		return isRequestMessage(f.GetOwner()) && f.GetName() == "read_mask"

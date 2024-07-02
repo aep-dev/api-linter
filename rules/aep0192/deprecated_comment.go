@@ -17,15 +17,15 @@ package aep0192
 import (
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 var deprecatedComment = &lint.DescriptorRule{
-	Name:   lint.NewRuleName(192, "deprecated-comment"),
+	Name:     lint.NewRuleName(192, "deprecated-comment"),
 	RuleType: lint.NewRuleType(lint.MustRule),
-	OnlyIf: isDeprecated,
+	OnlyIf:   isDeprecated,
 	LintDescriptor: func(d desc.Descriptor) []lint.Problem {
 		comment := utils.SeparateInternalComments(d.GetSourceInfo().GetLeadingComments())
 		if len(comment.External) > 0 && strings.HasPrefix(comment.External[0], "Deprecated:") {

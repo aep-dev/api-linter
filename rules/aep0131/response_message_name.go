@@ -17,16 +17,16 @@ package aep0131
 import (
 	"fmt"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/locations"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 )
 
 // Get messages should use the resource as the response message
 var responseMessageName = &lint.MethodRule{
-	Name:   lint.NewRuleName(131, "response-message-name"),
-	OnlyIf: utils.IsGetMethod,
+	Name:     lint.NewRuleName(131, "response-message-name"),
+	OnlyIf:   utils.IsGetMethod,
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMethod: func(m *desc.MethodDescriptor) []lint.Problem {
 		// Rule check: Establish that for methods such as `GetFoo`, the response

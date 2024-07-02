@@ -17,7 +17,7 @@ package aep0192
 import (
 	"testing"
 
-	"github.com/googleapis/api-linter/rules/internal/testutils"
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 )
 
 func TestOnlyLeadingComments(t *testing.T) {
@@ -81,7 +81,7 @@ func TestOnlyLeadingComments(t *testing.T) {
 
 					string name = 1;
 				}
-				
+
 			`, test)
 			problems := onlyLeadingComments.Lint(file)
 			if diff := test.problems.SetDescriptor(file.GetMessageTypes()[0]).Diff(problems); diff != "" {
