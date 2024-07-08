@@ -12,25 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package aip0216
+package aep0216
 
 import (
+	"fmt"
 	"strings"
 
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/locations"
+	"github.com/aep-dev/api-linter/lint"
 	"github.com/jhump/protoreflect/desc"
 )
 
-var synonyms = &lint.EnumRule{
-	Name: lint.NewRuleName(216, "synonyms"),
+var nesting = &lint.EnumRule{
+	Name: lint.NewRuleName(216, "nesting"),
+	OnlyIf: func(e *desc.EnumDescriptor) bool {
+		return strings.HasSuffix(e.GetName(), "State") && e.GetName() != "State"
+	},
 	LintEnum: func(e *desc.EnumDescriptor) []lint.Problem {
-		if strings.HasSuffix(e.GetName(), "Status") {
+		messageName := strings.TrimSuffix(e.GetName(), "State")
+		fqMessageName := messageName
+		file := e.GetFile()
+		if pkg := file.GetPackage(); pkg != "" {
+			fqMessageName = pkg + "." + messageName
+		}
+		if file.FindMessage(fqMessageName) != nil {
 			return []lint.Problem{{
-				Message:    `Prefer "State" over "Status" for lifecycle state enums.`,
-				Suggestion: strings.Replace(e.GetName(), "Status", "State", 1),
+				Message: fmt.Sprintf(
+					"Nest %q within %q, and name it `State`.",
+					e.GetName(),
+					messageName,
+				),
 				Descriptor: e,
-				Location:   locations.DescriptorName(e),
 			}}
 		}
 		return nil

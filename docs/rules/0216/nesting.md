@@ -1,6 +1,6 @@
 ---
 rule:
-  aip: 216
+  aep: 216
   name: [core, '0216', nesting]
   summary: Lifecycle state enums should be nested within the resource.
 permalink: /216/nesting
@@ -11,7 +11,7 @@ redirect_from:
 # States
 
 This rule enforces that all lifecycle state enums are nested within their
-resource, as recommended in [AIP-216][].
+resource, as recommended in [AEP-216][].
 
 ## Details
 
@@ -50,7 +50,7 @@ message Book {
 ## Disabling
 
 If you need to violate this rule, use a leading comment above the enum.
-Remember to also include an [aip.dev/not-precedent][] comment explaining why.
+Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 message Book {
@@ -58,7 +58,7 @@ message Book {
 }
 
 // (-- api-linter: core::0216::nesting=disabled
-//     aip.dev/not-precedent: We need to do this because reasons. --)
+//     aep.dev/not-precedent: We need to do this because reasons. --)
 enum BookState {
   BOOK_STATE_UNSPECIFIED = 0;
 }
@@ -67,5 +67,5 @@ enum BookState {
 If you need to violate this rule for an entire file, place the comment at the
 top of the file.
 
-[aip-216]: https://aip.dev/216
-[aip.dev/not-precedent]: https://aip.dev/not-precedent
+[aep-216]: https://aep.dev/216
+[aep.dev/not-precedent]: https://aep.dev/not-precedent

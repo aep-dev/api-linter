@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package aip0216 contains rules defined in https://aip.dev/216.
-package aip0216
+// Package aep0216 contains rules defined in https://aep.dev/216.
+package aep0216
 
-import "github.com/googleapis/api-linter/lint"
+import "github.com/aep-dev/api-linter/lint"
 
 // AddRules accepts a register function and registers each of
-// this AIP's rules to it.
+// this AEP's rules to it.
 func AddRules(r lint.RuleRegistry) error {
 	return r.Register(
 		216,

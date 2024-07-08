@@ -1,6 +1,6 @@
 ---
 rule:
-  aip: 216
+  aep: 216
   name: [core, '0216', value-synonyms]
   summary: Enforce common state values.
 permalink: /216/value-synonyms
@@ -10,14 +10,14 @@ redirect_from:
 
 # Value synonyms
 
-This rule enforces the use of state values enumerated in [AIP-216][] over
+This rule enforces the use of state values enumerated in [AEP-216][] over
 common synonyms.
 
 ## Details
 
 This rule iterates over enumerations that end in `State` and looks for enum
 values that are common synonyms or alternate spellings of the states listed at
-the end of [AIP-216][], and suggests the use of the canonical value instead.
+the end of [AEP-216][], and suggests the use of the canonical value instead.
 
 ## Examples
 
@@ -44,14 +44,14 @@ enum State {
 ## Disabling
 
 If you need to violate this rule, use a leading comment above the enum value.
-Remember to also include an [aip.dev/not-precedent][] comment explaining why.
+Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 // Incorrect.
 enum State {
   STATE_UNSPECIFIED = 0;
   // (-- api-linter: core::0216::value-synonyms=disabled
-  //     aip.dev/not-precedent: We need to do this because reasons. --)
+  //     aep.dev/not-precedent: We need to do this because reasons. --)
   SUCCESSFUL = 1;  // Should be `SUCCEEDED`.
 }
 ```
@@ -59,5 +59,5 @@ enum State {
 If you need to violate this rule for an entire file, place the comment at the
 top of the file.
 
-[aip-216]: https://aip.dev/216
-[aip.dev/not-precedent]: https://aip.dev/not-precedent
+[aep-216]: https://aep.dev/216
+[aep.dev/not-precedent]: https://aep.dev/not-precedent

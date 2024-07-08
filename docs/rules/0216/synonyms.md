@@ -1,6 +1,6 @@
 ---
 rule:
-  aip: 216
+  aep: 216
   name: [core, '0216', synonyms]
   summary: Lifecycle state enums should be called "State", not "Status".
 permalink: /216/synonyms
@@ -11,7 +11,7 @@ redirect_from:
 # States
 
 This rule enforces that all lifecycle state enums are called `State` rather
-than `Status`, as mandated in [AIP-216][].
+than `Status`, as mandated in [AEP-216][].
 
 ## Details
 
@@ -49,11 +49,11 @@ enum State {
 ## Disabling
 
 If you need to violate this rule, use a leading comment above the enum value.
-Remember to also include an [aip.dev/not-precedent][] comment explaining why.
+Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 // (-- api-linter: core::0216::synonyms=disabled
-//     aip.dev/not-precedent: We need to do this because reasons. --)
+//     aep.dev/not-precedent: We need to do this because reasons. --)
 enum Status {
   STATUS_UNSPECIFIED = 0;
 }
@@ -62,5 +62,5 @@ enum Status {
 If you need to violate this rule for an entire file, place the comment at the
 top of the file.
 
-[aip-216]: https://aip.dev/216
-[aip.dev/not-precedent]: https://aip.dev/not-precedent
+[aep-216]: https://aep.dev/216
+[aep.dev/not-precedent]: https://aep.dev/not-precedent

@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package aip0216
+package aep0216
 
 import (
 	"testing"
 
-	"github.com/googleapis/api-linter/rules/internal/testutils"
+	"github.com/aep-dev/api-linter/rules/internal/testutils"
 )
 
 func TestNesting(t *testing.T) {

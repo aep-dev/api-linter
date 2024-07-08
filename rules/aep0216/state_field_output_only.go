@@ -12,21 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package aip0216
+package aep0216
 
 import (
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules/internal/utils"
+	"strings"
+
+	"github.com/aep-dev/api-linter/lint"
+	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 	"google.golang.org/genproto/googleapis/api/annotations"
-	"strings"
 )
 
 var stateFieldOutputOnly = &lint.FieldRule{
 	Name: lint.NewRuleName(216, "state-field-output-only"),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		// We care about the name of the State enum type.
-		// AIP 0216 makes no mention of the state field name.
+		// AEP 0216 makes no mention of the state field name.
 		et := f.GetEnumType()
 		if et == nil {
 			return false

@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package aip0216
+package aep0216
 
 import (
 	"testing"
 
-	"github.com/googleapis/api-linter/lint"
+	"github.com/aep-dev/api-linter/lint"
 )
 
 func TestAddRules(t *testing.T) {
