@@ -24,6 +24,7 @@ import (
 
 var nesting = &lint.EnumRule{
 	Name: lint.NewRuleName(216, "nesting"),
+	RuleType: lint.NewRuleType(lint.ShouldRule),
 	OnlyIf: func(e *desc.EnumDescriptor) bool {
 		return strings.HasSuffix(e.GetName(), "State") && e.GetName() != "State"
 	},

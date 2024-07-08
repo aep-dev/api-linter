@@ -25,6 +25,7 @@ import (
 
 var stateFieldOutputOnly = &lint.FieldRule{
 	Name: lint.NewRuleName(216, "state-field-output-only"),
+	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		// We care about the name of the State enum type.
 		// AEP 0216 makes no mention of the state field name.

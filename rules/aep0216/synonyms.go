@@ -24,6 +24,7 @@ import (
 
 var synonyms = &lint.EnumRule{
 	Name: lint.NewRuleName(216, "synonyms"),
+	RuleType: lint.NewRuleType(lint.ShouldRule),
 	LintEnum: func(e *desc.EnumDescriptor) []lint.Problem {
 		if strings.HasSuffix(e.GetName(), "Status") {
 			return []lint.Problem{{
