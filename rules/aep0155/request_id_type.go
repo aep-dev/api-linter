@@ -20,8 +20,8 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-var requestIdFormat = &lint.FieldRule{
-	Name: lint.NewRuleName(155, "request-id-format"),
+var requestIdType = &lint.FieldRule{
+	Name: lint.NewRuleName(155, "request-id-type"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(fd *desc.FieldDescriptor) bool {
 		return fd.GetName() == "request_id"

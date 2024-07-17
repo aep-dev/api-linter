@@ -51,7 +51,7 @@ func TestRequestIdFormat(t *testing.T) {
 				message Foo {}
 			`, test)
 			field := f.GetMessageTypes()[0].GetFields()[0]
-			if diff := test.problems.SetDescriptor(field).Diff(requestIdFormat.Lint(f)); diff != "" {
+			if diff := test.problems.SetDescriptor(field).Diff(requestIdType.Lint(f)); diff != "" {
 				t.Errorf(diff)
 			}
 		})
