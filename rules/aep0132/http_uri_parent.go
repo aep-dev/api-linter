@@ -22,8 +22,8 @@ import (
 
 // List methods should have a parent variable if the request has a parent field.
 var httpURIParent = &lint.MethodRule{
-	Name: lint.NewRuleName(132, "http-uri-parent"),
-	RuleType:   lint.NewRuleType(lint.MustRule),
+	Name:     lint.NewRuleName(132, "http-uri-parent"),
+	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(m *desc.MethodDescriptor) bool {
 		return utils.IsListMethod(m) && m.GetInputType().FindFieldByName("parent") != nil
 	},

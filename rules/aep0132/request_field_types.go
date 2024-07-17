@@ -28,8 +28,8 @@ var knownFields = map[string]func(*desc.FieldDescriptor) []lint.Problem{
 
 // List fields should have the correct type.
 var requestFieldTypes = &lint.FieldRule{
-	Name: lint.NewRuleName(132, "request-field-types"),
-	RuleType:   lint.NewRuleType(lint.MustRule),
+	Name:     lint.NewRuleName(132, "request-field-types"),
+	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		return utils.IsListRequestMessage(f.GetOwner()) && knownFields[f.GetName()] != nil
 	},

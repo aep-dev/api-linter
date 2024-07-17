@@ -33,8 +33,8 @@ var respAllowedFields = stringset.New(
 )
 
 var responseUnknownFields = &lint.FieldRule{
-	Name: lint.NewRuleName(132, "response-unknown-fields"),
-	RuleType:   lint.NewRuleType(lint.MustRule),
+	Name:     lint.NewRuleName(132, "response-unknown-fields"),
+	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		return utils.IsListResponseMessage(f.GetOwner())
 	},

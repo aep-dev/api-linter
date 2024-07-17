@@ -21,8 +21,8 @@ import (
 )
 
 var requestParentBehavior = &lint.FieldRule{
-	Name: lint.NewRuleName(132, "request-parent-behavior"),
-	RuleType:   lint.NewRuleType(lint.MustRule),
+	Name:     lint.NewRuleName(132, "request-parent-behavior"),
+	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		return utils.IsListRequestMessage(f.GetOwner()) && f.GetName() == "parent"
 	},
