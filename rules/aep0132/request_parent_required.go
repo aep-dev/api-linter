@@ -13,6 +13,7 @@ import (
 // The List standard method should contain a parent field.
 var requestParentRequired = &lint.MessageRule{
 	Name:   lint.NewRuleName(132, "request-parent-required"),
+	RuleType:   lint.NewRuleType(lint.MustRule),
 	OnlyIf: utils.IsListRequestMessage,
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		// Rule check: Establish that a `parent` field is present.

@@ -22,6 +22,7 @@ import (
 
 var requestParentReference = &lint.FieldRule{
 	Name: lint.NewRuleName(132, "request-parent-reference"),
+	RuleType:   lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		return utils.IsListRequestMessage(f.GetOwner()) && f.GetName() == "parent"
 	},

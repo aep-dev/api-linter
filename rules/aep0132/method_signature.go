@@ -26,6 +26,7 @@ import (
 
 var methodSignature = &lint.MethodRule{
 	Name: lint.NewRuleName(132, "method-signature"),
+	RuleType:   lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(m *desc.MethodDescriptor) bool {
 		return utils.IsListMethod(m) && m.GetInputType().FindFieldByName("parent") != nil
 	},

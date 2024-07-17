@@ -48,7 +48,7 @@ func TestRequestParentValidReference(t *testing.T) {
 					pattern: "publishers/{publisher}/books/{book}"
 				};
 
-				string name = 1;
+				string path = 1;
 			}
 		`, test)
 		field := f.GetMessageTypes()[0].GetFields()[0]

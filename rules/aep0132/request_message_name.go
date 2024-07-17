@@ -22,6 +22,7 @@ import (
 // List messages should have a properly named Request message.
 var requestMessageName = &lint.MethodRule{
 	Name:       lint.NewRuleName(132, "request-message-name"),
+	RuleType:   lint.NewRuleType(lint.MustRule),
 	OnlyIf:     utils.IsListMethod,
 	LintMethod: utils.LintMethodHasMatchingRequestName,
 }

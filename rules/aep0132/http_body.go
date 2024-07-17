@@ -22,6 +22,7 @@ import (
 // List methods should not have an HTTP body.
 var httpBody = &lint.MethodRule{
 	Name:       lint.NewRuleName(132, "http-body"),
+	RuleType:   lint.NewRuleType(lint.MustRule),
 	OnlyIf:     utils.IsListMethod,
 	LintMethod: utils.LintNoHTTPBody,
 }

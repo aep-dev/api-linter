@@ -26,6 +26,7 @@ import (
 // parent directly via `type`.
 var resourceReferenceType = &lint.MethodRule{
 	Name: lint.NewRuleName(132, "resource-reference-type"),
+	RuleType:   lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(m *desc.MethodDescriptor) bool {
 		p := m.GetInputType().FindFieldByName("parent")
 
