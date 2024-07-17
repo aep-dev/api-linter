@@ -39,7 +39,7 @@ func TestRequestIdFormat(t *testing.T) {
 			name:      "InvalidType",
 			FieldName: "request_id",
 			Type:      "string",
-			problems:  testutils.Problems{{Message: "format = UUID4"}},
+			problems:  testutils.Problems{{Message: "type `aep.api.IdempotencyKey`"}},
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {

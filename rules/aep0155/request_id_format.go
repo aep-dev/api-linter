@@ -16,7 +16,6 @@ package aep0155
 
 import (
 	"github.com/aep-dev/api-linter/lint"
-	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
 	"google.golang.org/protobuf/types/descriptorpb"
 )
@@ -25,11 +24,10 @@ var requestIdFormat = &lint.FieldRule{
 	Name: lint.NewRuleName(155, "request-id-format"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(fd *desc.FieldDescriptor) bool {
-		return fd.GetName() == "request_id" && 
-		fd.GetType() != descriptorpb.FieldDescriptorProto_TYPE_MESSAGE;
+		return fd.GetName() == "request_id"
 	},
 	LintField: func(fd *desc.FieldDescriptor) []lint.Problem {
-		if(fd.GetMessageType().GetFullyQualifiedName() != "aep.api.IdempotencyKey") {
+		if(fd.GetType() != descriptorpb.FieldDescriptorProto_TYPE_MESSAGE || fd.GetMessageType().GetFullyQualifiedName() != "aep.api.IdempotencyKey") {
 			return []lint.Problem{{
 				Message:    "The `request_id` field should have type `aep.api.IdempotencyKey`",
 				Descriptor: fd,
