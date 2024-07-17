@@ -1,5 +1,9 @@
 bitbucket.org/creachadair/stringset v0.0.12 h1:APD8dIoAzGv70a6p1oasPDjPwkp+ajszdgKyWUcNqo0=
 bitbucket.org/creachadair/stringset v0.0.12/go.mod h1:KtNk2s0hRO1T0r78lv9Zq/S/Lp0du2zI0Fj5j5Y4LDo=
+buf.build/gen/go/aep/api/protocolbuffers/go v1.34.2-20240329195937-b433450cc52f.2 h1:0Ka0tKxAfSnJm9sVa7RVtnkTZ8DeTjuNhfHdk0ruLZ8=
+buf.build/gen/go/aep/api/protocolbuffers/go v1.34.2-20240329195937-b433450cc52f.2/go.mod h1:7GnupzUM4BaoyPcUUTZZwrcVZvCBNcyn6iR/kddRTuU=
+buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.2-20240221180331-f05a6f4403ce.2 h1:Vs037OPnb+uCAQrDAxeGOM8UWvIBhET3hx+ZePssyrQ=
+buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.2-20240221180331-f05a6f4403ce.2/go.mod h1:ylS4c28ACSI59oJrOdW4pHS4n0Hw4TgSPHn8rpHl4Yw=
 cloud.google.com/go/longrunning v0.5.6 h1:xAe8+0YaWoCKr9t1+aWe+OeQgN/iJK1fEgZSXmjuEaE=
 cloud.google.com/go/longrunning v0.5.6/go.mod h1:vUaDrWYOMKRuhiv6JBnn49YxCPz2Ayn9GqyjaBT8/mA=
 github.com/bmatcuk/doublestar/v4 v4.6.1 h1:FH9SifrbvJhnlQpztAx++wlkk70QBf0iBWDwNy7PA4I=
@@ -52,8 +56,8 @@ google.golang.org/genproto/googleapis/rpc v0.0.0-20240318140521-94a12d6c2237 h1:
 google.golang.org/genproto/googleapis/rpc v0.0.0-20240318140521-94a12d6c2237/go.mod h1:WtryC6hu0hhx87FDGxWCDptyssuo68sk10vYjF+T9fY=
 google.golang.org/grpc v1.62.1 h1:B4n+nfKzOICUXMgyrNd19h/I9oH0L1pizfk1d4zSgTk=
 google.golang.org/grpc v1.62.1/go.mod h1:IWTG0VlJLCh1SkC58F7np9ka9mx/WNkjl4PGJaiq+QE=
-google.golang.org/protobuf v1.33.0 h1:uNO2rsAINq/JlFpSdYEKIZ0uKD/R9cpdv0T+yoGwGmI=
-google.golang.org/protobuf v1.33.0/go.mod h1:c6P6GXX6sHbq/GpV6MGZEdwhWPcYBgnhAHhKbcUYpos=
+google.golang.org/protobuf v1.34.2 h1:6xV6lTsCfpGD21XK49h7MhtcApnLqkfYgPcdHftf6hg=
+google.golang.org/protobuf v1.34.2/go.mod h1:qYOHts0dSfpeUzUFpOMr/WGzszTmLH+DiWniOlNbLDw=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v2 v2.4.0 h1:D8xgwECY7CYvx+Y2n4sBz93Jn9JRvxdiyyo8CTfuKaY=
