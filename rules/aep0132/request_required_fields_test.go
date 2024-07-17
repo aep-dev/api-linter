@@ -93,7 +93,7 @@ func TestRequiredFieldTests(t *testing.T) {
 						type: "library.googleapis.com/Book"
 						pattern: "publishers/{publisher}/books/{book}"
 					};
-					string name = 1;
+					string path = 1;
 				}
 			`, test)
 			var dbr desc.Descriptor = f.FindMessage("ListBooksRequest")

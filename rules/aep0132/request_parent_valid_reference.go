@@ -25,7 +25,8 @@ import (
 )
 
 var requestParentValidReference = &lint.FieldRule{
-	Name: lint.NewRuleName(132, "request-parent-valid-reference"),
+	Name:     lint.NewRuleName(132, "request-parent-valid-reference"),
+	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		ref := utils.GetResourceReference(f)
 		return utils.IsListRequestMessage(f.GetOwner()) && f.GetName() == "parent" && ref != nil && ref.GetType() != ""

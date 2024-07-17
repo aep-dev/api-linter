@@ -25,7 +25,8 @@ import (
 // List methods should reference the target resource via `child_type` or the
 // parent directly via `type`.
 var resourceReferenceType = &lint.MethodRule{
-	Name: lint.NewRuleName(132, "resource-reference-type"),
+	Name:     lint.NewRuleName(132, "resource-reference-type"),
+	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(m *desc.MethodDescriptor) bool {
 		p := m.GetInputType().FindFieldByName("parent")
 

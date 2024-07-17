@@ -25,8 +25,9 @@ import (
 
 // The list request message should not have unrecognized fields.
 var requestRequiredFields = &lint.MessageRule{
-	Name:   lint.NewRuleName(132, "request-required-fields"),
-	OnlyIf: utils.IsListRequestMessage,
+	Name:     lint.NewRuleName(132, "request-required-fields"),
+	RuleType: lint.NewRuleType(lint.MustRule),
+	OnlyIf:   utils.IsListRequestMessage,
 	LintMessage: func(m *desc.MessageDescriptor) (problems []lint.Problem) {
 		// Rule check: Establish that there are no unexpected fields.
 		allowedRequiredFields := stringset.New("parent")
