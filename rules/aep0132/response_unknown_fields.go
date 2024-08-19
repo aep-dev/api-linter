@@ -26,6 +26,7 @@ import (
 // The resource itself is not included here, but also permitted.
 // This is covered in code in the rule itself.
 var respAllowedFields = stringset.New(
+	"max_page_size",         // AEP-132
 	"next_page_token",       // AEP-158
 	"total_size",            // AEP-132
 	"unreachable",           // AEP-217
