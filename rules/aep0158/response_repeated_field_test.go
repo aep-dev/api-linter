@@ -29,7 +29,7 @@ func TestResponseRepeatedFirstField(t *testing.T) {
 	}{
 		{"Valid", "repeated Book books = 1;", "string next_page_token = 2;", nil},
 		{"SkippedZeroFields", "", "", nil},
-		{"InvalidFirstFieldsNoMatch", "string next_page_token = 2;", "repeated Book books = 1;", testutils.Problems{{Message: "protobuf ID"}}},
+		{"ProtobufIdIsNotOne", "string next_page_token = 1;", "repeated Book books = 2;", nil},
 		{"InvalidNotRepeated", "Book book = 1;", "string next_page_token = 2;", testutils.Problems{{Message: "repeated"}}},
 	}
 	for _, test := range tests {
@@ -45,14 +45,9 @@ func TestResponseRepeatedFirstField(t *testing.T) {
 				}
 			`, test)
 
-			// Determine the descriptor that a failing test will attach to.
-			if m := f.GetMessageTypes()[1]; len(m.GetFields()) > 0 {
-				test.problems.SetDescriptor(m.GetFields()[0])
-			}
-
 			// Run the lint rule and establish we get the correct problems.
 			problems := responseRepeatedFirstField.Lint(f)
-			if diff := test.problems.Diff(problems); diff != "" {
+			if diff := test.problems.SetDescriptor(f.GetMessageTypes()[1]).Diff(problems); diff != "" {
 				t.Errorf(diff)
 			}
 		})
