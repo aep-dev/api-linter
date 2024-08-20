@@ -28,6 +28,7 @@ func TestResponseUnknownFields(t *testing.T) {
 		problems    testutils.Problems
 	}{
 		{"ListBooksResponse", "total_size", nil},
+		{"ListBooksResponse", "max_page_size", nil},
 		{"ListBooksResponse", "unreachable", nil},
 		{"ListBooksResponse", "unreachable_locations", nil},
 		{"ListBookRevisionsResponse", "total_size", nil},
