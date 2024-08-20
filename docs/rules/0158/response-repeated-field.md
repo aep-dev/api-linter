@@ -3,7 +3,7 @@ rule:
   aep: 158
   name: [core, '0158', response-repeated-field]
   summary: |
-    First field (by both position and field number) of Paginated RPCs' response
+    One field of a paginated RPCs' response
     should be repeated.
 permalink: /158/response-repeated-field
 redirect_from:
