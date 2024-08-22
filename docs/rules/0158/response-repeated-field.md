@@ -1,25 +1,24 @@
 ---
 rule:
   aep: 158
-  name: [core, '0158', response-repeated-first-field]
+  name: [core, '0158', response-repeated-field]
   summary: |
-    First field (by both position and field number) of Paginated RPCs' response
+    One field of a paginated RPCs' response
     should be repeated.
-permalink: /158/response-repeated-first-field
+permalink: /158/response-repeated-field
 redirect_from:
-  - /0158/response-repeated-first-field
+  - /0158/response-repeated-field
 ---
 
 # Paginated methods: Page token field
 
 This rule enforces that all `List` and `Search` methods have a repeatable field
-as a first field in the response message, as mandated in [AEP-158][].
+in the response message, as mandated in [AEP-158][].
 
 ## Details
 
 This rule looks at any message matching `List*Response` or `Search*Response`
-that has `next_page_token` field and complains if the first field (by both
-position and field number) is not repeated.
+that has `next_page_token` field and complains if there does not exist a field that is repeated.
 
 ## Examples
 
