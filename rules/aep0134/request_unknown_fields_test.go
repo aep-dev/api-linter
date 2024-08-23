@@ -49,6 +49,11 @@ func TestUnknownFields(t *testing.T) {
 			testutils.Problems{},
 		},
 		{
+			"PathOnly", "UpdateBigBookRequest", "path",
+			builder.FieldTypeString(),
+			testutils.Problems{},
+		},
+		{
 			"Invalid", "UpdateBigBookRequest", "application_id",
 			builder.FieldTypeString(),
 			testutils.Problems{{Message: "Unexpected field"}},

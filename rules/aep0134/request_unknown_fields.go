@@ -34,6 +34,7 @@ var unknownFields = &lint.MessageRule{
 		allowedFields := stringset.New(
 			fieldNameFromResource(resource), // AEP-134
 			"allow_missing",                 // AEP-134
+			"path",                          // AEP-134
 			"request_id",                    // AEP-155
 			"update_mask",                   // AEP-134
 			"validate_only",                 // AEP-163
