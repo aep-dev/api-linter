@@ -12,3 +12,5 @@ docs/.jekyll-metadata
 
 # Ruby
 .ruby-version
+
+/.tmp/
