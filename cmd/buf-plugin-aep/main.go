@@ -49,7 +49,7 @@ func newSpec() (*check.Spec, error) {
 		Categories: []*check.CategorySpec{
 			{
 				ID:      aepCategoryID,
-				Purpose: "Checks all API Improvement proposals as specified at https://aep.dev.",
+				Purpose: "Checks all API Enhancement proposals as specified at https://aep.dev.",
 			},
 			{
 				ID:      aepCoreCategoryID,
