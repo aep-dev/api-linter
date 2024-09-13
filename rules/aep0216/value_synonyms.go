@@ -24,7 +24,7 @@ import (
 )
 
 var valueSynonyms = &lint.EnumValueRule{
-	Name: lint.NewRuleName(216, "value-synonyms"),
+	Name:     lint.NewRuleName(216, "value-synonyms"),
 	RuleType: lint.NewRuleType(lint.ShouldRule),
 	OnlyIf: func(v *desc.EnumValueDescriptor) bool {
 		return strings.HasSuffix(v.GetEnum().GetName(), "State")

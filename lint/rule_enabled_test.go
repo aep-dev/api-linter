@@ -32,7 +32,6 @@ func TestRuleIsEnabled(t *testing.T) {
 		},
 	}
 
-	
 	mustRule := &FileRule{
 		Name: RuleName("a::b::c"),
 		LintFile: func(fd *desc.FileDescriptor) []Problem {

@@ -67,8 +67,8 @@ var descriptorDisableChecks = []func(d desc.Descriptor) bool{
 // augment the set of commentLines.
 func ruleIsEnabled(rule ProtoRule, d desc.Descriptor, l *dpb.SourceCodeInfo_Location,
 	aliasMap map[string]string, ignoreCommentDisables bool) bool {
-	if(rule.GetRuleType() == MustRule) {
-		return true;
+	if rule.GetRuleType() == MustRule {
+		return true
 	}
 
 	// If the rule is disabled because of something on the descriptor itself
@@ -134,7 +134,7 @@ func ruleIsDisabledByComments(rule ProtoRule, d desc.Descriptor, l *dpb.SourceCo
 }
 
 func NewRuleType(rt RuleType) *RuleType {
-	p := new(RuleType);
-	*p = rt;
-	return p;
+	p := new(RuleType)
+	*p = rt
+	return p
 }

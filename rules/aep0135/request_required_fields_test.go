@@ -88,7 +88,7 @@ func TestRequiredFieldTests(t *testing.T) {
 				dbr = f.FindMessage("DeleteBookRequest").FindFieldByName(test.problematicFieldName)
 			}
 			if diff := test.problems.SetDescriptor(dbr).Diff(requestRequiredFields.Lint(f)); diff != "" {
-				t.Errorf(diff)
+				t.Error(diff)
 			}
 		})
 	}
