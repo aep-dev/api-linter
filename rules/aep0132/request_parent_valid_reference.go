@@ -33,7 +33,7 @@ var requestParentValidReference = &lint.FieldRule{
 	},
 	LintField: func(f *desc.FieldDescriptor) []lint.Problem {
 		p := f.GetParent()
-		msg := p.(*desc.MessageDescriptor)
+		msg, _ := p.(*desc.MessageDescriptor)
 		res := utils.GetResourceReference(f).GetType()
 
 		response := utils.FindMessage(f.GetFile(), strings.Replace(msg.GetName(), "Request", "Response", 1))

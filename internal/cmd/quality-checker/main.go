@@ -101,7 +101,7 @@ func main() {
 	// If we got complaints, complain about them.
 	if len(errors) > 0 {
 		for _, e := range errors {
-			log.Println(fmt.Sprintf("ERROR: %s", e.Error()))
+			log.Printf("ERROR: %s", e.Error())
 		}
 	}
 

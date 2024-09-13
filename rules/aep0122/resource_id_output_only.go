@@ -26,7 +26,7 @@ var resourceIdOutputOnly = &lint.FieldRule{
 	Name: lint.NewRuleName(122, "resource-id-output-only"),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		var idName string
-		p := f.GetParent().(*desc.MessageDescriptor)
+		p, _ := f.GetParent().(*desc.MessageDescriptor)
 
 		// Build an expected ID field name based on the Resource `singular`
 		// field or by parsing the `type`.

@@ -23,12 +23,12 @@ import (
 func TestRequestIdFormat(t *testing.T) {
 	for _, test := range []struct {
 		name, FieldName, Type string
-		problems                          testutils.Problems
+		problems              testutils.Problems
 	}{
 		{
-			name:       "ValidRequestIdFormat",
-			FieldName:  "request_id",
-			Type:       "aep.api.IdempotencyKey",
+			name:      "ValidRequestIdFormat",
+			FieldName: "request_id",
+			Type:      "aep.api.IdempotencyKey",
 		},
 		{
 			name:      "SkipNonRequestId",
@@ -52,7 +52,7 @@ func TestRequestIdFormat(t *testing.T) {
 			`, test)
 			field := f.GetMessageTypes()[0].GetFields()[0]
 			if diff := test.problems.SetDescriptor(field).Diff(requestIdType.Lint(f)); diff != "" {
-				t.Errorf(diff)
+				t.Error(diff)
 			}
 		})
 	}

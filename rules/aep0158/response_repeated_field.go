@@ -27,8 +27,8 @@ var responseRepeatedFirstField = &lint.MessageRule{
 	},
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		for _, f := range m.GetFields() {
-			if(f.IsRepeated()) {
-				return nil;
+			if f.IsRepeated() {
+				return nil
 			}
 		}
 
