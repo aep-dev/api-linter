@@ -53,7 +53,7 @@ func newSpec() (*check.Spec, error) {
 			},
 			{
 				ID:      aepCoreCategoryID,
-				Purpose: "Checks all core API Improvement proposals as specified at https://aep.dev.",
+				Purpose: "Checks all core API Enhancement proposals as specified at https://aep.dev.",
 			},
 		},
 		Before: before,
