@@ -26,6 +26,8 @@ jobs:
         with:
           repository: aep-dev/site-generator-beta
           path: './site-generator-beta'
+      - name: Install system dependencies.
+        run: apt-get update && apt-get install -y rsync
       - name: Create rules folder
         run: mkdir site-generator-beta/src/content/docs/tooling/linter/rules
       - name: Install all dependencies.
