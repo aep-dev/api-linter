@@ -39,9 +39,8 @@ jobs:
         run: npm run build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
-        working-directory: ./site-generator-beta
         with:
-          folder: dist
+          folder: site-generator-beta/dist
           repository-name: aep-dev/site-generator-beta
           branch: gh-pages
           token: ${{ secrets.GITHUB_TOKEN }}
