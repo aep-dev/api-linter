@@ -15,8 +15,6 @@
 package aep0132
 
 import (
-	"strings"
-
 	"bitbucket.org/creachadair/stringset"
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
@@ -41,17 +39,6 @@ var responseUnknownFields = &lint.FieldRule{
 		return utils.IsListResponseMessage(f.GetOwner())
 	},
 	LintField: func(f *desc.FieldDescriptor) []lint.Problem {
-		// A repeated variant of the resource should be permitted.
-		resource := utils.ListResponseResourceName(f.GetOwner())
-		if strings.HasSuffix(resource, "_revisions") {
-			// This is an AEP-162 ListFooRevisions response, which is subtly
-			// different from an AEP-132 List response. We need to modify the RPC
-			// name to what the AEP-132 List response would be in order to permit
-			// the resource field properly.
-			resource = utils.ToPlural(strings.TrimSuffix(resource, "_revisions"))
-		}
-
-		// It is not the resource field; check it against the whitelist.
 		if !respAllowedFields.Contains(f.GetName()) {
 			return []lint.Problem{{
 				Message:    "List responses should only contain fields explicitly described in AEPs.",
