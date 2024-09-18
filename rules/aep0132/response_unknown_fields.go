@@ -26,6 +26,7 @@ import (
 // The resource itself is not included here, but also permitted.
 // This is covered in code in the rule itself.
 var respAllowedFields = stringset.New(
+	"results",
 	"max_page_size",         // AEP-132
 	"next_page_token",       // AEP-158
 	"total_size",            // AEP-132
@@ -48,9 +49,6 @@ var responseUnknownFields = &lint.FieldRule{
 			// name to what the AEP-132 List response would be in order to permit
 			// the resource field properly.
 			resource = utils.ToPlural(strings.TrimSuffix(resource, "_revisions"))
-		}
-		if f.GetName() == resource {
-			return nil
 		}
 
 		// It is not the resource field; check it against the whitelist.
