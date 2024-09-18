@@ -15,12 +15,9 @@
 package aep0134
 
 import (
-	"fmt"
-
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
-	"github.com/stoewer/go-strcase"
 )
 
 // Update methods should have a proper HTTP pattern.
@@ -29,8 +26,6 @@ var httpNameField = &lint.MethodRule{
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf:   utils.IsUpdateMethod,
 	LintMethod: func(m *desc.MethodDescriptor) []lint.Problem {
-		fieldName := strcase.SnakeCase(m.GetName()[6:])
-		want := fmt.Sprintf("%s.path", fieldName)
-		return utils.LintHTTPURIHasVariable(m, want)
+		return utils.LintHTTPURIHasVariable(m, "path")
 	},
 }

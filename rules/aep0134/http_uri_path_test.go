@@ -27,32 +27,34 @@ func TestHttpNameField(t *testing.T) {
 		MethodName string
 		problems   testutils.Problems
 	}{
-		{"Valid", "/v1/{big_book.path=publishers/*/books/*}", "UpdateBigBook", nil},
-		{"ValidWithNumber", "/v1/{dv360.path=publishers/*/dv360s/*}", "UpdateDv360", nil},
+		{
+			"InvalidWithExtraName", "/v1/{big_book.path=publishers/*/books/*}",
+			"UpdateBigBook",
+			testutils.Problems{{Message: "`path`"}},
+		},
+		{"InvalidWithNumber", "/v1/{dv360.path=publishers/*/dv360s/*}", "UpdateDv360", testutils.Problems{{Message: "`path`"}}},
 		{
 			"InvalidNoUnderscore", "/v1/{bigbook.path=publishers/*/books/*}",
 			"UpdateBigBook",
-			testutils.Problems{{Message: "`big_book.path`"}},
+			testutils.Problems{{Message: "`path`"}},
 		},
 		{
 			"InvalidVarNameBook", "/v1/{big_book=publishers/*/books/*}",
 			"UpdateBigBook",
-			testutils.Problems{{Message: "`big_book.path`"}},
+			testutils.Problems{{Message: "`path`"}},
 		},
 		{
-			"InvalidVarNameName", "/v1/{path=publishers/*/books/*}",
-			"UpdateBigBook",
-			testutils.Problems{{Message: "`big_book.path`"}},
+			"Valid", "/v1/{path=publishers/*/books/*}", "UpdateBigBook", nil,
 		},
 		{
 			"InvalidVarNameReversed", "/v1/{path.big_book=publishers/*/books/*}",
 			"UpdateBigBook",
-			testutils.Problems{{Message: "`big_book.path`"}},
+			testutils.Problems{{Message: "`path`"}},
 		},
 		{
 			"NoVarName", "/v1/publishers/*/books/*",
 			"UpdateBigBook",
-			testutils.Problems{{Message: "`big_book.path`"}},
+			testutils.Problems{{Message: "`path`"}},
 		},
 		{
 			"Irrelevant", "/v1/{book=publishers/*/books/*}",

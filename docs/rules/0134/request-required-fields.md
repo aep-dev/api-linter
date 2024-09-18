@@ -38,8 +38,9 @@ message UpdateBookRequest {
 ```proto
 // Correct.
 message UpdateBookRequest {
-  Book book = 1 [(google.api.field_behavior) = REQUIRED];
-  bool allow_missing = 2 [(google.api.field_behavior) = OPTIONAL];
+  string path = 1 [(google.api.field_behavior) = REQUIRED];
+  Book book = 2 [(google.api.field_behavior) = REQUIRED];
+  bool allow_missing = 3 [(google.api.field_behavior) = OPTIONAL];
 }
 ```
 

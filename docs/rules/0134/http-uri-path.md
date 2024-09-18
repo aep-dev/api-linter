@@ -30,7 +30,7 @@ separation uses `snake_case`.
 // Incorrect.
 rpc UpdateBookRequest(UpdateBookRequest) returns (Book) {
   option (google.api.http) = {
-    post: "/v1/{path=publishers/*/books/*}"  // Should be `book.path`.
+    post: "/v1/{book.path=publishers/*/books/*}"  // Should be `path`
     body: "book"
   };
 }
@@ -42,7 +42,7 @@ rpc UpdateBookRequest(UpdateBookRequest) returns (Book) {
 // Correct.
 rpc UpdateBookRequest(UpdateBookRequest) returns (Book) {
   option (google.api.http) = {
-    post: "/v1/{book.path=publishers/*/books/*}"
+    post: "/v1/{path=publishers/*/books/*}"
     body: "book"
   };
 }
@@ -58,7 +58,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 rpc UpdateBookRequest(UpdateBookRequest) returns (Book) {
   option (google.api.http) = {
-    post: "/v1/{path=publishers/*/books/*}"
+    post: "/v1/{book.path=publishers/*/books/*}"
     body: "book"
   };
 }
