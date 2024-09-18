@@ -38,7 +38,7 @@ func TestUnknownFields(t *testing.T) {
 		fieldType   *builder.FieldType
 		problems    testutils.Problems
 	}{
-		{"PageSize", "ListBooksRequest", "page_size", builder.FieldTypeInt32(), testutils.Problems{}},
+		{"PageSize", "ListBooksRequest", "max_page_size", builder.FieldTypeInt32(), testutils.Problems{}},
 		{"PageToken", "ListBooksRequest", "page_token", builder.FieldTypeString(), testutils.Problems{}},
 		{"Skip", "ListBooksRequest", "skip", builder.FieldTypeInt32(), testutils.Problems{}},
 		{"Filter", "ListBooksRequest", "filter", builder.FieldTypeString(), testutils.Problems{}},

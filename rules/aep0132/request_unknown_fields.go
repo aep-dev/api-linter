@@ -23,7 +23,7 @@ import (
 
 var allowedFields = stringset.New(
 	"parent",       // AEP-132
-	"page_size",    // AEP-158
+	"max_page_size",    // AEP-158
 	"page_token",   // AEP-158
 	"skip",         // AEP-158
 	"filter",       // AEP-132
