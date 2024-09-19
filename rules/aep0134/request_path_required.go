@@ -24,7 +24,7 @@ import (
 
 var requestPathRequired = &lint.MessageRule{
 	Name:   lint.NewRuleName(134, "request-path-required"),
-	OnlyIf: utils.IsListRequestMessage,
+	OnlyIf: utils.IsUpdateRequestMessage,
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		if m.FindFieldByName("path") == nil {
 			return []lint.Problem{{

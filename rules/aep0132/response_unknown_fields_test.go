@@ -28,22 +28,23 @@ func TestResponseUnknownFields(t *testing.T) {
 		problems    testutils.Problems
 	}{
 		{"ListBooksResponse", "total_size", nil},
+		{"ListBooksResponse", "results", nil},
 		{"ListBooksResponse", "max_page_size", nil},
 		{"ListBooksResponse", "unreachable", nil},
 		{"ListBooksResponse", "unreachable_locations", nil},
 		{"ListBookRevisionsResponse", "total_size", nil},
 		{"ListBooksResponse", "extra", testutils.Problems{{Message: "List responses"}}},
+		{"ListBooksResponse", "books", testutils.Problems{{Message: "List responses"}}},
 	} {
 		t.Run(strcase.UpperCamelCase(test.FieldName), func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				message {{.MessageName}} {
-					repeated Book books = 1;
-					string next_page_token = 2;
-					string {{.FieldName}} = 3;
+					string next_page_token = 1;
+					string {{.FieldName}} = 2;
 				}
 				message Book {}
 			`, test)
-			field := f.GetMessageTypes()[0].GetFields()[2]
+			field := f.GetMessageTypes()[0].GetFields()[1]
 			if diff := test.problems.SetDescriptor(field).Diff(responseUnknownFields.Lint(f)); diff != "" {
 				t.Error(diff)
 			}

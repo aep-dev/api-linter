@@ -51,7 +51,7 @@ func isCustomMethod(m *desc.MethodDescriptor) bool {
 
 	// Methods with no `:` in the URI are standard methods if they begin with
 	// one of the standard method names.
-	for _, prefix := range []string{"Get", "List", "Create", "Update", "Delete", "Replace"} {
+	for _, prefix := range []string{"Get", "List", "Create", "Update", "Delete", "Replace", "Apply"} {
 		if strings.HasPrefix(m.GetName(), prefix) {
 			return false
 		}

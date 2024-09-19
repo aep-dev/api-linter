@@ -32,7 +32,7 @@ var requestRequiredFields = &lint.MethodRule{
 		ot := utils.GetResponseType(m)
 		it := m.GetInputType()
 
-		allowedRequiredFields := stringset.New("update_mask")
+		allowedRequiredFields := stringset.New("update_mask", "path")
 
 		for _, f := range it.GetFields() {
 			if !utils.GetFieldBehavior(f).Contains("REQUIRED") {

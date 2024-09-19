@@ -33,7 +33,7 @@ repeated-ness.
 ```proto
 // Incorrect.
 message ListBooksResponse {
-  repeated Book books = 1;
+  repeated Book results = 1;
   string next_page_token = 2;
   string publisher_id = 3;  // Unrecognized field.
 }
@@ -44,7 +44,7 @@ message ListBooksResponse {
 ```proto
 // Correct.
 message ListBooksResponse {
-  repeated Book books = 1;
+  repeated Book results = 1;
   string next_page_token = 2;
 }
 ```
@@ -56,7 +56,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 message ListBooksResponse {
-  repeated Book books = 1;
+  repeated Book results = 1;
   string next_page_token = 2;
   // (-- api-linter: core::0132::response-unknown-fields=disabled
   //     aep.dev/not-precedent: We really need this field because reasons. --)

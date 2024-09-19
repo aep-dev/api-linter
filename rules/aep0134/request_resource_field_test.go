@@ -30,6 +30,7 @@ func TestResourceField(t *testing.T) {
 		problems          testutils.Problems
 	}{
 		{"Valid", "UpdateBookRequest", "Book", "book", nil},
+		{"Valid", "UpdateBookRequest", "string", "path", nil},
 		{"InvalidFieldName", "UpdateBookRequest", "Book", "big_book", testutils.Problems{{Suggestion: "book"}}},
 		{"IrrelevantMessage", "ModifyBookRequest", "Book", "big_book", nil},
 		{"IrrelevantFieldType", "UpdateBookRequest", "string", "big_book", nil},

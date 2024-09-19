@@ -19,7 +19,7 @@ This rule looks at any message matching `List*Request` and complains if it
 comes across any fields other than:
 
 - `string parent` ([AEP-132][])
-- `int32 page_size` ([AEP-158][])
+- `int32 max_page_size` ([AEP-158][])
 - `string page_token` ([AEP-158][])
 - `int32 skip` ([AEP-158][])
 - `string filter` ([AEP-132][])
@@ -41,7 +41,7 @@ handled by other rules, such as
 // Incorrect.
 message ListBooksRequest {
   string parent = 1;
-  int32 page_size = 2;
+  int32  max_page_size = 2;
   string page_token = 3;
   string library_id = 4;  // Non-standard field.
 }
@@ -53,7 +53,7 @@ message ListBooksRequest {
 // Correct.
 message ListBooksRequest {
   string parent = 1;
-  int32 page_size = 2;
+  int32  max_page_size = 2;
   string page_token = 3;
 }
 ```
@@ -66,7 +66,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 ```proto
 message ListBooksRequest {
   string parent = 1;
-  int32 page_size = 2;
+  int32  max_page_size = 2;
   string page_token = 3;
 
   // (-- api-linter: core::0132::request-unknown-fields=disabled
