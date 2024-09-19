@@ -4,45 +4,14 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-# Recommended by https://github.com/JamesIves/github-pages-deploy-action
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     container: node:20
     steps:
-      - uses: actions/checkout@v3
-      - name: Clone aep.dev
-        uses: actions/checkout@v3
+      - name: Trigger site generator repo
+        uses: peter-evans/repository-dispatch@v3
         with:
-          repository: aep-dev/aep.dev
-          path: './aep-dev'
-      - name: Clone Site Generator
-        uses: actions/checkout@v3
-        with:
+          event-type: publish-event
           repository: aep-dev/site-generator-beta
-          path: './site-generator-beta'
-      - name: Install system dependencies.
-        run: apt-get update && apt-get install -y rsync
-      - name: Create rules folder
-        run: mkdir site-generator-beta/src/content/docs/tooling/linter/rules
-      - name: Install all dependencies.
-        working-directory: ./site-generator-beta
-        run: npm install
-      - name: Generate all static pages.
-        working-directory: ./site-generator-beta
-        run: AEP_LOCATION=../aep-dev AEP_LINTER_LOC=../ npm run generate
-      - name: Build website
-        working-directory: ./site-generator-beta
-        run: npm run build
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: site-generator-beta/dist
-          repository-name: aep-dev/site-generator-beta
-          branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
