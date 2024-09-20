@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"buf.build/go/bufplugin/check"
+	"buf.build/go/bufplugin/descriptor"
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules"
 	"github.com/jhump/protoreflect/desc"
@@ -152,7 +153,7 @@ func addProblem(responseWriter check.ResponseWriter, problem lint.Problem) error
 }
 
 func before(ctx context.Context, request check.Request) (context.Context, check.Request, error) {
-	fileDescriptors, err := nonImportFileDescriptorsForFiles(request.Files())
+	fileDescriptors, err := nonImportFileDescriptorsForFileDescriptors(request.FileDescriptors())
 	if err != nil {
 		return nil, nil, err
 	}
@@ -160,16 +161,16 @@ func before(ctx context.Context, request check.Request) (context.Context, check.
 	return ctx, request, nil
 }
 
-func nonImportFileDescriptorsForFiles(files []check.File) ([]*desc.FileDescriptor, error) {
-	if len(files) == 0 {
+func nonImportFileDescriptorsForFileDescriptors(fileDescriptors []descriptor.FileDescriptor) ([]*desc.FileDescriptor, error) {
+	if len(fileDescriptors) == 0 {
 		return nil, nil
 	}
-	reflectFileDescriptors := make([]protoreflect.FileDescriptor, 0, len(files))
-	for _, file := range files {
-		if file.IsImport() {
+	reflectFileDescriptors := make([]protoreflect.FileDescriptor, 0, len(fileDescriptors))
+	for _, fileDescriptor := range fileDescriptors {
+		if fileDescriptor.IsImport() {
 			continue
 		}
-		reflectFileDescriptors = append(reflectFileDescriptors, file.FileDescriptor())
+		reflectFileDescriptors = append(reflectFileDescriptors, fileDescriptor.ProtoreflectFileDescriptor())
 	}
 	return desc.WrapFiles(reflectFileDescriptors)
 }
