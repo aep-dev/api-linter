@@ -7,7 +7,7 @@ toolchain go1.23.1
 require (
 	bitbucket.org/creachadair/stringset v0.0.14
 	buf.build/gen/go/aep/api/protocolbuffers/go v1.34.2-20240717204542-6b47820e6610.2
-	buf.build/go/bufplugin v0.2.0
+	buf.build/go/bufplugin v0.3.0
 	cloud.google.com/go/longrunning v0.6.1
 	github.com/bmatcuk/doublestar/v4 v4.6.1
 	github.com/gertd/go-pluralize v0.2.1
@@ -24,7 +24,7 @@ require (
 )
 
 require (
-	buf.build/gen/go/bufbuild/bufplugin/protocolbuffers/go v1.34.2-20240904181154-a0be11449112.2 // indirect
+	buf.build/gen/go/bufbuild/bufplugin/protocolbuffers/go v1.34.2-20240920185553-cf97df2825f6.2 // indirect
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.2-20240717164558-a6c49f84cc0f.2 // indirect
 	buf.build/gen/go/pluginrpc/pluginrpc/protocolbuffers/go v1.34.2-20240828222655-5345c0a56177.2 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.1 // indirect
