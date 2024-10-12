@@ -10,7 +10,7 @@ BIN := .tmp/bin
 export PATH := $(abspath $(BIN)):$(PATH)
 export GOBIN := $(abspath $(BIN))
 
-GO_MOD_GOTOOLCHAIN := go1.23.1
+GO_MOD_GOTOOLCHAIN := go1.23.2
 GOLANGCI_LINT_VERSION := v1.60.3
 # https://github.com/golangci/golangci-lint/issues/4837
 GOLANGCI_LINT_GOTOOLCHAIN := $(GO_MOD_GOTOOLCHAIN)
