@@ -52,7 +52,7 @@ func isResourceMessage(m *desc.MessageDescriptor) bool {
 	// If the parent of this message is a message, it is nested and shoudn't
 	// be considered a resource, even if it has a name field.
 	_, nested := m.GetParent().(*desc.MessageDescriptor)
-	return m.FindFieldByName("name") != nil && !strings.HasSuffix(m.GetName(), "Request") &&
+	return m.FindFieldByName("path") != nil && !strings.HasSuffix(m.GetName(), "Request") &&
 		!strings.HasSuffix(m.GetName(), "Response") && !nested
 }
 

@@ -30,7 +30,7 @@ func TestResourceAnnotation(t *testing.T) {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 				};
-				string name = 1;
+				string path = 1;
 			}
 		`)
 		if diff := (testutils.Problems{}).Diff(resourceAnnotation.Lint(f)); diff != "" {
@@ -42,7 +42,7 @@ func TestResourceAnnotation(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
 			message Foo {
 				message Bar {
-					string name = 1;
+					string path = 1;
 				}
 				Bar bar = 1;
 			}
@@ -61,9 +61,9 @@ func TestResourceAnnotation(t *testing.T) {
 		problems    testutils.Problems
 	}{
 		{"ValidNoNameField", "Book", "title", testutils.Problems{}},
-		{"ValidRequestMessage", "GetBookRequest", "name", testutils.Problems{}},
-		{"ValidResponseMessage", "GetBookResponse", "name", testutils.Problems{}},
-		{"Invalid", "Book", "name", testutils.Problems{{Message: "google.api.resource"}}},
+		{"ValidRequestMessage", "GetBookRequest", "path", testutils.Problems{}},
+		{"ValidResponseMessage", "GetBookResponse", "path", testutils.Problems{}},
+		{"Invalid", "Book", "path", testutils.Problems{{Message: "google.api.resource"}}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
