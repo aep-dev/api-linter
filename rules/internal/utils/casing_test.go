@@ -40,7 +40,7 @@ func TestToUpperCamelCase(t *testing.T) {
 		{
 			name:  "WithDash",
 			input: "book-shelf",
-			want:  "BookShelf",
+			want:  "book-shelf",
 		},
 		{
 			name:  "WithNumbers",

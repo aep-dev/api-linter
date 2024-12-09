@@ -27,7 +27,7 @@ func TestResourcePlural(t *testing.T) {
 	}{
 		{
 			"Valid",
-			`plural: "bookShelves"`,
+			`plural: "book-shelves"`,
 			nil,
 		},
 		{
