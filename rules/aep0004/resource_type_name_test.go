@@ -26,11 +26,12 @@ func TestResourceTypeName(t *testing.T) {
 		TypeName string
 		problems testutils.Problems
 	}{
-		{"Valid", "library.googleapis.com/Book", testutils.Problems{}},
+		{"Valid", "library.googleapis.com/book", testutils.Problems{}},
 		{"InvalidTooMany", "library.googleapis.com/shelf/Book", testutils.Problems{{Message: "{Service Name}/{Type}"}}},
 		{"InvalidNotEnough", "library.googleapis.com~Book", testutils.Problems{{Message: "{Service Name}/{Type}"}}},
 		{"InvalidWithUnicode", "library.googleapis.com/BoØkLibre", testutils.Problems{{Message: `Type must be UpperCamelCase`}}},
 		{"InvalidLowerCamelCase", "library.googleapis.com/bookLoan", testutils.Problems{{Message: `Type must be UpperCamelCase with alphanumeric characters: "BookLoan"`}}},
+		{"ValidLowerCamelCase", "library.googleapis.com/book-loan", testutils.Problems{{Message: `Type must be UpperCamelCase with alphanumeric characters: "BookLoan"`}}},
 		{"InvalidTypeNotAlphaNumeric", "library.googleapis.com/Book.:3", testutils.Problems{{Message: `Type must be UpperCamelCase with alphanumeric characters: "Book3"`}}},
 		{"InvalidTypeContainsEmoji", "library.googleapis.com/Book♥️", testutils.Problems{{Message: `Type must be UpperCamelCase with alphanumeric characters: "Book"`}}},
 		{"InvalidTypeContainsDashes", "library.googleapis.com/Book-Shelf️", testutils.Problems{{Message: `Type must be UpperCamelCase with alphanumeric characters: "BookShelf"`}}},

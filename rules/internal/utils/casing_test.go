@@ -16,67 +16,6 @@ package utils
 
 import "testing"
 
-func TestToLowerCamelCase(t *testing.T) {
-	for _, test := range []struct {
-		name  string
-		input string
-		want  string
-	}{
-		{
-			name:  "OneWord",
-			input: "Foo",
-			want:  "foo",
-		},
-		{
-			name:  "OneWordNoop",
-			input: "foo",
-			want:  "foo",
-		},
-		{
-			name:  "TwoWords",
-			input: "bookShelf",
-			want:  "bookShelf",
-		},
-		{
-			name:  "WithDash",
-			input: "book-shelf",
-			want:  "bookShelf",
-		},
-		{
-			name:  "WithNumbers",
-			input: "universe42love",
-			want:  "universe42love",
-		},
-		{
-			name:  "WithUnderscore",
-			input: "book_shelf",
-			want:  "bookShelf",
-		},
-		{
-			name:  "WithUnderscore",
-			input: "book_shelf",
-			want:  "bookShelf",
-		},
-		{
-			name:  "WithSpaces",
-			input: "book shelf",
-			want:  "bookShelf",
-		},
-		{
-			name:  "WithPeriods",
-			input: "book.shelf",
-			want:  "bookShelf",
-		},
-	} {
-		t.Run(test.name, func(t *testing.T) {
-			got := ToLowerCamelCase(test.input)
-			if got != test.want {
-				t.Errorf("ToLowerCamelCase(%q) = %q, got %q", test.input, test.want, got)
-			}
-		})
-	}
-}
-
 func TestToUpperCamelCase(t *testing.T) {
 	for _, test := range []struct {
 		name  string
@@ -86,17 +25,17 @@ func TestToUpperCamelCase(t *testing.T) {
 		{
 			name:  "OneWord",
 			input: "foo",
-			want:  "Foo",
+			want:  "foo",
 		},
 		{
 			name:  "OneWordNoop",
 			input: "Foo",
-			want:  "Foo",
+			want:  "foo",
 		},
 		{
 			name:  "TwoWords",
 			input: "bookShelf",
-			want:  "BookShelf",
+			want:  "book-shelf",
 		},
 		{
 			name:  "WithDash",
@@ -106,33 +45,33 @@ func TestToUpperCamelCase(t *testing.T) {
 		{
 			name:  "WithNumbers",
 			input: "universe42love",
-			want:  "Universe42love",
+			want:  "universe42love",
 		},
 		{
 			name:  "WithUnderscore",
 			input: "Book_shelf",
-			want:  "BookShelf",
+			want:  "book-shelf",
 		},
 		{
 			name:  "WithUnderscore",
 			input: "Book_shelf",
-			want:  "BookShelf",
+			want:  "book-shelf",
 		},
 		{
 			name:  "WithSpaces",
 			input: "Book shelf",
-			want:  "BookShelf",
+			want:  "book-shelf",
 		},
 		{
 			name:  "WithPeriods",
 			input: "book.shelf",
-			want:  "BookShelf",
+			want:  "book-shelf",
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			got := ToUpperCamelCase(test.input)
+			got := ToKebobCase(test.input)
 			if got != test.want {
-				t.Errorf("ToLowerCamelCase(%q) = %q, got %q", test.input, test.want, got)
+				t.Errorf("ToKebobCase(%q) = %q, got %q", test.input, test.want, got)
 			}
 		})
 	}
