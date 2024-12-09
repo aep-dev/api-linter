@@ -25,7 +25,7 @@ import (
 	"github.com/jhump/protoreflect/desc"
 )
 
-var identifierRegexp = regexp.MustCompile("^{[a-z][_a-z0-9]*[a-z0-9]}$")
+var identifierRegexp = regexp.MustCompile("^{[a-z][-_a-z0-9]*[a-z0-9]}$")
 
 var resourceNameComponentsAlternate = &lint.MessageRule{
 	Name:     lint.NewRuleName(4, "resource-name-components-alternate"),

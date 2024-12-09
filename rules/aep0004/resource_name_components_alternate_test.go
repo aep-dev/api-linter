@@ -27,6 +27,7 @@ func TestResourceNameComponentsAlternate(t *testing.T) {
 		problems testutils.Problems
 	}{
 		{"Valid", "author/{author}/books/{book}", testutils.Problems{}},
+		{"Valid", "publishers/{publisher}/books/{book}/editions/{book-edition}", testutils.Problems{}},
 		{"ValidSingleton", "user/{user}/config", testutils.Problems{}},
 		{"InvalidDoubleCollection", "author/books/{book}", testutils.Problems{{Message: "must alternate"}}},
 		{"InvalidDoubleIdentifier", "books/{author}/{book}", testutils.Problems{{Message: "must alternate"}}},
