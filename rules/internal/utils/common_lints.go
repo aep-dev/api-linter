@@ -194,6 +194,7 @@ func LintMethodHasMatchingResponseName(m *desc.MethodDescriptor) []lint.Problem 
 
 // LintHTTPURIHasParentVariable returns a problem if any of the given method's HTTP rules do not
 // have a parent variable in the URI.
+// This is only required if the resource is not top-level.
 func LintHTTPURIHasParentVariable(m *desc.MethodDescriptor) []lint.Problem {
 	return LintHTTPURIHasVariable(m, "parent")
 }

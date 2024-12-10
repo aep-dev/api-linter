@@ -25,7 +25,6 @@ func AddRules(r lint.RuleRegistry) error {
 		132,
 		httpBody,
 		httpMethod,
-		httpURIParent,
 		methodSignature,
 		requestFieldTypes,
 		requestMessageName,
