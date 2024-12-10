@@ -31,7 +31,7 @@ var resourcePlural = &lint.MessageRule{
 		r := utils.GetResource(m)
 		l := locations.MessageResource(m)
 		p := r.GetPlural()
-		pLower := utils.ToLowerCamelCase(p)
+		pLower := utils.ToKebabCase(p)
 		if p == "" {
 			return []lint.Problem{{
 				Message:    "Resources should declare plural.",

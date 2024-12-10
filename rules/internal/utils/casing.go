@@ -14,41 +14,22 @@
 
 package utils
 
-// ToUpperCamelCase returns the UpperCamelCase of a string, including removing
-// delimiters (_,-,., ) and using them to denote a new word.
-func ToUpperCamelCase(s string) string {
-	return toCamelCase(s, true, false)
-}
-
-// ToLowerCamelCase returns the lowerCamelCase of a string, including removing
-// delimiters (_,-,., ) and using them to denote a new word.
-func ToLowerCamelCase(s string) string {
-	return toCamelCase(s, false, true)
-}
-
-func toCamelCase(s string, makeNextUpper bool, makeNextLower bool) string {
+// ToKebabCase returns the kebob-case of a word (book-edition).
+func ToKebabCase(s string) string {
 	asLower := make([]rune, 0, len(s))
-	for _, r := range s {
-		if isLower(r) {
-			if makeNextUpper {
-				r = r & '_' // make uppercase
-			}
-			asLower = append(asLower, r)
-		} else if isUpper(r) {
-			if makeNextLower {
-				r = r | ' ' // make lowercase
-			}
-			asLower = append(asLower, r)
-		} else if isNumber(r) {
-			asLower = append(asLower, r)
-		}
-		makeNextUpper = false
-		makeNextLower = false
+	for i, r := range s {
+		if isUpper(r) {
+			r = r | ' ' // make lowercase
 
-		if r == '-' || r == '_' || r == ' ' || r == '.' {
-			// handle snake case scenarios, which generally indicates
-			// a delimited word.
-			makeNextUpper = true
+			// Only insert hypen after first word.
+			if i != 0 {
+				asLower = append(asLower, '-')
+			}
+			asLower = append(asLower, r)
+		} else if r == '-' || r == '_' || r == ' ' || r == '.' {
+			asLower = append(asLower, '-')
+		} else {
+			asLower = append(asLower, r)
 		}
 	}
 	return string(asLower)
@@ -56,12 +37,4 @@ func toCamelCase(s string, makeNextUpper bool, makeNextLower bool) string {
 
 func isUpper(r rune) bool {
 	return ('A' <= r && r <= 'Z')
-}
-
-func isNumber(r rune) bool {
-	return ('0' <= r && r <= '9')
-}
-
-func isLower(r rune) bool {
-	return ('a' <= r && r <= 'z')
 }
