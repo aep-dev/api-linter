@@ -32,7 +32,7 @@ var resourceSingular = &lint.MessageRule{
 		l := locations.MessageResource(m)
 		s := r.GetSingular()
 		_, typeName, ok := utils.SplitResourceTypeName(r.GetType())
-		lowerTypeName := utils.ToKebobCase(typeName)
+		lowerTypeName := utils.ToKebabCase(typeName)
 		if s == "" {
 			return []lint.Problem{{
 				Message:    fmt.Sprintf("Resources should declare singular: %q", lowerTypeName),

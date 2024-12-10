@@ -14,8 +14,8 @@
 
 package utils
 
-// ToKebobCase returns the kebob-case of a word (book-edition).
-func ToKebobCase(s string) string {
+// ToKebabCase returns the kebob-case of a word (book-edition).
+func ToKebabCase(s string) string {
 	asLower := make([]rune, 0, len(s))
 	for i, r := range s {
 		if isUpper(r) {

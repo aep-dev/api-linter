@@ -69,9 +69,9 @@ func TestToUpperCamelCase(t *testing.T) {
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			got := ToKebobCase(test.input)
+			got := ToKebabCase(test.input)
 			if got != test.want {
-				t.Errorf("ToKebobCase(%q) = %q, got %q", test.input, test.want, got)
+				t.Errorf("ToKebabCase(%q) = %q, got %q", test.input, test.want, got)
 			}
 		})
 	}
