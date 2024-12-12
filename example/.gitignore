@@ -1,0 +1,5 @@
+# Buf
+buf.lock
+
+# Generated code
+gen/
