@@ -1,15 +1,17 @@
 ---
 ---
 
-# Google API Linter
+# AEP API Linter
 
 ![ci](https://github.com/aep-dev/api-linter/workflows/ci/badge.svg)
 ![latest release](https://img.shields.io/github/v/release/googleapis/api-linter)
 ![go version](https://img.shields.io/github/go-mod/go-version/googleapis/api-linter)
 
-The API linter provides real-time checks for compliance with many of Google's
-API standards, documented using [API Improvement Proposals][]. It operates on
-API surfaces defined in [protocol buffers][].
+The API linter provides real-time checks for compliance with many of the API
+standards, documented using [API Enhancement Proposals][]. It operates on API
+surfaces defined in [protocol buffers][]. For APIs defined in
+[OpenAPI specification][] an equivalent [OpenAPI specification linter][] is
+available.
 
 It identifies common mistakes and inconsistencies in API surfaces:
 
@@ -42,9 +44,6 @@ go install github.com/aep-dev/api-linter/cmd/api-linter@latest
 It will install `api-linter` into your local Go binary directory
 `$HOME/go/bin`. Ensure that your operating system's `PATH` contains the Go
 binary directory.
-
-**Note:** For working in Google-internal source control, you should use the
-released binary `/google/bin/releases/api-linter/api-linter`.
 
 ## Usage
 
@@ -80,12 +79,51 @@ Usage of api-linter:
       --version                         Print version and exit.
 ```
 
+### Usage with Buf
+
+[Buf][] builds tooling to make schema-driven, Protobuf-based API development
+reliable and user-friendly for service producers and consumers.
+This includes the `buf lint` command, which can be used to lint Protobuf files.
+The API linter can be used as a plugin for `buf lint`.
+
+To install the plugin, run:
+
+```sh
+go install github.com/aep-dev/api-linter/cmd/buf-plugin-aep@latest
+```
+
+It will install `buf-plugin-aep` into your local Go binary directory
+`$HOME/go/bin`. Ensure that your operating system's `PATH` contains the Go
+binary directory.
+
+Then, integrate the following into your `buf.yaml` file:
+
+```yaml
+lint:
+  use:
+    - AEP
+plugins:
+  - plugin: buf-plugin-aep
+```
+
+Now, you can run `buf lint` to lint your Protobuf files against the AEP rules.
+
+An example of building and linting with Buf can be found in the
+[example](./example) directory.
+
+More information on using Buf to lint Protobuf files can be found in the
+[Buf lint documentation][].
+
 ## License
 
 This software is made available under the [Apache 2.0][] license.
 
 [apache 2.0]: https://www.apache.org/licenses/LICENSE-2.0
-[api improvement proposals]: https://aep.dev/
+[API Enhancement Proposals]: https://aep.dev/
 [configuration]: ./configuration.md
 [protocol buffers]: https://developers.google.com/protocol-buffers
 [rule documentation]: ./rules/index.md
+[OpenAPI specification]: https://www.openapis.org/
+[OpenAPI specification linter]: https://github.com/aep-dev/aep-openapi-linter
+[Buf]: https://buf.build/
+[Buf lint documentation]: https://buf.build/docs/lint/overview/
