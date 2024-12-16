@@ -14,6 +14,3 @@ docs/.jekyll-metadata
 .ruby-version
 
 /.tmp/
-
-# asdf
-.tool-versions
