@@ -1,13 +1,15 @@
-# Google API Linter
+# AEP Protobuf API Linter
 
 [![ci](https://github.com/aep-dev/api-linter/actions/workflows/ci.yaml/badge.svg)](https://github.com/aep-dev/api-linter/actions/workflows/ci.yaml)
 ![latest release](https://img.shields.io/github/v/release/aep-dev/api-linter)
 ![go version](https://img.shields.io/github/go-mod/go-version/aep-dev/api-linter)
 
 The API linter provides real-time checks for compliance with many of the API
-standards, documented using [API Enhancement Proposals][]. It operates on API
-surfaces defined in [protocol buffers][]. For APIs defined in 
-[OpenAPI specification][] an equivalent [OpenAPI specification linter][] is
+standards, documented using [API Enhancement Proposals](https://aep.dev). It operates on API
+surfaces defined in [protocol buffers][]. 
+
+For APIs using the 
+[OpenAPI Specification][], an equivalent [OpenAPI linter](https://github.com/aep-dev/aep-openapi-linter) is
 available.
 
 It identifies common mistakes and inconsistencies in API surfaces:
