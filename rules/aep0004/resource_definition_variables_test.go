@@ -27,10 +27,8 @@ func TestResourceDefinitionVariables(t *testing.T) {
 		problems testutils.Problems
 	}{
 		{"Valid", "publishers/{publisher}/electronicBooks/{electronic_book}", testutils.Problems{}},
+		{"ValidWithIdSuffix", "publishers/{publisher_id}/electronicBooks/{electronic_book_id}", testutils.Problems{}},
 		{"CamelCase", "publishers/{publisher}/electronicBooks/{electronicBook}", testutils.Problems{{
-			Message: "publishers/{publisher}/electronicBooks/{electronic_book}",
-		}}},
-		{"ID", "publishers/{publisher}/electronicBooks/{electronic_book_id}", testutils.Problems{{
 			Message: "publishers/{publisher}/electronicBooks/{electronic_book}",
 		}}},
 	} {

@@ -45,6 +45,10 @@ var resourceCollectionIdentifiers = &lint.MessageRule{
 
 			segs := strings.Split(p, "/")
 			for _, seg := range segs {
+				// Skip variable segments (e.g., {store_id}) as they can contain underscores
+				if strings.HasPrefix(seg, "{") && strings.HasSuffix(seg, "}") {
+					continue
+				}
 				if HasUpper(seg) || strings.Contains(seg, "_") {
 					problems = append(problems, lint.Problem{
 						Message:    "Resource patterns must use kebab-case for collection identifiers.",

@@ -27,6 +27,7 @@ func TestResourceCollectionIdentifiers(t *testing.T) {
 		problems testutils.Problems
 	}{
 		{"Valid", "author/{author}/books/{book}", testutils.Problems{}},
+		{"ValidWithIdSuffix", "stores/{store_id}/items/{item_id}", testutils.Problems{}},
 		{"InvalidUpperCase", "author/{author}/Books/{book}", testutils.Problems{{Message: "kebab-case"}}},
 		{"InvalidStartsWithSlash", "/author/{author}/Books/{book}", testutils.Problems{{Message: "lowercase letter"}}},
 		{"InvalidStartsWithCapitalLetter", "Author/{author}/Books/{book}", testutils.Problems{{Message: "lowercase letter"}}},

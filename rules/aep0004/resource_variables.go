@@ -54,16 +54,6 @@ func lintResourceVariables(resource *annotations.ResourceDescriptor, desc desc.D
 					Location:   loc,
 				}}
 			}
-			if strings.HasSuffix(variable, "_id") {
-				return []lint.Problem{{
-					Message: fmt.Sprintf(
-						"Variable names should omit the `_id` suffix, such as %q.",
-						getDesiredPattern(pattern),
-					),
-					Descriptor: desc,
-					Location:   loc,
-				}}
-			}
 		}
 	}
 	return nil
