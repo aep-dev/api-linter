@@ -1,4 +1,4 @@
-# AEP Protobuf API Linter
+# AEP Protobuf Linter
 
 [![ci](https://github.com/aep-dev/api-linter/actions/workflows/ci.yaml/badge.svg)](https://github.com/aep-dev/api-linter/actions/workflows/ci.yaml)
 ![latest release](https://img.shields.io/github/v/release/aep-dev/api-linter)
