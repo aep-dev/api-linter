@@ -45,6 +45,18 @@ var resourceCollectionIdentifiers = &lint.MessageRule{
 
 			segs := strings.Split(p, "/")
 			for _, seg := range segs {
+				if strings.HasPrefix(seg, "{") && strings.HasSuffix(seg, "}") {
+					// Variable segments can contain underscores, but must be lowercase
+					varName := seg[1 : len(seg)-1] // Remove { and }
+					if HasUpper(varName) {
+						problems = append(problems, lint.Problem{
+							Message:    "Resource pattern variables must be lowercase.",
+							Descriptor: m,
+							Location:   locations.MessageResource(m),
+						})
+					}
+					continue
+				}
 				if HasUpper(seg) || strings.Contains(seg, "_") {
 					problems = append(problems, lint.Problem{
 						Message:    "Resource patterns must use kebab-case for collection identifiers.",

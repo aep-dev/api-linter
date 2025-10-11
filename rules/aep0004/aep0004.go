@@ -91,7 +91,7 @@ func getDesiredPattern(pattern string) string {
 	for _, token := range strings.Split(pattern, "/") {
 		if strings.HasPrefix(token, "{") && strings.HasSuffix(token, "}") {
 			varname := token[1 : len(token)-1]
-			want = append(want, fmt.Sprintf("{%s}", strings.TrimSuffix(strcase.SnakeCase(varname), "_id")))
+			want = append(want, fmt.Sprintf("{%s}", strcase.SnakeCase(varname)))
 		} else {
 			want = append(want, strcase.LowerCamelCase(token))
 		}
