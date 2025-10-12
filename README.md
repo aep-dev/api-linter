@@ -1,26 +1,37 @@
-# Google API Linter
+# AEP Protobuf Linter
 
 [![ci](https://github.com/aep-dev/api-linter/actions/workflows/ci.yaml/badge.svg)](https://github.com/aep-dev/api-linter/actions/workflows/ci.yaml)
 ![latest release](https://img.shields.io/github/v/release/aep-dev/api-linter)
 ![go version](https://img.shields.io/github/go-mod/go-version/aep-dev/api-linter)
 
 The API linter provides real-time checks for compliance with many of the API
-standards, documented using [API Enhancement Proposals][]. It operates on API
-surfaces defined in [protocol buffers][]. For APIs defined in 
-[OpenAPI specification][] an equivalent [OpenAPI specification linter][] is
+standards, documented using [API Enhancement Proposals](https://aep.dev). It operates on API
+surfaces defined in [protocol buffers][]. 
+
+For APIs using the 
+[OpenAPI Specification][], an equivalent [OpenAPI linter](https://github.com/aep-dev/aep-openapi-linter) is
 available.
 
 It identifies common mistakes and inconsistencies in API surfaces:
 
 ```proto
-// Incorrect.
+// Incorrect: Do not use the resource type as the field name here.
 message GetBookRequest {
-  // This is wrong; it should be spelled `name`.
+  // Field names for resource identifiers in Get requests must be `name`.
+  // Tools and standards expect this for consistency and interoperability.
   string book = 1;
 }
 ```
-
 When able, it also offers a suggestion for the correct fix.
+```proto
+// Correct: This version follows AEP-148, which requires resource identifiers in Get requests to use the field name `name`.
+// See https://aep.dev/148/ for details.
+message GetBookRequest {
+  // The name of the book to retrieve.
+  // Format: publishers/{publisher}/books/{book}
+  string name = 1;
+}
+```
 
 [_Read more ≫_](docs/index.md)
 
