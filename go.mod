@@ -1,17 +1,17 @@
 module github.com/aep-dev/api-linter
 
-go 1.22.0
+go 1.23
 
 toolchain go1.23.2
 
 require (
 	bitbucket.org/creachadair/stringset v0.0.14
-	buf.build/gen/go/aep/api/protocolbuffers/go v1.35.1-20240717204542-6b47820e6610.1
+	buf.build/gen/go/aep/api/protocolbuffers/go v1.36.10-20251011185002-1454930c8f99.1
 	buf.build/go/bufplugin v0.5.0
 	cloud.google.com/go/longrunning v0.6.1
 	github.com/bmatcuk/doublestar/v4 v4.6.1
 	github.com/gertd/go-pluralize v0.2.1
-	github.com/google/go-cmp v0.6.0
+	github.com/google/go-cmp v0.7.0
 	github.com/jhump/protoreflect v1.17.0
 	github.com/lithammer/dedent v1.1.0
 	github.com/olekukonko/tablewriter v0.0.5
@@ -19,13 +19,13 @@ require (
 	github.com/stoewer/go-strcase v1.3.0
 	google.golang.org/genproto v0.0.0-20241007155032-5fefd90f89a9
 	google.golang.org/genproto/googleapis/api v0.0.0-20241007155032-5fefd90f89a9
-	google.golang.org/protobuf v1.35.1
+	google.golang.org/protobuf v1.36.10
 	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
 	buf.build/gen/go/bufbuild/bufplugin/protocolbuffers/go v1.35.1-20240928190436-5e8abcfd7a7e.1 // indirect
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.35.1-20240920164238-5a7b106cbb87.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20240221180331-f05a6f4403ce.1 // indirect
 	buf.build/gen/go/pluginrpc/pluginrpc/protocolbuffers/go v1.35.1-20241007202033-cf42259fcbfc.1 // indirect
 	buf.build/go/spdx v0.2.0 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.1 // indirect
