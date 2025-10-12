@@ -36,13 +36,13 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"ValidOptionalReadMask",
-			"google.protobuf.FieldMask read_mask = 2 [(google.api.field_behavior) = OPTIONAL];",
+			"google.protobuf.FieldMask read_mask = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OPTIONAL];",
 			"read_mask",
 			nil,
 		},
 		{
 			"InvalidRequiredReadMask",
-			"google.protobuf.FieldMask read_mask = 2 [(google.api.field_behavior) = REQUIRED];",
+			"google.protobuf.FieldMask read_mask = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"read_mask",
 			testutils.Problems{
 				{Message: `Get RPCs must only require fields explicitly described in AEPs, not "read_mask"`},
@@ -50,7 +50,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"InvalidRequiredUnknownField",
-			"bool create_iam = 3 [(google.api.field_behavior) = REQUIRED];",
+			"bool create_iam = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"create_iam",
 			testutils.Problems{
 				{Message: `Get RPCs must only require fields explicitly described in AEPs, not "create_iam"`},
@@ -60,7 +60,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
-				import "google/api/field_behavior.proto";
+				import "aep/api/field_info.proto";
 				import "google/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 
@@ -76,7 +76,7 @@ func TestRequiredFieldTests(t *testing.T) {
 					// The path of the book to retrieve.
 					// Format: publishers/{publisher}/books/{book}
 					string path = 1 [
-					    (google.api.field_behavior) = REQUIRED,
+					    (aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED,
 						(google.api.resource_reference) = {
 							type: "library.googleapis.com/Book"
 						}

@@ -27,13 +27,13 @@ func TestRequestNameBehavior(t *testing.T) {
 		FieldBehavior string
 		problems      testutils.Problems
 	}{
-		{"Valid", "path", " [(google.api.field_behavior) = REQUIRED]", testutils.Problems{}},
-		{"Missing", "path", "", testutils.Problems{{Message: "(google.api.field_behavior) = REQUIRED"}}},
+		{"Valid", "path", " [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED]", testutils.Problems{}},
+		{"Missing", "path", "", testutils.Problems{{Message: "(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED"}}},
 		{"Irrelevant", "something_else", "", testutils.Problems{}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/field_behavior.proto";
+				import "aep/api/field_info.proto";
 				message GetBookRequest {
 					string {{.FieldName}} = 1{{.FieldBehavior}};
 				}

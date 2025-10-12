@@ -3,7 +3,7 @@ rule:
   aep: 162
   name: [core, '0162', delete-revision-request-name-behavior]
   summary: |
-    Delete Revision requests should annotate the `name` field with `google.api.field_behavior`.
+    Delete Revision requests should annotate the `name` field with `aep.api.field_behavior`.
 permalink: /162/delete-revision-request-name-behavior
 redirect_from:
   - /0162/delete-revision-request-name-behavior
@@ -12,13 +12,13 @@ redirect_from:
 # Delete Revision requests: Name field behavior
 
 This rule enforces that all Delete Revision requests have
-`google.api.field_behavior` set to `REQUIRED` on their `string name` field, as
+`aep.api.field_behavior` set to `REQUIRED` on their `string name` field, as
 mandated in [AEP-162][].
 
 ## Details
 
 This rule looks at any message matching `Delete*RevisionRequest` and complains if the
-`name` field does not have a `google.api.field_behavior` annotation with a
+`name` field does not have a `aep.api.field_behavior` annotation with a
 value of `REQUIRED`.
 
 ## Examples
@@ -28,7 +28,7 @@ value of `REQUIRED`.
 ```proto
 // Incorrect.
 message DeleteBookRevisionRequest {
-  // The `google.api.field_behavior` annotation should also be included.
+  // The `aep.api.field_behavior` annotation should also be included.
   string name = 1 [
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
@@ -41,7 +41,7 @@ message DeleteBookRevisionRequest {
 // Correct.
 message DeleteBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }

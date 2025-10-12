@@ -27,7 +27,7 @@ field, and complains if the field is not a singular `google.protobuf.FieldMask`.
 message GetBookRequest {
   string path = 1 [
     (google.api.resource_reference).type = "library.googleapis.com/Book",
-    (google.api.field_behavior) = REQUIRED
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 
   // Field type should be `google.protobuf.FieldMask`.
@@ -42,7 +42,7 @@ message GetBookRequest {
 message GetBookRequest {
   string path = 1 [
     (google.api.resource_reference).type = "library.googleapis.com/Book",
-    (google.api.field_behavior) = REQUIRED
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 
   google.protobuf.FieldMask read_mask = 2;
@@ -58,7 +58,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message GetBookRequest {
   string path = 1 [
     (google.api.resource_reference).type = "library.googleapis.com/Book",
-    (google.api.field_behavior) = REQUIRED
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 
   // (-- api-linter: core::0157::request-read-mask-field=disabled

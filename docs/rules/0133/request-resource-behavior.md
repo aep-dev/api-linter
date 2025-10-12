@@ -3,7 +3,7 @@ rule:
   aep: 133
   name: [core, '0133', request-resource-behavior]
   summary: |
-    Create RPCs should annotate the resource field with `google.api.field_behavior`.
+    Create RPCs should annotate the resource field with `aep.api.field_behavior`.
 permalink: /133/request-resource-behavior
 redirect_from:
   - /0133/request-resource-behavior
@@ -12,13 +12,13 @@ redirect_from:
 # Create methods: Field behavior
 
 This rule enforces that all `Create` standard methods have
-`google.api.field_behavior` set to `REQUIRED` on the field representing the
+`aep.api.field_behavior` set to `REQUIRED` on the field representing the
 resource, as mandated in [AEP-133][].
 
 ## Details
 
 This rule looks at any message matching `Create*Request` and complains if the
-resource field does not have a `google.api.field_behavior` annotation with a
+resource field does not have a `aep.api.field_behavior` annotation with a
 value of `REQUIRED`.
 
 ## Examples
@@ -29,10 +29,10 @@ value of `REQUIRED`.
 // Incorrect.
 message CreateBooksRequest {
   string parent = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Publisher"
   ];
-  Book book = 2;  // Should also have (google.api.field_behavior) = REQUIRED.
+  Book book = 2;  // Should also have (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED.
 }
 ```
 
@@ -42,10 +42,10 @@ message CreateBooksRequest {
 // Correct.
 message CreateBooksRequest {
   string parent = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Publisher"
   ];
-  Book book = 2 [(google.api.field_behavior) = REQUIRED];
+  Book book = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -57,7 +57,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 ```proto
 message CreateBooksRequest {
   string parent = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Publisher"
   ];
 

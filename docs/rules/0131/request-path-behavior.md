@@ -3,7 +3,7 @@ rule:
   aep: 131
   name: [core, '0131', request-path-behavior]
   summary: |
-    Get RPCs should annotate the `path` field with `google.api.field_behavior`.
+    Get RPCs should annotate the `path` field with `aep.api.field_behavior`.
 permalink: /131/request-path-behavior
 redirect_from:
   - /0131/request-path-behavior
@@ -12,13 +12,13 @@ redirect_from:
 # Get methods: Field behavior
 
 This rule enforces that all `Get` standard methods have
-`google.api.field_behavior` set to `REQUIRED` on their `string path` field, as
+`aep.api.field_behavior` set to `REQUIRED` on their `string path` field, as
 mandated in [AEP-131][].
 
 ## Details
 
 This rule looks at any message matching `Get*Request` and complains if the
-`path` field does not have a `google.api.field_behavior` annotation with a
+`path` field does not have a `aep.api.field_behavior` annotation with a
 value of `REQUIRED`.
 
 ## Examples
@@ -28,7 +28,7 @@ value of `REQUIRED`.
 ```proto
 // Incorrect.
 message GetBookRequest {
-  // The `google.api.field_behavior` annotation should also be included.
+  // The `aep.api.field_behavior` annotation should also be included.
   string path = 1 [(google.api.resource_reference) = {
     type: "library.googleapis.com/Book"
   }];
@@ -41,7 +41,7 @@ message GetBookRequest {
 // Correct.
 message GetBookRequest {
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }

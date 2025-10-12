@@ -22,7 +22,7 @@ import (
 
 func TestFieldBehavior(t *testing.T) {
 	const messageOptsResource = `option (google.api.resource).type = "library.googleapis.com/Book";`
-	const fieldOptsOutputOnly = `[(google.api.field_behavior) = OUTPUT_ONLY]`
+	const fieldOptsOutputOnly = `[(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY]`
 	missingOutputOnly := testutils.Problems{{Message: "OUTPUT_ONLY"}}
 
 	for _, test := range []struct {
@@ -45,7 +45,7 @@ func TestFieldBehavior(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/field_behavior.proto";
+				import "aep/api/field_info.proto";
 				import "google/api/resource.proto";
 				import "google/protobuf/timestamp.proto";
 				message Book {

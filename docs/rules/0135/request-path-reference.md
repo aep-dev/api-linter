@@ -28,7 +28,7 @@ and complains if it does not have a `google.api.resource_reference` annotation.
 // Incorrect.
 message DeleteBookRequest {
   // The `google.api.resource_reference` annotation should also be included.
-  string path = 1 [(google.api.field_behavior) = REQUIRED];
+  string path = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -38,7 +38,7 @@ message DeleteBookRequest {
 // Correct.
 message DeleteBookRequest {
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }
@@ -53,7 +53,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message DeleteBookRequest {
   // (-- api-linter: core::0135::request-path-reference=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
-  string path = 1 [(google.api.field_behavior) = REQUIRED];
+  string path = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

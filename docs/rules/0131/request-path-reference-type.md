@@ -32,7 +32,7 @@ message GetBookRequest {
   // The `google.api.resource_reference` annotation should be a direct `type`
   // reference.
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).child_type = "library.googleapis.com/Book"
   ];
 }
@@ -44,7 +44,7 @@ message GetBookRequest {
 // Correct.
 message GetBookRequest {
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }
@@ -60,7 +60,7 @@ message GetBookRequest {
   // (-- api-linter: core::0131::request-path-reference-type=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).child_type = "library.googleapis.com/Book"
   ];
 }

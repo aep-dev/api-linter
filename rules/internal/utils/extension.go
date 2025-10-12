@@ -26,12 +26,12 @@ import (
 )
 
 // GetFieldBehavior returns a stringset.Set of FieldBehavior annotations for
-// the given field. It checks both google.api.field_behavior and aep.api.field_info.field_behavior.
+// the given field. It checks both aep.api.field_behavior and aep.api.field_info.field_behavior.
 func GetFieldBehavior(f *desc.FieldDescriptor) stringset.Set {
 	opts := f.GetFieldOptions()
 	answer := stringset.New()
 
-	// Check google.api.field_behavior extension
+	// Check aep.api.field_behavior extension
 	if x := proto.GetExtension(opts, apb.E_FieldBehavior); x != nil {
 		for _, fb := range x.([]apb.FieldBehavior) {
 			answer.Add(fb.String())
@@ -52,7 +52,7 @@ func GetFieldBehavior(f *desc.FieldDescriptor) stringset.Set {
 }
 
 // convertAEPFieldBehaviorToString converts aep.api.FieldBehavior to a string format
-// compatible with google.api.FieldBehavior strings.
+// compatible with aep.api.FieldBehavior strings.
 func convertAEPFieldBehaviorToString(fb aepapi.FieldBehavior) string {
 	switch fb {
 	case aepapi.FieldBehavior_FIELD_BEHAVIOR_OPTIONAL:

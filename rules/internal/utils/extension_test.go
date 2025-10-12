@@ -26,14 +26,14 @@ import (
 
 func TestGetFieldBehavior(t *testing.T) {
 	fd := testutils.ParseProto3String(t, `
-		import "google/api/field_behavior.proto";
+		import "aep/api/field_info.proto";
 
 		message Book {
 			string name = 1 [
-				(google.api.field_behavior) = IMMUTABLE,
-				(google.api.field_behavior) = OUTPUT_ONLY];
+				(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_IMMUTABLE,
+				(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY];
 
-			string title = 2 [(google.api.field_behavior) = REQUIRED];
+			string title = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 
 			string summary = 3;
 		}

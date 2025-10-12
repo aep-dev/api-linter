@@ -3,7 +3,7 @@ rule:
   aep: 135
   name: [core, '0135', request-path-behavior]
   summary: |
-    Delete RPCs should annotate the `path` field with `google.api.field_behavior`.
+    Delete RPCs should annotate the `path` field with `aep.api.field_behavior`.
 permalink: /135/request-path-behavior
 redirect_from:
   - /0135/request-path-behavior
@@ -12,13 +12,13 @@ redirect_from:
 # Delete methods: Field behavior
 
 This rule enforces that all `Delete` standard methods have
-`google.api.field_behavior` set to `REQUIRED` on their `string path` field, as
+`aep.api.field_behavior` set to `REQUIRED` on their `string path` field, as
 mandated in [AEP-135][].
 
 ## Details
 
 This rule looks at any message matching `Delete*Request` and complains if the
-`path` field does not have a `google.api.field_behavior` annotation with a
+`path` field does not have a `aep.api.field_behavior` annotation with a
 value of `REQUIRED`.
 
 ## Examples
@@ -28,7 +28,7 @@ value of `REQUIRED`.
 ```proto
 // Incorrect.
 message DeleteBookRequest {
-  // The `google.api.field_behavior` annotation should also be included.
+  // The `aep.api.field_behavior` annotation should also be included.
   string path = 1 [(google.api.resource_reference) = {
     type: "library.googleapis.com/Book"
   }];
@@ -41,7 +41,7 @@ message DeleteBookRequest {
 // Correct.
 message DeleteBookRequest {
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }

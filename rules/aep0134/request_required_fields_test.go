@@ -36,25 +36,25 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"ValidOptionalUpdateMask",
-			"google.protobuf.FieldMask update_mask = 2 [(google.api.field_behavior) = OPTIONAL];",
+			"google.protobuf.FieldMask update_mask = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OPTIONAL];",
 			"update_mask",
 			nil,
 		},
 		{
 			"ValidRequiredUpdateMask",
-			"google.protobuf.FieldMask update_mask = 2 [(google.api.field_behavior) = REQUIRED];",
+			"google.protobuf.FieldMask update_mask = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"update_mask",
 			nil,
 		},
 		{
 			"ValidOptionalValidateOnly",
-			"bool validate_only = 3 [(google.api.field_behavior) = OPTIONAL];",
+			"bool validate_only = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OPTIONAL];",
 			"validate_only",
 			nil,
 		},
 		{
 			"InvalidRequiredValidateOnly",
-			"bool validate_only = 3 [(google.api.field_behavior) = REQUIRED];",
+			"bool validate_only = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"validate_only",
 			testutils.Problems{
 				{Message: `Update RPCs must only require fields explicitly described in AEPs, not "validate_only"`},
@@ -62,7 +62,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"InvalidRequiredUnknownField",
-			"bool create_iam = 3 [(google.api.field_behavior) = REQUIRED];",
+			"bool create_iam = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"create_iam",
 			testutils.Problems{
 				{Message: `Update RPCs must only require fields explicitly described in AEPs, not "create_iam"`},
@@ -70,7 +70,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"InvalidRequiredUnknownMessageField",
-			"Foo foo = 3 [(google.api.field_behavior) = REQUIRED];",
+			"Foo foo = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"foo",
 			testutils.Problems{
 				{Message: `Update RPCs must only require fields explicitly described in AEPs, not "foo"`},
@@ -80,7 +80,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
-				import "google/api/field_behavior.proto";
+				import "aep/api/field_info.proto";
 				import "google/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 
@@ -103,7 +103,7 @@ func TestRequiredFieldTests(t *testing.T) {
 
 				message UpdateBookShelfRequest {
 					BookShelf book_shelf = 1 [
-						(google.api.field_behavior) = REQUIRED
+						(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED
 					];
 					{{.Fields}}
 				}

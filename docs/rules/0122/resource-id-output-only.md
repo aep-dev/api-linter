@@ -30,9 +30,9 @@ message Book {
     pattern: "books/{book}"
   };
   string path = 1;
-  // Should have `(google.api.field_behavior) = OUTPUT_ONLY`.
+  // Should have `(aep.api.field_behavior) = FIELD_BEHAVIOR_OUTPUT_ONLY`.
   string book_id = 2;
-  // Should have `(google.api.field_behavior) = OUTPUT_ONLY`.
+  // Should have `(aep.api.field_behavior) = FIELD_BEHAVIOR_OUTPUT_ONLY`.
   string uid = 3;
 }
 ```
@@ -47,8 +47,8 @@ message Book {
     pattern: "books/{book}"
   };
   string path = 1;
-  string book_id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
-  string uid = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string book_id = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY];
+  string uid = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY];
 }
 ```
 

@@ -32,7 +32,7 @@ message ListBooksRequest {
   // The `google.api.resource_reference` should not reference the resource
   // being listed.
   string parent = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
   int32 page_size = 2;
@@ -46,7 +46,7 @@ message ListBooksRequest {
 // Correct.
 message ListBooksRequest {
   string parent = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).child_type = "library.googleapis.com/Book"
   ];
   int32 page_size = 2;
@@ -64,7 +64,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message ListBooksRequest {
   string parent = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }

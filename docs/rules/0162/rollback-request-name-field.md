@@ -26,7 +26,7 @@ either the `name` field is missing or it has any type other than `string`.
 // Incorrect.
 // Should include a `string name` field.
 message RollbackBookRequest {
-  string revision_id = 2 [(google.api.field_behavior) = REQUIRED];
+  string revision_id = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -35,11 +35,11 @@ message RollbackBookRequest {
 message RollbackBookRequest {
   // Field type should be `string`.
   bytes name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string revision_id = 2 [(google.api.field_behavior) = REQUIRED];
+  string revision_id = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -49,11 +49,11 @@ message RollbackBookRequest {
 // Correct.
 message RollbackBookRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string revision_id = 2 [(google.api.field_behavior) = REQUIRED];
+  string revision_id = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -68,11 +68,11 @@ message RollbackBookRequest {
   // (-- api-linter: core::0162::rollback-request-name-field=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
   bytes name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string revision_id = 2 [(google.api.field_behavior) = REQUIRED];
+  string revision_id = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

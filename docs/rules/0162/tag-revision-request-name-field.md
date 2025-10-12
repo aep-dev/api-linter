@@ -26,7 +26,7 @@ either the `name` field is missing or it has any type other than `string`.
 // Incorrect.
 // Should include a `string name` field.
 message TagBookRevisionRequest {
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -35,11 +35,11 @@ message TagBookRevisionRequest {
 message TagBookRevisionRequest {
   // Field type should be `string`.
   bytes name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -49,11 +49,11 @@ message TagBookRevisionRequest {
 // Correct.
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -68,11 +68,11 @@ message TagBookRevisionRequest {
   // (-- api-linter: core::0162::tag-revision-request-name-field=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
   bytes name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

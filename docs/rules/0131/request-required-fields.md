@@ -30,13 +30,13 @@ message GetBookRequest {
   // The path of the book to retrieve.
   // Format: publishers/{publisher}/books/{book}
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference) = {
       type: "library.googleapis.com/Book"
   }];
 
   // Non-standard required field.
-   google.protobuf.FieldMask read_mask = 2 [(google.api.field_behavior) = REQUIRED];
+   google.protobuf.FieldMask read_mask = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -48,12 +48,12 @@ message GetBookRequest {
   // The path of the book to retrieve.
   // Format: publishers/{publisher}/books/{book}
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference) = {
       type: "library.googleapis.com/Book"
   }];
 
-  google.protobuf.FieldMask read_mask = 2 [(google.api.field_behavior) = OPTIONAL];
+  google.protobuf.FieldMask read_mask = 2 [(aep.api.field_info).field_behavior = OPTIONAL];
 }
 ```
 
@@ -67,7 +67,7 @@ message GetBookRequest {
   // The path of the book to retrieve.
   // Format: publishers/{publisher}/books/{book}
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference) = {
       type: "library.googleapis.com/Book"
   }];
@@ -75,7 +75,7 @@ message GetBookRequest {
   // (-- api-linter: core::0131::request-required-fields=disabled
   //     aep.dev/not-precedent: We really need this field to be required because
   //     reasons. --)
-   google.protobuf.FieldMask read_mask = 2 [(google.api.field_behavior) = REQUIRED];
+   google.protobuf.FieldMask read_mask = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

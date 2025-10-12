@@ -3,7 +3,7 @@ rule:
   aep: 162
   name: [core, '0162', tag-revision-request-tag-behavior]
   summary: |
-    Tag Revision requests should annotate the `tag` field with `google.api.field_behavior`.
+    Tag Revision requests should annotate the `tag` field with `aep.api.field_behavior`.
 permalink: /162/tag-revision-request-tag-behavior
 redirect_from:
   - /0162/tag-revision-request-tag-behavior
@@ -12,13 +12,13 @@ redirect_from:
 # Tag Revision requests: Tag field behavior
 
 This rule enforces that all Tag Revision requests have
-`google.api.field_behavior` set to `REQUIRED` on their `string tag` field, as
+`aep.api.field_behavior` set to `REQUIRED` on their `string tag` field, as
 mandated in [AEP-162][].
 
 ## Details
 
 This rule looks at any message matching `Tag*RevisionRequest` and complains if the
-`tag` field does not have a `google.api.field_behavior` annotation with a
+`tag` field does not have a `aep.api.field_behavior` annotation with a
 value of `REQUIRED`.
 
 ## Examples
@@ -29,11 +29,11 @@ value of `REQUIRED`.
 // Incorrect.
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  // The `google.api.field_behavior` annotation should be included.
+  // The `aep.api.field_behavior` annotation should be included.
   string tag = 2;
 }
 ```
@@ -44,11 +44,11 @@ message TagBookRevisionRequest {
 // Correct.
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -60,7 +60,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 ```proto
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 

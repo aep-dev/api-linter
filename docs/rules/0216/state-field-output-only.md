@@ -17,7 +17,7 @@ are marked as `OUTPUT_ONLY`, as mandated in [AEP-216][].
 
 This rule iterates over message fields that have an `enum` type, and the type
 name ends with `State`. Each field should have the annotation
-`[(google.api.field_behavior) = OUTPUT_ONLY]`.
+`[(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY]`.
 
 Note that the field name is ignored for the purposes of this rule.
 
@@ -53,7 +53,7 @@ enum State {
   STATE_UNSPECIFIED = 0;
 }
 
-State state = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+State state = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY];
 ```
 
 ## Disabling

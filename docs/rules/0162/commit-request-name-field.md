@@ -34,7 +34,7 @@ message CommitBookRequest {
 message CommitBookRequest {
   // Field type should be `string`.
   bytes name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }
@@ -46,7 +46,7 @@ message CommitBookRequest {
 // Correct.
 message CommitBookRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }
@@ -63,7 +63,7 @@ message CommitBookRequest {
   // (-- api-linter: core::0162::commit-request-name-field=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
   bytes name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }

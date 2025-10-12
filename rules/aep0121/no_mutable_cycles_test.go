@@ -85,7 +85,7 @@ func TestNoMutableCycles(t *testing.T) {
 			`[(google.api.resource_reference).type = "library.googleapis.com/Publisher"]`,
 			`[
 				(google.api.resource_reference).type = "library.googleapis.com/Book",
-				(google.api.field_behavior) = OUTPUT_ONLY
+				(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY
 			]`,
 			"",
 			"",
@@ -97,7 +97,7 @@ func TestNoMutableCycles(t *testing.T) {
 			`[(google.api.resource_reference).type = "library.googleapis.com/Library"]`,
 			`[
 				(google.api.resource_reference).type = "library.googleapis.com/Book",
-				(google.api.field_behavior) = OUTPUT_ONLY
+				(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY
 			]`,
 			"",
 			nil,
@@ -106,7 +106,7 @@ func TestNoMutableCycles(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 			import "google/api/resource.proto";
-			import "google/api/field_behavior.proto";
+			import "aep/api/field_info.proto";
 			message Book {
 				option (google.api.resource) = {
 					type: "library.googleapis.com/Book"

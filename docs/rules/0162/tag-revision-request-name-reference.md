@@ -28,9 +28,9 @@ and complains if it does not have a `google.api.resource_reference` annotation.
 // Incorrect.
 message TagBookRevisionRequest {
   // The `google.api.resource_reference` annotation should also be included.
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -40,11 +40,11 @@ message TagBookRevisionRequest {
 // Correct.
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -57,9 +57,9 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message TagBookRevisionRequest {
   // (-- api-linter: core::0162::tag-revision-request-name-reference=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

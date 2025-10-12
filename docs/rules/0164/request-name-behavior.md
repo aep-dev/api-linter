@@ -3,7 +3,7 @@ rule:
   aep: 164
   name: [core, '0164', request-name-behavior]
   summary: |
-    Undelete RPCs should annotate the `name` field with `google.api.field_behavior`.
+    Undelete RPCs should annotate the `name` field with `aep.api.field_behavior`.
 permalink: /164/request-name-behavior
 redirect_from:
   - /0164/request-name-behavior
@@ -12,13 +12,13 @@ redirect_from:
 # Undelete methods: Field behavior
 
 This rule enforces that all `Undelete` methods have
-`google.api.field_behavior` set to `REQUIRED` on their `string name` field, as
+`aep.api.field_behavior` set to `REQUIRED` on their `string name` field, as
 mandated in [AEP-164][].
 
 ## Details
 
 This rule looks at any message matching `Undelete*Request` and complains if the
-`name` field does not have a `google.api.field_behavior` annotation with a
+`name` field does not have a `aep.api.field_behavior` annotation with a
 value of `REQUIRED`.
 
 ## Examples
@@ -28,7 +28,7 @@ value of `REQUIRED`.
 ```proto
 // Incorrect.
 message UndeleteBookRequest {
-  // The `google.api.field_behavior` annotation should also be included.
+  // The `aep.api.field_behavior` annotation should also be included.
   string name = 1 [(google.api.resource_reference) = {
     type: "library.googleapis.com/Book"
   }];
@@ -41,7 +41,7 @@ message UndeleteBookRequest {
 // Correct.
 message UndeleteBookRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }

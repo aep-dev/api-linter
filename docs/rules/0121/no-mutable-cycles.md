@@ -80,7 +80,7 @@ message Author {
   // Correct because an OUTPUT_ONLY reference breaks the mutation cycle.
   string book = 2 [
     (google.api.resource_reference).type = "library.googleapis.com/Book",
-    (google.api.field_behavior) = OUTPUT_ONLY
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_OUTPUT_ONLY
   ];
 }
 ```
