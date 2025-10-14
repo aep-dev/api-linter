@@ -12,14 +12,14 @@ redirect_from:
 # Rollback requests: Revision ID field behavior
 
 This rule enforces that all `Rollback` requests have
-`aep.api.field_behavior` set to `REQUIRED` on their `string revision_id` field, as
+`aep.api.field_behavior` set to `FIELD_BEHAVIOR_REQUIRED` on their `string revision_id` field, as
 mandated in [AEP-162][].
 
 ## Details
 
 This rule looks at any message matching `Rollback*Request` and complains if the
 `revision_id` field does not have a `aep.api.field_behavior` annotation with a
-value of `REQUIRED`.
+value of `FIELD_BEHAVIOR_REQUIRED`.
 
 ## Examples
 

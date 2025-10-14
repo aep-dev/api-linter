@@ -12,14 +12,14 @@ redirect_from:
 # Get methods: Field behavior
 
 This rule enforces that all `Get` standard methods have
-`aep.api.field_behavior` set to `REQUIRED` on their `string path` field, as
+`aep.api.field_behavior` set to `FIELD_BEHAVIOR_REQUIRED` on their `string path` field, as
 mandated in [AEP-131][].
 
 ## Details
 
 This rule looks at any message matching `Get*Request` and complains if the
 `path` field does not have a `aep.api.field_behavior` annotation with a
-value of `REQUIRED`.
+value of `FIELD_BEHAVIOR_REQUIRED`.
 
 ## Examples
 

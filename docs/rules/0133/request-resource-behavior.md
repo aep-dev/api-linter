@@ -12,14 +12,14 @@ redirect_from:
 # Create methods: Field behavior
 
 This rule enforces that all `Create` standard methods have
-`aep.api.field_behavior` set to `REQUIRED` on the field representing the
+`aep.api.field_behavior` set to `FIELD_BEHAVIOR_REQUIRED` on the field representing the
 resource, as mandated in [AEP-133][].
 
 ## Details
 
 This rule looks at any message matching `Create*Request` and complains if the
 resource field does not have a `aep.api.field_behavior` annotation with a
-value of `REQUIRED`.
+value of `FIELD_BEHAVIOR_REQUIRED`.
 
 ## Examples
 
