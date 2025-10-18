@@ -296,10 +296,9 @@ func TestGetResourceReference(t *testing.T) {
 	t.Run("Present", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
 			import "google/api/resource.proto";
+			import "aep/api/field_info.proto";
 			message GetBookRequest {
-				string name = 1 [(google.api.resource_reference) = {
-					type: "library.googleapis.com/Book"
-				}];
+				string name = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 			}
 		`)
 		ref := GetResourceReference(f.GetMessageTypes()[0].GetFields()[0])

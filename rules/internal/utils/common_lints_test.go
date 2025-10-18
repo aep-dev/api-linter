@@ -63,12 +63,13 @@ func TestLintFieldResourceReference(t *testing.T) {
 		Annotation string
 		problems   testutils.Problems
 	}{
-		{"Valid", `[(google.api.resource_reference).type = "bar"]`, nil},
+		{"Valid", `[(aep.api.field_info).resource_reference = "bar"]`, nil},
 		{"Invalid", ``, testutils.Problems{{Message: "resource_reference"}}},
 	} {
 		t.Run(test.testName, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/resource.proto";
+				import "aep/api/field_info.proto";
 				message Message {
 					string foo = 1 {{.Annotation}};
 				}

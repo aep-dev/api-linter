@@ -27,16 +27,16 @@ func TestForceField(t *testing.T) {
 		BoolField string
 		problems  testutils.Problems
 	}{
-		{"ValidWithChildren", `.type = "library.googleapis.com/Publisher"`, "force", nil},
-		{"ValidWithoutChildren", `.type = "library.googleapis.com/Book"`, "other", nil},
-		{"SkipIncorrectChildTypeReference", `.child_type = "library.googleapis.com/Publisher"`, "other", nil},
-		{"InvalidMissingForce", `.type = "library.googleapis.com/Publisher"`, "other", testutils.Problems{{Message: "bool force"}}},
+		{"ValidWithChildren", "library.googleapis.com/Publisher", "force", nil},
+		{"ValidWithoutChildren", "library.googleapis.com/Book", "other", nil},
+		{"InvalidMissingForce", "library.googleapis.com/Publisher", "other", testutils.Problems{{Message: "bool force"}}},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 
 				message Book {
 					option (google.api.resource) = {
@@ -57,7 +57,7 @@ func TestForceField(t *testing.T) {
 				}
 
 				message DeleteResourceRequest {
-					string path = 1 [(google.api.resource_reference){{.Reference}}];
+					string path = 1 [(aep.api.field_info).resource_reference = "{{.Reference}}"];
 
 					bool {{.BoolField}} = 2;
 				}

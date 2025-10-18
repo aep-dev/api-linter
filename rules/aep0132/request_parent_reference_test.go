@@ -24,10 +24,9 @@ func TestRequestParentReference(t *testing.T) {
 	t.Run("Present", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
 			import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 			message ListBooksRequest {
-				string parent = 1 [(google.api.resource_reference) = {
-					type: "library.googleapis.com/Publisher"
-				}];
+				string parent = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"];
 			}
 		`)
 		if diff := (testutils.Problems{}).Diff(requestParentReference.Lint(f)); diff != "" {
@@ -40,12 +39,13 @@ func TestRequestParentReference(t *testing.T) {
 			FieldName string
 			problems  testutils.Problems
 		}{
-			{"Error", "parent", testutils.Problems{{Message: "google.api.resource_reference"}}},
+			{"Error", "parent", testutils.Problems{{Message: "(aep.api.field_info).resource_reference"}}},
 			{"Irrelevant", "something_else", testutils.Problems{}},
 		} {
 			t.Run(test.name, func(t *testing.T) {
 				f := testutils.ParseProto3Tmpl(t, `
 					import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 					message ListBooksRequest {
 						string {{.FieldName}} = 1;
 					}

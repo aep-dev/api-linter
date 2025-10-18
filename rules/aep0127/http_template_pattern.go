@@ -32,7 +32,7 @@ var (
 )
 
 type resourceReference struct {
-	// The path of the field with the `google.api.resource_reference`. This is
+	// The path of the field with the `(aep.api.field_info).resource_reference`. This is
 	// provided as a variable in the HTTPRule.
 	fieldPath string
 	// A template that the resource's pattern string must adhere to. This is

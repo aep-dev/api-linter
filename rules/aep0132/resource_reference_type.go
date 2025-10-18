@@ -45,19 +45,30 @@ var resourceReferenceType = &lint.MethodRule{
 		parent := m.GetInputType().FindFieldByName("parent")
 		ref := utils.GetResourceReference(parent)
 
-		if resource.GetType() == ref.GetType() {
-			return []lint.Problem{{
-				Message:    "List should use a `child_type` reference to the paginated resource, not a `type` reference.",
-				Descriptor: parent,
-				Location:   locations.FieldResourceReference(parent),
-			}}
-		}
-		if ref.GetChildType() != "" && resource.GetType() != ref.GetChildType() {
-			return []lint.Problem{{
-				Message:    "List should use a `child_type` reference to the paginated resource.",
-				Descriptor: parent,
-				Location:   locations.FieldResourceReference(parent),
-			}}
+		// In AEP format, resource_reference is just a string. When used in List methods,
+		// it should match the child resource type. The old Google API format distinguishes
+		// between `type` and `child_type`, but AEP format just uses the string value.
+		// If child_type is set (Google API format), check it. Otherwise, check the type field
+		// and treat it as an implicit child_type reference.
+		if ref.GetChildType() != "" {
+			// Google API format with explicit child_type
+			if resource.GetType() != ref.GetChildType() {
+				return []lint.Problem{{
+					Message:    "List should use a `child_type` reference to the paginated resource.",
+					Descriptor: parent,
+					Location:   locations.FieldResourceReference(parent),
+				}}
+			}
+		} else if ref.GetType() != "" {
+			// AEP format or Google API format with only type set
+			// In AEP format, this should match the child resource type
+			if resource.GetType() != ref.GetType() {
+				return []lint.Problem{{
+					Message:    "List should use a `child_type` reference to the paginated resource.",
+					Descriptor: parent,
+					Location:   locations.FieldResourceReference(parent),
+				}}
+			}
 		}
 
 		return nil

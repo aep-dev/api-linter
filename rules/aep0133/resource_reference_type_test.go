@@ -25,13 +25,10 @@ func TestResourceReferenceType(t *testing.T) {
 	tests := []struct {
 		testName string
 		TypeName string
-		RefType  string
 		problems testutils.Problems
 	}{
-		{"ValidChildType", "library.googleapis.com/Book", "child_type", nil},
-		{"ValidType", "library.googleapis.com/Shelf", "type", nil},
-		{"InvalidType", "library.googleapis.com/Book", "type", testutils.Problems{{Message: "not a `type`"}}},
-		{"InvalidChildType", "library.googleapis.com/Shelf", "child_type", testutils.Problems{{Message: "`child_type`"}}},
+		{"ValidMatch", "library.googleapis.com/Book", nil},
+		{"InvalidMismatch", "library.googleapis.com/Shelf", testutils.Problems{{Message: "`child_type`"}}},
 	}
 
 	// Run each test.
@@ -39,12 +36,13 @@ func TestResourceReferenceType(t *testing.T) {
 		t.Run(test.testName, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 				import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 				import "google/longrunning/operations.proto";
 				service Library {
 					rpc CreateBook(CreateBookRequest) returns (Book) {}
 				}
 				message CreateBookRequest {
-					string parent = 1 [(google.api.resource_reference).{{ .RefType }} = "{{ .TypeName }}"];
+					string parent = 1 [(aep.api.field_info).resource_reference = "{{ .TypeName }}"];
 				}
 				message Book {
 					option (google.api.resource) = {
@@ -68,16 +66,12 @@ func TestResourceReferenceTypeLRO(t *testing.T) {
 	tests := []struct {
 		testName     string
 		TypeName     string
-		RefType      string
 		ResponseType string
 		problems     testutils.Problems
 	}{
-		{"ValidChildType", "library.googleapis.com/Book", "child_type", "Book", nil},
-		{"ValidChildTypeLRO", "library.googleapis.com/Book", "child_type", "Book", nil},
-		{"ValidType", "library.googleapis.com/Shelf", "type", "Book", nil},
-		{"InvalidType", "library.googleapis.com/Book", "type", "Book", testutils.Problems{{Message: "not a `type`"}}},
-		{"InvalidChildType", "library.googleapis.com/Shelf", "child_type", "Book", testutils.Problems{{Message: "`child_type`"}}},
-		{"SkipInvalidUnresolvableResponseType", "library.googleapis.com/Shelf", "child_type", "Foo", nil},
+		{"ValidMatch", "library.googleapis.com/Book", "Book", nil},
+		{"InvalidMismatch", "library.googleapis.com/Shelf", "Book", testutils.Problems{{Message: "`child_type`"}}},
+		{"SkipUnresolvableResponse", "library.googleapis.com/Shelf", "Foo", nil},
 	}
 
 	// Run each test.
@@ -85,6 +79,7 @@ func TestResourceReferenceTypeLRO(t *testing.T) {
 		t.Run(test.testName, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 				import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 				import "google/longrunning/operations.proto";
 				service Library {
 					rpc CreateBook(CreateBookRequest) returns (google.longrunning.Operation) {
@@ -95,7 +90,7 @@ func TestResourceReferenceTypeLRO(t *testing.T) {
 					}
 				}
 				message CreateBookRequest {
-					string parent = 1 [(google.api.resource_reference).{{ .RefType }} = "{{ .TypeName }}"];
+					string parent = 1 [(aep.api.field_info).resource_reference = "{{ .TypeName }}"];
 				}
 				message Book {
 					option (google.api.resource) = {

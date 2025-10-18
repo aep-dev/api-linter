@@ -77,9 +77,7 @@ func TestRequiredFieldTests(t *testing.T) {
 					// Format: publishers/{publisher}/books/{book}
 					string path = 1 [
 					    (aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED,
-						(google.api.resource_reference) = {
-							type: "library.googleapis.com/Book"
-						}
+						(aep.api.field_info).resource_reference = "library.googleapis.com/Book"
 					];
 					{{.Fields}}
 				}

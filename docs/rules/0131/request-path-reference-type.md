@@ -3,7 +3,7 @@ rule:
   aep: 131
   name: [core, '0131', request-path-reference-type]
   summary: |
-    The `google.api.resource_reference` on the `path` field of a Get RPC request
+    The `(aep.api.field_info).resource_reference` on the `path` field of a Get RPC request
     message should use `type`, not `child_type`.
 permalink: /131/request-path-reference-type
 redirect_from:
@@ -12,13 +12,13 @@ redirect_from:
 
 # Get methods: Resource reference
 
-This rule enforces that the `google.api.resource_reference` on the `path` field
+This rule enforces that the `(aep.api.field_info).resource_reference` on the `path` field
 of a Get RPC request message uses `type`, not `child_type`, as suggested in
 [AEP-131][].
 
 ## Details
 
-This rule looks at the `google.api.resource_reference` annotation on the `path`
+This rule looks at the `(aep.api.field_info).resource_reference` annotation on the `path`
 field of any message matching `Get*Request` and complains if it does not use a
 direct `type` reference.
 
@@ -29,11 +29,11 @@ direct `type` reference.
 ```proto
 // Incorrect.
 message GetBookRequest {
-  // The `google.api.resource_reference` annotation should be a direct `type`
+  // The `(aep.api.field_info).resource_reference` annotation should be a direct `type`
   // reference.
   string path = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).child_type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.child_type = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -45,7 +45,7 @@ message GetBookRequest {
 message GetBookRequest {
   string path = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -61,7 +61,7 @@ message GetBookRequest {
   //     aep.dev/not-precedent: We need to do this because reasons. --)
   string path = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).child_type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.child_type = "library.googleapis.com/Book"
   ];
 }
 ```

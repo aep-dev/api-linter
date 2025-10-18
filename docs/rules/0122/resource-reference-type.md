@@ -10,12 +10,12 @@ redirect_from:
 
 # Resource reference type
 
-This rule enforces that all fields with the `google.api.resource_reference`
+This rule enforces that all fields with the `(aep.api.field_info).resource_reference`
 annotation are strings, as mandated in [AEP-122][].
 
 ## Details
 
-This rule complains if it sees a field with a `google.api.resource_reference`
+This rule complains if it sees a field with a `(aep.api.field_info).resource_reference`
 that has a type other than `string`.
 
 ## Examples
@@ -28,7 +28,7 @@ message Book {
   string path = 1;
 
   // Resource references should be strings.
-  Author author = 2 [(google.api.resource_reference) = {
+  Author author = 2 [(aep.api.field_info).resource_reference = {
     type: "library.googleapis.com/Author"
   }];
 }
@@ -41,7 +41,7 @@ message Book {
 message Book {
   string path = 1;
 
-  string author = 2 [(google.api.resource_reference) = {
+  string author = 2 [(aep.api.field_info).resource_reference = {
     type: "library.googleapis.com/Author"
   }];
 }
@@ -69,7 +69,7 @@ message Book {
 
   // (-- api-linter: core::0122::resource-reference-type=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
-  Author author = 2 [(google.api.resource_reference) = {
+  Author author = 2 [(aep.api.field_info).resource_reference = {
     type: "library.googleapis.com/Author"
   }];
 }

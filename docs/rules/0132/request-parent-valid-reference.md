@@ -13,13 +13,13 @@ redirect_from:
 # List methods: Resource reference
 
 This rule enforces that all `List` standard methods reference a resource other
-than the resource being listed with the `google.api.resource_reference` on
+than the resource being listed with the `(aep.api.field_info).resource_reference` on
 their `string parent` field, as mandated in [AEP-132][].
 
 ## Details
 
 This rule looks at the `parent` field of any message matching `List*Request`
-and complains if the `google.api.resource_reference` annotation references
+and complains if the `(aep.api.field_info).resource_reference` annotation references
 the resource being listed.
 
 ## Examples
@@ -29,11 +29,11 @@ the resource being listed.
 ```proto
 // Incorrect.
 message ListBooksRequest {
-  // The `google.api.resource_reference` should not reference the resource
+  // The `(aep.api.field_info).resource_reference` should not reference the resource
   // being listed.
   string parent = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
   int32 page_size = 2;
   string page_token = 3;
@@ -47,7 +47,7 @@ message ListBooksRequest {
 message ListBooksRequest {
   string parent = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).child_type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.child_type = "library.googleapis.com/Book"
   ];
   int32 page_size = 2;
   string page_token = 3;
@@ -65,7 +65,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message ListBooksRequest {
   string parent = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 }
 ```

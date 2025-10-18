@@ -30,7 +30,7 @@ var requestPathReferenceType = &lint.FieldRule{
 	LintField: func(f *desc.FieldDescriptor) []lint.Problem {
 		if ref := utils.GetResourceReference(f); ref.GetType() == "" {
 			return []lint.Problem{{
-				Message:    fmt.Sprintf("The `%s` field `google.api.resource_reference` annotation should be a direct `type` reference.", f.GetName()),
+				Message:    fmt.Sprintf("The `%s` field `(aep.api.field_info).resource_reference` annotation should be a direct `type` reference.", f.GetName()),
 				Descriptor: f,
 			}}
 		}

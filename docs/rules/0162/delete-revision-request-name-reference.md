@@ -3,7 +3,7 @@ rule:
   aep: 162
   name: [core, '0162', delete-revision-request-name-reference]
   summary: |
-    Delete Revision requests should annotate the `name` field with `google.api.resource_reference`.
+    Delete Revision requests should annotate the `name` field with `(aep.api.field_info).resource_reference`.
 permalink: /162/delete-revision-request-name-reference
 redirect_from:
   - /0162/delete-revision-request-name-reference
@@ -12,13 +12,13 @@ redirect_from:
 # Delete Revision requests: Name resource reference
 
 This rule enforces that all Delete Revision requests have
-`google.api.resource_reference` on their `string name` field, as mandated in
+`(aep.api.field_info).resource_reference` on their `string name` field, as mandated in
 [AEP-162][].
 
 ## Details
 
 This rule looks at the `name` field of any message matching `Delete*RevisionRequest`
-and complains if it does not have a `google.api.resource_reference` annotation.
+and complains if it does not have a `(aep.api.field_info).resource_reference` annotation.
 
 ## Examples
 
@@ -27,7 +27,7 @@ and complains if it does not have a `google.api.resource_reference` annotation.
 ```proto
 // Incorrect.
 message DeleteBookRevisionRequest {
-  // The `google.api.resource_reference` annotation should also be included.
+  // The `(aep.api.field_info).resource_reference` annotation should also be included.
   string name = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
@@ -39,7 +39,7 @@ message DeleteBookRevisionRequest {
 message DeleteBookRevisionRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 }
 ```

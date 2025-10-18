@@ -25,7 +25,7 @@ field and complains if the field is not a singular `bool`.
 ```proto
 message DeletePublisherRequest {
   string path = 1 [
-    (google.api.resource_reference).type = "library.googleapis.com/Publisher",
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Publisher",
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 
@@ -38,7 +38,7 @@ message DeletePublisherRequest {
 ```proto
 message DeletePublisherRequest {
   string path = 1 [
-    (google.api.resource_reference).type = "library.googleapis.com/Publisher",
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Publisher",
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 
@@ -54,7 +54,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 ```proto
 message DeletePublisherRequest {
   string path = 1 [
-    (google.api.resource_reference).type = "library.googleapis.com/Publisher",
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Publisher",
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 

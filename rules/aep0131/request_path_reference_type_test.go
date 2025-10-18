@@ -22,18 +22,19 @@ import (
 
 func TestRequestNameReferenceType(t *testing.T) {
 	for _, test := range []struct {
-		testName  string
-		Reference string
-		problems  testutils.Problems
+		testName   string
+		Annotation string
+		problems   testutils.Problems
 	}{
-		{"Valid", "type", nil},
-		{"Invalid", "child_type", testutils.Problems{{Message: "should be a direct"}}},
+		{"Valid", `[(aep.api.field_info).resource_reference = "library.googleapis.com/Book"]`, nil},
+		{"Invalid", `[(aep.api.field_info).resource_reference = ""]`, testutils.Problems{{Message: "should be a direct"}}},
 	} {
 		t.Run(test.testName, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 				message GetBookRequest {
-					string path = 1 [(google.api.resource_reference).{{.Reference}} = "library.googleapis.com/Book"];
+					string path = 1 {{.Annotation}};
 				}
 			`, test)
 			field := f.GetMessageTypes()[0].GetFields()[0]
