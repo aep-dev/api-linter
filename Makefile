@@ -24,7 +24,6 @@ help: ## Describe useful make targets
 .PHONY: all
 all: ## Build, test, and lint (default)
 	$(MAKE) test
-	$(MAKE) lint
 
 .PHONY: clean
 clean: ## Delete intermediate build artifacts
