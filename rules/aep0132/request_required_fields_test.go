@@ -36,13 +36,13 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"ValidOptionalPageSize",
-			"int32 page_size = 2 [(google.api.field_behavior) = OPTIONAL];",
+			"int32 page_size = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OPTIONAL];",
 			"page_size",
 			nil,
 		},
 		{
 			"InvalidRequiredPageSize",
-			"int32 page_size = 2 [(google.api.field_behavior) = REQUIRED];",
+			"int32 page_size = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"page_size",
 			testutils.Problems{
 				{Message: `List RPCs must only require fields explicitly described in AEPs, not "page_size"`},
@@ -50,7 +50,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"InvalidRequiredUnknownField",
-			"bool create_iam = 3 [(google.api.field_behavior) = REQUIRED];",
+			"bool create_iam = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"create_iam",
 			testutils.Problems{
 				{Message: `List RPCs must only require fields explicitly described in AEPs, not "create_iam"`},
@@ -60,7 +60,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
-				import "google/api/field_behavior.proto";
+				import "aep/api/field_info.proto";
 				import "google/api/resource.proto";
 
 				service Library {
@@ -75,7 +75,7 @@ func TestRequiredFieldTests(t *testing.T) {
 					// The parent, which owns this collection of books.
 					// Format: publishers/{publisher}
 					string parent = 1 [
-					    (google.api.field_behavior) = REQUIRED,
+					    (aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED,
 					    (google.api.resource_reference) = {
 					  		child_type: "library.googleapis.com/Book"
 					    }];

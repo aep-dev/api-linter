@@ -94,10 +94,10 @@ func LintFieldPresentAndSingularString(field string) func(*desc.MessageDescripto
 	}
 }
 
-func lintFieldBehavior(f *desc.FieldDescriptor, want string) []lint.Problem {
+func lintFieldBehavior(f *desc.FieldDescriptor, want string, wantMessage string) []lint.Problem {
 	if !GetFieldBehavior(f).Contains(want) {
 		return []lint.Problem{{
-			Message:    fmt.Sprintf("The `%s` field should include `(google.api.field_behavior) = %s`.", f.GetName(), want),
+			Message:    fmt.Sprintf("The `%s` field should include `(aep.api.field_info).field_behavior = %s`.", f.GetName(), wantMessage),
 			Descriptor: f,
 		}}
 	}
@@ -106,12 +106,12 @@ func lintFieldBehavior(f *desc.FieldDescriptor, want string) []lint.Problem {
 
 // LintRequiredField returns a problem if the field's behavior is not REQUIRED.
 func LintRequiredField(f *desc.FieldDescriptor) []lint.Problem {
-	return lintFieldBehavior(f, "REQUIRED")
+	return lintFieldBehavior(f, "REQUIRED", "FIELD_BEHAVIOR_REQUIRED")
 }
 
 // LintOutputOnlyField returns a problem if the field's behavior is not OUTPUT_ONLY.
 func LintOutputOnlyField(f *desc.FieldDescriptor) []lint.Problem {
-	return lintFieldBehavior(f, "OUTPUT_ONLY")
+	return lintFieldBehavior(f, "OUTPUT_ONLY", "FIELD_BEHAVIOR_OUTPUT_ONLY")
 }
 
 // LintFieldResourceReference returns a problem if the field does not have a resource reference annotation.

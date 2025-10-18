@@ -3,7 +3,7 @@ rule:
   aep: 132
   name: [core, '0132', request-parent-behavior]
   summary: |
-    List RPCs should annotate the `parent` field with `google.api.field_behavior`.
+    List RPCs should annotate the `parent` field with `aep.api.field_behavior`.
 permalink: /132/request-parent-behavior
 redirect_from:
   - /0132/request-parent-behavior
@@ -12,14 +12,14 @@ redirect_from:
 # List methods: Field behavior
 
 This rule enforces that all `List` standard methods have
-`google.api.field_behavior` set to `REQUIRED` on their `string parent` field,
+`aep.api.field_behavior` set to `FIELD_BEHAVIOR_REQUIRED` on their `string parent` field,
 as mandated in [AEP-132][].
 
 ## Details
 
 This rule looks at any message matching `List*Request` and complains if the
-`parent` field does not have a `google.api.field_behavior` annotation with a
-value of `REQUIRED`.
+`parent` field does not have a `aep.api.field_behavior` annotation with a
+value of `FIELD_BEHAVIOR_REQUIRED`.
 
 ## Examples
 
@@ -28,7 +28,7 @@ value of `REQUIRED`.
 ```proto
 // Incorrect.
 message ListBooksRequest {
-  // The `google.api.field_behavior` annotation should also be included.
+  // The `aep.api.field_behavior` annotation should also be included.
   string parent = 1 [(google.api.resource_reference) = {
     type: "library.googleapis.com/Publisher"
   }];
@@ -43,7 +43,7 @@ message ListBooksRequest {
 // Correct.
 message ListBooksRequest {
   string parent = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Publisher"
   ];
   int32 page_size = 2;

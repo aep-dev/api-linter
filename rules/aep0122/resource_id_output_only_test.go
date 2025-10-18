@@ -27,15 +27,15 @@ func TestResourceIdOutputOnly(t *testing.T) {
 		FieldBehavior string
 		problems      testutils.Problems
 	}{
-		{"ValidWithSuffix", "book_id", "[(google.api.field_behavior) = OUTPUT_ONLY]", testutils.Problems{}},
-		{"ValidUID", "uid", "[(google.api.field_behavior) = OUTPUT_ONLY]", testutils.Problems{}},
+		{"ValidWithSuffix", "book_id", "[(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY]", testutils.Problems{}},
+		{"ValidUID", "uid", "[(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY]", testutils.Problems{}},
 		{"InvalidWithSuffix", "book_id", "", testutils.Problems{{Message: "OUTPUT_ONLY"}}},
 		{"InvalidUID", "uid", "", testutils.Problems{{Message: "OUTPUT_ONLY"}}},
 		{"SkipDifferentIdField", "foo_id", "", testutils.Problems{}},
 	} {
 		f := testutils.ParseProto3Tmpl(t, `
 			import "google/api/resource.proto";
-			import "google/api/field_behavior.proto";
+			import "aep/api/field_info.proto";
 
 			message Book {
 				option (google.api.resource) = {

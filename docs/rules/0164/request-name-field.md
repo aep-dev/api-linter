@@ -42,7 +42,7 @@ message UndeleteBookRequest {
 // Correct.
 message UndeleteBookRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }

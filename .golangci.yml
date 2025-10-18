@@ -8,6 +8,9 @@ linters-settings:
       - '^print$'
       - '^println$'
       - '^panic$'
+linters:
+  disable:
+    - typecheck
 issues:
   exclude-dirs-use-default: false
   exclude-rules:

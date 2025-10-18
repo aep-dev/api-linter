@@ -3,7 +3,7 @@ rule:
   aep: 162
   name: [core, '0162', tag-revision-request-name-behavior]
   summary: |
-    Tag Revision requests should annotate the `name` field with `google.api.field_behavior`.
+    Tag Revision requests should annotate the `name` field with `aep.api.field_behavior`.
 permalink: /162/tag-revision-request-name-behavior
 redirect_from:
   - /0162/tag-revision-request-name-behavior
@@ -12,14 +12,14 @@ redirect_from:
 # Tag Revision requests: Name field behavior
 
 This rule enforces that all Tag Revision requests have
-`google.api.field_behavior` set to `REQUIRED` on their `string name` field, as
+`aep.api.field_behavior` set to `FIELD_BEHAVIOR_REQUIRED` on their `string name` field, as
 mandated in [AEP-162][].
 
 ## Details
 
 This rule looks at any message matching `Tag*RevisionRequest` and complains if the
-`name` field does not have a `google.api.field_behavior` annotation with a
-value of `REQUIRED`.
+`name` field does not have a `aep.api.field_behavior` annotation with a
+value of `FIELD_BEHAVIOR_REQUIRED`.
 
 ## Examples
 
@@ -28,12 +28,12 @@ value of `REQUIRED`.
 ```proto
 // Incorrect.
 message TagBookRevisionRequest {
-  // The `google.api.field_behavior` annotation should also be included.
+  // The `aep.api.field_behavior` annotation should also be included.
   string name = 1 [
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -43,11 +43,11 @@ message TagBookRevisionRequest {
 // Correct.
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -64,7 +64,7 @@ message TagBookRevisionRequest {
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

@@ -17,6 +17,7 @@ package aep0004
 import (
 	"testing"
 
+	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
 )
 
@@ -49,23 +50,23 @@ func TestDuplicateResource(t *testing.T) {
 			}`,
 	}, nil)["test.proto"]
 	want := testutils.Problems{
-		{
+		lint.Problem{
 			Message:    "resource \"library.googleapis.com/Author\": `google.api.resource_definition` 1 in file `test.proto`, message `abc.Author`.",
 			Descriptor: f,
 		},
-		{
+		lint.Problem{
 			Message:    "resource \"library.googleapis.com/Author\": `google.api.resource_definition` 1 in file `test.proto`, message `abc.Author`.",
 			Descriptor: f.GetMessageTypes()[1],
 		},
-		{
+		lint.Problem{
 			Message:    "resource \"library.googleapis.com/Book\": message `abc.Book`, message `abc.Foo.Tome`.",
 			Descriptor: f.GetMessageTypes()[0],
 		},
-		{
+		lint.Problem{
 			Message:    "resource \"library.googleapis.com/Book\": message `abc.Book`, message `abc.Foo.Tome`.",
 			Descriptor: f.GetMessageTypes()[2].GetNestedMessageTypes()[0],
 		},
-		{
+		lint.Problem{
 			Message:    "resource \"library.googleapis.com/Publisher\": message `xyz.Publisher`.",
 			Descriptor: f,
 		},

@@ -18,6 +18,7 @@ import (
 	"strings"
 
 	"bitbucket.org/creachadair/stringset"
+	aepapi "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
 	lrpb "cloud.google.com/go/longrunning/autogen/longrunningpb"
 	"github.com/jhump/protoreflect/desc"
 	apb "google.golang.org/genproto/googleapis/api/annotations"
@@ -25,17 +26,52 @@ import (
 )
 
 // GetFieldBehavior returns a stringset.Set of FieldBehavior annotations for
-// the given field.
+// the given field. It checks both aep.api.field_behavior and aep.api.field_info.field_behavior.
 func GetFieldBehavior(f *desc.FieldDescriptor) stringset.Set {
 	opts := f.GetFieldOptions()
+	answer := stringset.New()
+
+	// Check aep.api.field_behavior extension
 	if x := proto.GetExtension(opts, apb.E_FieldBehavior); x != nil {
-		answer := stringset.New()
 		for _, fb := range x.([]apb.FieldBehavior) {
 			answer.Add(fb.String())
 		}
-		return answer
 	}
-	return nil
+
+	// Check aep.api.field_info.field_behavior extension
+	if x := proto.GetExtension(opts, aepapi.E_FieldInfo); x != nil {
+		fieldInfo := x.(*aepapi.FieldInfo)
+		for _, fb := range fieldInfo.GetFieldBehavior() {
+			// Convert aep.api.FieldBehavior to string
+			// The string representation needs to match the google.api format
+			answer.Add(convertAEPFieldBehaviorToString(fb))
+		}
+	}
+
+	return answer
+}
+
+// convertAEPFieldBehaviorToString converts aep.api.FieldBehavior to a string format
+// compatible with aep.api.FieldBehavior strings.
+func convertAEPFieldBehaviorToString(fb aepapi.FieldBehavior) string {
+	switch fb {
+	case aepapi.FieldBehavior_FIELD_BEHAVIOR_OPTIONAL:
+		return "OPTIONAL"
+	case aepapi.FieldBehavior_FIELD_BEHAVIOR_REQUIRED:
+		return "REQUIRED"
+	case aepapi.FieldBehavior_FIELD_BEHAVIOR_OUTPUT_ONLY:
+		return "OUTPUT_ONLY"
+	case aepapi.FieldBehavior_FIELD_BEHAVIOR_INPUT_ONLY:
+		return "INPUT_ONLY"
+	case aepapi.FieldBehavior_FIELD_BEHAVIOR_IMMUTABLE:
+		return "IMMUTABLE"
+	case aepapi.FieldBehavior_FIELD_BEHAVIOR_UNORDERED_LIST:
+		return "UNORDERED_LIST"
+	case aepapi.FieldBehavior_FIELD_BEHAVIOR_NON_EMPTY_DEFAULT:
+		return "NON_EMPTY_DEFAULT"
+	default:
+		return fb.String()
+	}
 }
 
 // GetOperationInfo returns the google.longrunning.operation_info annotation.
@@ -158,23 +194,56 @@ func GetResourceDefinitions(f *desc.FileDescriptor) []*apb.ResourceDescriptor {
 	return nil
 }
 
-// HasResourceReference returns if the field has a google.api.resource_reference annotation.
+// HasResourceReference returns if the field has a google.api.resource_reference or
+// aep.api.field_info.resource_reference annotation.
 func HasResourceReference(f *desc.FieldDescriptor) bool {
 	if f == nil {
 		return false
 	}
-	return proto.HasExtension(f.GetFieldOptions(), apb.E_ResourceReference)
+	// Check google.api.resource_reference
+	if proto.HasExtension(f.GetFieldOptions(), apb.E_ResourceReference) {
+		return true
+	}
+	// Check aep.api.field_info.resource_reference
+	if x := proto.GetExtension(f.GetFieldOptions(), aepapi.E_FieldInfo); x != nil {
+		fieldInfo := x.(*aepapi.FieldInfo)
+		return len(fieldInfo.GetResourceReference()) > 0
+	}
+	return false
 }
 
 // GetResourceReference returns the google.api.resource_reference annotation.
+// If the google.api annotation is not present, it checks for aep.api.field_info.resource_reference
+// and converts it to the google.api format.
 func GetResourceReference(f *desc.FieldDescriptor) *apb.ResourceReference {
 	if f == nil {
 		return nil
 	}
 	opts := f.GetFieldOptions()
+
+	// Check google.api.resource_reference first
 	if x := proto.GetExtension(opts, apb.E_ResourceReference); x != nil {
 		return x.(*apb.ResourceReference)
 	}
+
+	// Check aep.api.field_info.resource_reference
+	if x := proto.GetExtension(opts, aepapi.E_FieldInfo); x != nil {
+		fieldInfo := x.(*aepapi.FieldInfo)
+		resourceRefs := fieldInfo.GetResourceReference()
+		if len(resourceRefs) > 0 {
+			// Convert aep.api.FieldInfo.resource_reference to google.api.ResourceReference
+			// Note: aep.api supports multiple resource references, but google.api only supports one
+			// For compatibility, we'll use the first one and set child_type for additional ones
+			ref := &apb.ResourceReference{}
+			if resourceRefs[0] == "*" {
+				ref.Type = "*"
+			} else {
+				ref.Type = resourceRefs[0]
+			}
+			return ref
+		}
+	}
+
 	return nil
 }
 

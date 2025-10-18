@@ -28,7 +28,7 @@ and complains if it does not have a `google.api.resource_reference` annotation.
 // Incorrect.
 message UndeleteBookRequest {
   // The `google.api.resource_reference` annotation should also be included.
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -38,7 +38,7 @@ message UndeleteBookRequest {
 // Correct.
 message UndeleteBookRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }
@@ -53,7 +53,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message UndeleteBookRequest {
   // (-- api-linter: core::0164::request-name-reference=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

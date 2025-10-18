@@ -27,9 +27,9 @@ comes across any required fields other than:
 ```proto
 // Incorrect.
 message DeleteBookRequest {
-  string path = 1 [(google.api.field_behavior) = REQUIRED];
+  string path = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
   // Non-standard required field.
-  bool allow_missing = 4 [(google.api.field_behavior) = REQUIRED];
+  bool allow_missing = 4 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -38,8 +38,8 @@ message DeleteBookRequest {
 ```proto
 // Correct.
 message DeleteBookRequest {
-  string path = 1 [(google.api.field_behavior) = REQUIRED];
-  bool allow_missing = 4 [(google.api.field_behavior) = OPTIONAL];
+  string path = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
+  bool allow_missing = 4 [(aep.api.field_info).field_behavior = OPTIONAL];
 }
 ```
 
@@ -50,11 +50,11 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 message DeleteBookRequest {
-  string path = 1 [(google.api.field_behavior) = REQUIRED];
+  string path = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
   // (-- api-linter: core::0135::request-required-fields=disabled
   //     aep.dev/not-precedent: We really need this field to be required because
   // reasons. --)
-  bool allow_missing = 4 [(google.api.field_behavior) = REQUIRED];
+  bool allow_missing = 4 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

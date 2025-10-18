@@ -36,10 +36,10 @@ func TestDiffEquivalent(t *testing.T) {
 	}{
 		{"NilNil", nil, nil},
 		{"ProblemNil", Problems{}, nil},
-		{"Descriptor", Problems{{Descriptor: m}}, []Problem{{Descriptor: m}}},
-		{"Suggestion", Problems{{Suggestion: "foo"}}, []Problem{{Suggestion: "foo"}}},
-		{"MessageExact", Problems{{Message: "foo"}}, []Problem{{Message: "foo"}}},
-		{"MessageSubstr", Problems{{Message: "foo"}}, []Problem{{Message: "foo bar"}}},
+		{"Descriptor", Problems{Problem{Descriptor: m}}, []Problem{Problem{Descriptor: m}}},
+		{"Suggestion", Problems{Problem{Suggestion: "foo"}}, []Problem{Problem{Suggestion: "foo"}}},
+		{"MessageExact", Problems{Problem{Message: "foo"}}, []Problem{Problem{Message: "foo"}}},
+		{"MessageSubstr", Problems{Problem{Message: "foo"}}, []Problem{Problem{Message: "foo bar"}}},
 	}
 
 	for _, test := range tests {
@@ -65,13 +65,13 @@ func TestDiffNotEquivalent(t *testing.T) {
 		x    Problems
 		y    []Problem
 	}{
-		{"ProblemNil", Problems{{Descriptor: m1}}, nil},
-		{"EmptyProblemNil", Problems{{}}, nil},
-		{"LengthMismatch", Problems{{}}, []Problem{{}, {}}},
-		{"Descriptor", Problems{{Descriptor: m1}}, []Problem{{Descriptor: m2}}},
-		{"Suggestion", Problems{{Suggestion: "foo"}}, []Problem{{Suggestion: "bar"}}},
-		{"Message", Problems{{Message: "foo"}}, []Problem{{Message: "bar"}}},
-		{"MessageSuperstr", Problems{{Message: "foo bar"}}, []Problem{{Message: "foo"}}},
+		{"ProblemNil", Problems{Problem{Descriptor: m1}}, nil},
+		{"EmptyProblemNil", Problems{Problem{}}, nil},
+		{"LengthMismatch", Problems{Problem{}}, []Problem{Problem{}, Problem{}}},
+		{"Descriptor", Problems{Problem{Descriptor: m1}}, []Problem{Problem{Descriptor: m2}}},
+		{"Suggestion", Problems{Problem{Suggestion: "foo"}}, []Problem{Problem{Suggestion: "bar"}}},
+		{"Message", Problems{Problem{Message: "foo"}}, []Problem{Problem{Message: "bar"}}},
+		{"MessageSuperstr", Problems{Problem{Message: "foo bar"}}, []Problem{Problem{Message: "foo"}}},
 	}
 
 	for _, test := range tests {
@@ -88,7 +88,7 @@ func TestSetDescriptor(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Could not build descriptor.")
 	}
-	problems := Problems{{}, {}, {}}.SetDescriptor(m)
+	problems := Problems{Problem{}, Problem{}, Problem{}}.SetDescriptor(m)
 	for _, p := range problems {
 		if p.Descriptor != m {
 			t.Errorf("Got %v, expected %v", p.Descriptor, m)

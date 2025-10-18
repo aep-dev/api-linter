@@ -33,7 +33,7 @@ message CreateBookRequest {
   Book book = 2;
   string book_id = 3;
   // Non-standard required field.
-  string validate_only = 4 [(google.api.field_behavior) = REQUIRED];
+  string validate_only = 4 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -45,7 +45,7 @@ message CreateBookRequest {
   string parent = 1;
   Book book = 2;
   string id = 3;
-  string validate_only = 4 [(google.api.field_behavior) = OPTIONAL];
+  string validate_only = 4 [(aep.api.field_info).field_behavior = OPTIONAL];
 }
 ```
 
@@ -63,7 +63,7 @@ message CreateBookRequest {
   // (-- api-linter: core::0133::request-required-fields=disabled
   //     aep.dev/not-precedent: We really need this field to be required because
   // reasons. --)
-  string validate_only = 4 [(google.api.field_behavior) = REQUIRED];
+  string validate_only = 4 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

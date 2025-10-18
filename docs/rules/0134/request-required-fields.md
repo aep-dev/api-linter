@@ -27,9 +27,9 @@ comes across any required fields other than:
 ```proto
 // Incorrect.
 message UpdateBookRequest {
-  Book book = 1 [(google.api.field_behavior) = REQUIRED];
+  Book book = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
   // Non-standard required field.
-  bool allow_missing = 2 [(google.api.field_behavior) = REQUIRED];
+  bool allow_missing = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -38,9 +38,9 @@ message UpdateBookRequest {
 ```proto
 // Correct.
 message UpdateBookRequest {
-  string path = 1 [(google.api.field_behavior) = REQUIRED];
-  Book book = 2 [(google.api.field_behavior) = REQUIRED];
-  bool allow_missing = 3 [(google.api.field_behavior) = OPTIONAL];
+  string path = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
+  Book book = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
+  bool allow_missing = 3 [(aep.api.field_info).field_behavior = OPTIONAL];
 }
 ```
 
@@ -51,11 +51,11 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 message UpdateBookRequest {
-  Book book = 1 [(google.api.field_behavior) = REQUIRED];
+  Book book = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
   // (-- api-linter: core::0134::request-required-fields=disabled
   //     aep.dev/not-precedent: We really need this field to be required because
   // reasons. --)
-  bool allow_missing = 2 [(google.api.field_behavior) = REQUIRED];
+  bool allow_missing = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 

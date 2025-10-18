@@ -45,21 +45,21 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"ValidWithSingularAndIdField",
-			"string id = 3 [(google.api.field_behavior) = OPTIONAL];",
+			"string id = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OPTIONAL];",
 			"",
 			"bookShelf",
 			nil,
 		},
 		{
 			"ValidOptionalValidateOnly",
-			"string validate_only = 3 [(google.api.field_behavior) = OPTIONAL];",
+			"string validate_only = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OPTIONAL];",
 			"validate_only",
 			"",
 			nil,
 		},
 		{
 			"InvalidRequiredValidateOnly",
-			"bool validate_only = 3 [(google.api.field_behavior) = REQUIRED];",
+			"bool validate_only = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"validate_only",
 			"",
 			testutils.Problems{
@@ -68,7 +68,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"InvalidRequiredUnknownField",
-			"bool create_iam = 3 [(google.api.field_behavior) = REQUIRED];",
+			"bool create_iam = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"create_iam",
 			"",
 			testutils.Problems{
@@ -77,7 +77,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		},
 		{
 			"InvalidRequiredUnknownMessageField",
-			"Foo foo = 3 [(google.api.field_behavior) = REQUIRED];",
+			"Foo foo = 3 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];",
 			"foo",
 			"",
 			testutils.Problems{
@@ -88,7 +88,7 @@ func TestRequiredFieldTests(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
-				import "google/api/field_behavior.proto";
+				import "aep/api/field_info.proto";
 				import "google/api/resource.proto";
 
 				service Library {
@@ -112,10 +112,10 @@ func TestRequiredFieldTests(t *testing.T) {
 
 				message CreateBookShelfRequest {
 					string parent = 1 [
-						(google.api.field_behavior) = REQUIRED
+						(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED
 					];
 					BookShelf book_shelf = 2 [
-						(google.api.field_behavior) = REQUIRED
+						(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED
 					];
 					{{.Fields}}
 				}

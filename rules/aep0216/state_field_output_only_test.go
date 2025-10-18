@@ -29,9 +29,9 @@ func TestStateFieldOutputOnly(t *testing.T) {
 		problems      testutils.Problems
 	}{
 		// Accepted
-		{"ValidState", "state", "State", "[(google.api.field_behavior) = OUTPUT_ONLY]", testutils.Problems{}},
-		{"ValidOtherFieldName", "country", "State", "[(google.api.field_behavior) = OUTPUT_ONLY]", testutils.Problems{}},
-		{"ValidStateSuffix", "state", "WritersBlockState", "[(google.api.field_behavior) = OUTPUT_ONLY]", testutils.Problems{}},
+		{"ValidState", "state", "State", "[(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY]", testutils.Problems{}},
+		{"ValidOtherFieldName", "country", "State", "[(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY]", testutils.Problems{}},
+		{"ValidStateSuffix", "state", "WritersBlockState", "[(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY]", testutils.Problems{}},
 
 		// No Annotation
 		{"InvalidState", "state", "State", "", testutils.Problems{{Message: "OUTPUT_ONLY"}}},
@@ -45,7 +45,7 @@ func TestStateFieldOutputOnly(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-			import "google/api/field_behavior.proto";
+			import "aep/api/field_info.proto";
 
 			message Book {
 				enum State {

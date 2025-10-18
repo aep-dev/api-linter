@@ -26,7 +26,7 @@ the `path` field is missing.
 // Incorrect.
 message GetBookRequest {
   string book = 1 [  // Field path should be `path`.
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }
@@ -38,7 +38,7 @@ message GetBookRequest {
 // Correct.
 message GetBookRequest {
   string path = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }
@@ -54,7 +54,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 //     aep.dev/not-precedent: This is named "book" for historical reasons. --)
 message GetBookRequest {
   string book = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }

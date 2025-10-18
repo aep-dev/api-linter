@@ -38,12 +38,12 @@ func TestLintRequiredField(t *testing.T) {
 		Annotation string
 		problems   testutils.Problems
 	}{
-		{"Valid", `[(google.api.field_behavior) = REQUIRED]`, nil},
+		{"Valid", `[(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED]`, nil},
 		{"Invalid", ``, testutils.Problems{{Message: "REQUIRED"}}},
 	} {
 		t.Run(test.testName, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/field_behavior.proto";
+				import "aep/api/field_info.proto";
 				message Message {
 					string foo = 1 {{.Annotation}};
 				}

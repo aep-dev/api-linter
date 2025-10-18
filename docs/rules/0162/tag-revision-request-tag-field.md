@@ -27,7 +27,7 @@ either the `tag` field is missing or it has any type other than `string`.
 // Should include a `string tag` field.
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 }
@@ -37,12 +37,12 @@ message TagBookRevisionRequest {
 // Incorrect.
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
   // Field type should be `string`.
-  bytes tag = 2 [(google.api.field_behavior) = REQUIRED];
+  bytes tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -52,11 +52,11 @@ message TagBookRevisionRequest {
 // Correct.
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
-  string tag = 2 [(google.api.field_behavior) = REQUIRED];
+  string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
@@ -69,13 +69,13 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 ```proto
 message TagBookRevisionRequest {
   string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
+    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
     (google.api.resource_reference).type = "library.googleapis.com/Book"
   ];
 
   // (-- api-linter: core::0162::tag-revision-request-tag-field=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
-  bytes tag = 2 [(google.api.field_behavior) = REQUIRED];
+  bytes tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
 
