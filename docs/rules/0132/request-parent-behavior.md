@@ -29,7 +29,7 @@ value of `FIELD_BEHAVIOR_REQUIRED`.
 // Incorrect.
 message ListBooksRequest {
   // The `aep.api.field_behavior` annotation should also be included.
-  string parent = 1 [(google.api.resource_reference) = {
+  string parent = 1 [(aep.api.field_info).resource_reference = {
     type: "library.googleapis.com/Publisher"
   }];
   int32 page_size = 2;
@@ -44,7 +44,7 @@ message ListBooksRequest {
 message ListBooksRequest {
   string parent = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Publisher"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Publisher"
   ];
   int32 page_size = 2;
   string page_token = 3;
@@ -60,7 +60,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 // (-- api-linter: core::0132::request-parent-behavior=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message ListBooksRequest {
-  string parent = 1 [(google.api.resource_reference) = {
+  string parent = 1 [(aep.api.field_info).resource_reference = {
     type: "library.googleapis.com/Publisher"
   }];
   int32 page_size = 2;

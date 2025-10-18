@@ -58,6 +58,7 @@ func TestHttpTemplatePattern_PatternMatching(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
 				import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 				service Library {
 					rpc GetBook(GetBookRequest) returns (Book) {
 						option (google.api.http) = {
@@ -67,7 +68,7 @@ func TestHttpTemplatePattern_PatternMatching(t *testing.T) {
 				}
 				message GetBookRequest {
 					// Format: shelves/{shelf}/books/{book}
-					string path = 1 [(google.api.resource_reference).type = "library.googleapis.com/Book"];
+					string path = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 				}
 				message Book {
 					option (google.api.resource) = {
@@ -102,6 +103,7 @@ func TestHttpTemplatePattern_MultiplePatterns(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
 				import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 				service Library {
 					rpc GetBook(GetBookRequest) returns (Book) {
 						option (google.api.http) = {
@@ -110,7 +112,7 @@ func TestHttpTemplatePattern_MultiplePatterns(t *testing.T) {
 					}
 				}
 				message GetBookRequest {
-					string path = 1 [(google.api.resource_reference).type = "library.googleapis.com/Book"];
+					string path = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 				}
 				message Book {
 					option (google.api.resource) = {
@@ -133,11 +135,12 @@ func TestHttpTemplatePattern_SkipCheckIfNoHTTPRules(t *testing.T) {
 	f := testutils.ParseProto3String(t, `
 			import "google/api/annotations.proto";
 			import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 			service Library {
 				rpc GetBook(GetBookRequest) returns (Book) {}
 			}
 			message GetBookRequest {
-				string path = 1 [(google.api.resource_reference).type = "library.googleapis.com/Book"];
+				string path = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 			}
 			message Book {
 				option (google.api.resource) = {
@@ -155,6 +158,7 @@ func TestHttpTemplatePattern_SkipCheckIfHTTPRuleHasNoVariables(t *testing.T) {
 	f := testutils.ParseProto3String(t, `
 			import "google/api/annotations.proto";
 			import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 			service Library {
 				rpc GetBook(GetBookRequest) returns (Book) {
 					option (google.api.http) = {
@@ -163,7 +167,7 @@ func TestHttpTemplatePattern_SkipCheckIfHTTPRuleHasNoVariables(t *testing.T) {
 				}
 			}
 			message GetBookRequest {
-				string path = 1 [(google.api.resource_reference).type = "library.googleapis.com/Book"];
+				string path = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 			}
 			message Book {
 				option (google.api.resource) = {
@@ -181,6 +185,7 @@ func TestHttpTemplatePattern_SkipCheckIfFieldPathMissingResourceAnnotation(t *te
 	f := testutils.ParseProto3String(t, `
 			import "google/api/annotations.proto";
 			import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 			service Library {
 				rpc GetBook(GetBookRequest) returns (Book) {
 					option (google.api.http) = {

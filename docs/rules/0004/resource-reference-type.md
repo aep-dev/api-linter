@@ -10,12 +10,12 @@ redirect_from:
 
 # Resource annotation presence
 
-This rule enforces that any field with a `google.api.resource_reference`
+This rule enforces that any field with a `(aep.api.field_info).resource_reference`
 annotation has a `string` type, as described in [AEP-4][].
 
 ## Details
 
-This rule scans all fields with a `google.api.resource_reference` annotation.
+This rule scans all fields with a `(aep.api.field_info).resource_reference` annotation.
 If one is found, the type is checked, and the rule complains if the type is
 anything other than `string`.
 
@@ -33,7 +33,7 @@ message Book {
   string path = 1;
 
   // This is not a resource reference; the annotation does not belong.
-  Author author = 2 [(google.api.resource_reference) = {
+  Author author = 2 [(aep.api.field_info).resource_reference = {
     type: "library.googleapis.com/Author"
   }];
 }
@@ -55,7 +55,7 @@ message Book {
 message Book {
   string path = 1;
 
-  string author = 2 [(google.api.resource_reference) = {
+  string author = 2 [(aep.api.field_info).resource_reference = {
     type: "library.googleapis.com/Author"
   }];
 }

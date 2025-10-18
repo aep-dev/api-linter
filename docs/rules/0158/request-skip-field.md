@@ -25,7 +25,7 @@ contains a `skip` field, and complains if the field is not a singular `int32`.
 ```proto
 message ListBooksRequest {
   string parent = 1 [
-    (google.api.resource_reference).child_type = "library.googleapis.com/Book",
+    (aep.api.field_info).resource_reference.child_type = "library.googleapis.com/Book",
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 
@@ -42,7 +42,7 @@ message ListBooksRequest {
 ```proto
 message ListBooksRequest {
   string parent = 1 [
-    (google.api.resource_reference).child_type = "library.googleapis.com/Book",
+    (aep.api.field_info).resource_reference.child_type = "library.googleapis.com/Book",
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 
@@ -62,7 +62,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 ```proto
 message ListBooksRequest {
   string parent = 1 [
-    (google.api.resource_reference).child_type = "library.googleapis.com/Book",
+    (aep.api.field_info).resource_reference.child_type = "library.googleapis.com/Book",
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 

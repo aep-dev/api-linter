@@ -30,17 +30,14 @@ option (google.api.resource) = {
 
 	// Set up testing permutations.
 	tests := []struct {
-		testName           string
-		TypeName           string
-		RefType            string
+		testName string
+		TypeName string
 		ResourceAnnotation string
 		problems           testutils.Problems
 	}{
-		{"ValidChildType", "library.googleapis.com/Book", "child_type", bookResource, nil},
-		{"ValidType", "library.googleapis.com/Shelf", "type", bookResource, nil},
-		{"InvalidType", "library.googleapis.com/Book", "type", bookResource, testutils.Problems{{Message: "not a `type`"}}},
-		{"InvalidChildType", "library.googleapis.com/Shelf", "child_type", bookResource, testutils.Problems{{Message: "`child_type`"}}},
-		{"SkipNonResource", "library.googleapis.com/Book", "child_type", "", nil},
+		{"ValidMatch", "library.googleapis.com/Book", bookResource, nil},
+		{"InvalidMismatch", "library.googleapis.com/Shelf", bookResource, testutils.Problems{{Message: "`child_type`"}}},
+		{"SkipNoResource", "library.googleapis.com/Book", "", nil},
 	}
 
 	// Run each test.
@@ -48,11 +45,12 @@ option (google.api.resource) = {
 		t.Run(test.testName, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 				import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 				service Library {
 					rpc ListBooks(ListBooksRequest) returns (ListBooksResponse) {}
 				}
 				message ListBooksRequest {
-					string parent = 1 [(google.api.resource_reference).{{ .RefType }} = "{{ .TypeName }}"];
+					string parent = 1 [(aep.api.field_info).resource_reference = "{{ .TypeName }}"];
 				}
 				message ListBooksResponse {
 					repeated string unreachable = 2;

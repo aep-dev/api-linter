@@ -30,7 +30,7 @@ value of `FIELD_BEHAVIOR_REQUIRED`.
 message DeleteBookRevisionRequest {
   // The `aep.api.field_behavior` annotation should also be included.
   string name = 1 [
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -42,7 +42,7 @@ message DeleteBookRevisionRequest {
 message DeleteBookRevisionRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -57,7 +57,7 @@ message DeleteBookRevisionRequest {
   // (-- api-linter: core::0162::delete-revision-request-name-behavior=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
   string name = 1 [
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 }
 ```

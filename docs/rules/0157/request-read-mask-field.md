@@ -26,7 +26,7 @@ field, and complains if the field is not a singular `google.protobuf.FieldMask`.
 // Incorrect.
 message GetBookRequest {
   string path = 1 [
-    (google.api.resource_reference).type = "library.googleapis.com/Book",
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book",
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 
@@ -41,7 +41,7 @@ message GetBookRequest {
 // Correct.
 message GetBookRequest {
   string path = 1 [
-    (google.api.resource_reference).type = "library.googleapis.com/Book",
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book",
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 
@@ -57,7 +57,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 ```proto
 message GetBookRequest {
   string path = 1 [
-    (google.api.resource_reference).type = "library.googleapis.com/Book",
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book",
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED
   ];
 

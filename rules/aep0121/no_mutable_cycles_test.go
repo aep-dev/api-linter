@@ -29,16 +29,16 @@ func TestNoMutableCycles(t *testing.T) {
 	}{
 		{
 			"ValidNoCycle",
-			`[(google.api.resource_reference).type = "library.googleapis.com/Library"]`,
-			`[(google.api.resource_reference).type = "library.googleapis.com/Library"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Library"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Library"]`,
 			"",
 			"",
 			nil,
 		},
 		{
 			"InvalidCycle",
-			`[(google.api.resource_reference).type = "library.googleapis.com/Publisher"]`,
-			`[(google.api.resource_reference).type = "library.googleapis.com/Book"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Book"]`,
 			"",
 			"",
 			testutils.Problems{{
@@ -48,7 +48,7 @@ func TestNoMutableCycles(t *testing.T) {
 		{
 			"InvalidSelfReferenceCycle",
 			"",
-			`[(google.api.resource_reference).type = "library.googleapis.com/Publisher"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"]`,
 			"",
 			"",
 			testutils.Problems{{
@@ -57,9 +57,9 @@ func TestNoMutableCycles(t *testing.T) {
 		},
 		{
 			"InvalidDeepCycle",
-			`[(google.api.resource_reference).type = "library.googleapis.com/Publisher"]`,
-			`[(google.api.resource_reference).type = "library.googleapis.com/Library"]`,
-			`[(google.api.resource_reference).type = "library.googleapis.com/Book"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Library"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Book"]`,
 			"",
 			testutils.Problems{{
 				Message: "cycle",
@@ -67,10 +67,10 @@ func TestNoMutableCycles(t *testing.T) {
 		},
 		{
 			"InvalidDeepAndShallowCycles",
-			`[(google.api.resource_reference).type = "library.googleapis.com/Publisher"]`,
-			`[(google.api.resource_reference).type = "library.googleapis.com/Library"]`,
-			`[(google.api.resource_reference).type = "library.googleapis.com/Book"]`,
-			`[(google.api.resource_reference).type = "library.googleapis.com/Book"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Library"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Book"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Book"]`,
 			testutils.Problems{
 				{
 					Message: "cycle",
@@ -82,9 +82,9 @@ func TestNoMutableCycles(t *testing.T) {
 		},
 		{
 			"ValidOutputOnlyCyclicReference",
-			`[(google.api.resource_reference).type = "library.googleapis.com/Publisher"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"]`,
 			`[
-				(google.api.resource_reference).type = "library.googleapis.com/Book",
+				(aep.api.field_info).resource_reference = "library.googleapis.com/Book",
 				(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY
 			]`,
 			"",
@@ -93,10 +93,10 @@ func TestNoMutableCycles(t *testing.T) {
 		},
 		{
 			"ValidOutputOnlyDeepCyclicReference",
-			`[(google.api.resource_reference).type = "library.googleapis.com/Publisher"]`,
-			`[(google.api.resource_reference).type = "library.googleapis.com/Library"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"]`,
+			`[(aep.api.field_info).resource_reference = "library.googleapis.com/Library"]`,
 			`[
-				(google.api.resource_reference).type = "library.googleapis.com/Book",
+				(aep.api.field_info).resource_reference = "library.googleapis.com/Book",
 				(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY
 			]`,
 			"",

@@ -26,16 +26,14 @@ func TestRequestParentValidReference(t *testing.T) {
 		ReferenceType string
 		problems      testutils.Problems
 	}{
-		{"Valid", "type: \"library.googleapis.com/Publisher\"", testutils.Problems{}},
-		{"Invalid", "type: \"library.googleapis.com/Book\"", testutils.Problems{{Message: "reference the parent(s)"}}},
-		{"IgnoreChildType", "child_type: \"library.googleapis.com/Book\"", testutils.Problems{}},
+		{"Valid", "library.googleapis.com/Publisher", testutils.Problems{}},
+		{"Invalid", "library.googleapis.com/Book", testutils.Problems{{Message: "reference the parent(s)"}}},
 	} {
 		f := testutils.ParseProto3Tmpl(t, `
 			import "google/api/resource.proto";
+  import "aep/api/field_info.proto";
 			message ListBooksRequest {
-				string parent = 1 [(google.api.resource_reference) = {
-					{{.ReferenceType}}
-				}];
+				string parent = 1 [(aep.api.field_info).resource_reference = "{{.ReferenceType}}"];
 			}
 
 			message ListBooksResponse {

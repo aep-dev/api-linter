@@ -194,15 +194,10 @@ func GetResourceDefinitions(f *desc.FileDescriptor) []*apb.ResourceDescriptor {
 	return nil
 }
 
-// HasResourceReference returns if the field has a google.api.resource_reference or
-// aep.api.field_info.resource_reference annotation.
+// HasResourceReference returns if the field has a aep.api.field_info.resource_reference annotation.
 func HasResourceReference(f *desc.FieldDescriptor) bool {
 	if f == nil {
 		return false
-	}
-	// Check google.api.resource_reference
-	if proto.HasExtension(f.GetFieldOptions(), apb.E_ResourceReference) {
-		return true
 	}
 	// Check aep.api.field_info.resource_reference
 	if x := proto.GetExtension(f.GetFieldOptions(), aepapi.E_FieldInfo); x != nil {
@@ -212,28 +207,21 @@ func HasResourceReference(f *desc.FieldDescriptor) bool {
 	return false
 }
 
-// GetResourceReference returns the google.api.resource_reference annotation.
-// If the google.api annotation is not present, it checks for aep.api.field_info.resource_reference
-// and converts it to the google.api format.
+// GetResourceReference returns the aep.api.field_info.resource_reference annotation.
 func GetResourceReference(f *desc.FieldDescriptor) *apb.ResourceReference {
 	if f == nil {
 		return nil
 	}
 	opts := f.GetFieldOptions()
 
-	// Check google.api.resource_reference first
-	if x := proto.GetExtension(opts, apb.E_ResourceReference); x != nil {
-		return x.(*apb.ResourceReference)
-	}
-
 	// Check aep.api.field_info.resource_reference
 	if x := proto.GetExtension(opts, aepapi.E_FieldInfo); x != nil {
 		fieldInfo := x.(*aepapi.FieldInfo)
 		resourceRefs := fieldInfo.GetResourceReference()
 		if len(resourceRefs) > 0 {
-			// Convert aep.api.FieldInfo.resource_reference to google.api.ResourceReference
-			// Note: aep.api supports multiple resource references, but google.api only supports one
-			// For compatibility, we'll use the first one and set child_type for additional ones
+			// Convert aep.api.FieldInfo.resource_reference to google.api.ResourceReference for internal use
+			// Note: aep.api supports multiple resource references, but we only support one
+			// For compatibility, we'll use the first one
 			ref := &apb.ResourceReference{}
 			if resourceRefs[0] == "*" {
 				ref.Type = "*"
@@ -250,7 +238,7 @@ func GetResourceReference(f *desc.FieldDescriptor) *apb.ResourceReference {
 // FindResource returns first resource of type matching the reference param.
 // resource Type name being referenced. It looks within a given file and its
 // depenedencies, it cannot search within the entire protobuf package.
-// This is especially useful for resolving google.api.resource_reference
+// This is especially useful for resolving aep.api.field_info.resource_reference
 // annotations.
 func FindResource(reference string, file *desc.FileDescriptor) *apb.ResourceDescriptor {
 	m := FindResourceMessage(reference, file)
@@ -261,7 +249,7 @@ func FindResource(reference string, file *desc.FileDescriptor) *apb.ResourceDesc
 // matching the resource Type name being referenced. It looks within a given
 // file and its depenedencies, it cannot search within the entire protobuf
 // package. This is especially useful for resolving
-// google.api.resource_reference annotations to the message that owns a
+// aep.api.field_info.resource_reference annotations to the message that owns a
 // resource.
 func FindResourceMessage(reference string, file *desc.FileDescriptor) *desc.MessageDescriptor {
 	files := append(file.GetDependencies(), file)

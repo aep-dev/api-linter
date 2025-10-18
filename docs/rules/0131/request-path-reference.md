@@ -3,7 +3,7 @@ rule:
   aep: 131
   name: [core, '0131', request-path-reference]
   summary: |
-    Get RPCs should annotate the `path` field with `google.api.resource_reference`.
+    Get RPCs should annotate the `path` field with `(aep.api.field_info).resource_reference`.
 permalink: /131/request-path-reference
 redirect_from:
   - /0131/request-path-reference
@@ -12,13 +12,13 @@ redirect_from:
 # Get methods: Resource reference
 
 This rule enforces that all `Get` standard methods have
-`google.api.resource_reference` on their `string path` field, as mandated in
+`(aep.api.field_info).resource_reference` on their `string path` field, as mandated in
 [AEP-131][].
 
 ## Details
 
 This rule looks at the `path` field of any message matching `Get*Request` and
-complains if it does not have a `google.api.resource_reference` annotation.
+complains if it does not have a `(aep.api.field_info).resource_reference` annotation.
 
 ## Examples
 
@@ -27,7 +27,7 @@ complains if it does not have a `google.api.resource_reference` annotation.
 ```proto
 // Incorrect.
 message GetBookRequest {
-  // The `google.api.resource_reference` annotation should also be included.
+  // The `(aep.api.field_info).resource_reference` annotation should also be included.
   string path = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
 }
 ```
@@ -39,7 +39,7 @@ message GetBookRequest {
 message GetBookRequest {
   string path = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 }
 ```

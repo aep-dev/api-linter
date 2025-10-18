@@ -29,7 +29,7 @@ value of `FIELD_BEHAVIOR_REQUIRED`.
 // Incorrect.
 message UndeleteBookRequest {
   // The `aep.api.field_behavior` annotation should also be included.
-  string name = 1 [(google.api.resource_reference) = {
+  string name = 1 [(aep.api.field_info).resource_reference = {
     type: "library.googleapis.com/Book"
   }];
 }
@@ -42,7 +42,7 @@ message UndeleteBookRequest {
 message UndeleteBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -56,7 +56,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message UndeleteBookRequest {
   // (-- api-linter: core::0164::request-name-behavior=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
-  string name = 1 [(google.api.resource_reference) = {
+  string name = 1 [(aep.api.field_info).resource_reference = {
     type: "library.googleapis.com/Book"
   }];
 }

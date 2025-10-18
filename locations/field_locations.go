@@ -15,8 +15,8 @@
 package locations
 
 import (
+	aepapi "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
 	"github.com/jhump/protoreflect/desc"
-	apb "google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
@@ -30,9 +30,10 @@ func FieldOption(f *desc.FieldDescriptor, e protoreflect.ExtensionType) *dpb.Sou
 }
 
 // FieldResourceReference returns the precise location for a field's
-// resource reference annotation.
+// resource reference annotation within the aep.api.field_info extension.
 func FieldResourceReference(f *desc.FieldDescriptor) *dpb.SourceCodeInfo_Location {
-	return pathLocation(f, 8, int(apb.E_ResourceReference.TypeDescriptor().Number())) // FieldDescriptor.options == 8
+	// Path: FieldDescriptor.options (8) -> field_info extension number (10520) -> resource_reference field (2) -> array index (0)
+	return pathLocation(f, 8, int(aepapi.E_FieldInfo.TypeDescriptor().Number()), 2, 0)
 }
 
 // FieldType returns the precise location for a field's type.

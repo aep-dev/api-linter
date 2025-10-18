@@ -118,7 +118,7 @@ func LintOutputOnlyField(f *desc.FieldDescriptor) []lint.Problem {
 func LintFieldResourceReference(f *desc.FieldDescriptor) []lint.Problem {
 	if ref := GetResourceReference(f); ref == nil {
 		return []lint.Problem{{
-			Message:    fmt.Sprintf("The `%s` field should include a `google.api.resource_reference` annotation.", f.GetName()),
+			Message:    fmt.Sprintf("The `%s` field should include a `(aep.api.field_info).resource_reference` annotation.", f.GetName()),
 			Descriptor: f,
 		}}
 	}

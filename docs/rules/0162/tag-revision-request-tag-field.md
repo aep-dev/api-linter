@@ -28,7 +28,7 @@ either the `tag` field is missing or it has any type other than `string`.
 message TagBookRevisionRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -38,7 +38,7 @@ message TagBookRevisionRequest {
 message TagBookRevisionRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 
   // Field type should be `string`.
@@ -53,7 +53,7 @@ message TagBookRevisionRequest {
 message TagBookRevisionRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 
   string tag = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
@@ -70,7 +70,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message TagBookRevisionRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
   ];
 
   // (-- api-linter: core::0162::tag-revision-request-tag-field=disabled

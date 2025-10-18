@@ -31,7 +31,7 @@ message ListBooksRequest {
 	// Format: publishers/{publisher}
 	string parent = 1 [
 	    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-	    (google.api.resource_reference) = {
+	    (aep.api.field_info).resource_reference = {
 	  		child_type: "library.googleapis.com/Book"
 	    }];
 
@@ -49,7 +49,7 @@ message ListBooksRequest {
 	// Format: publishers/{publisher}
 	string parent = 1 [
 	    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-	    (google.api.resource_reference) = {
+	    (aep.api.field_info).resource_reference = {
 	  		child_type: "library.googleapis.com/Book"
 	    }];
 
@@ -68,7 +68,7 @@ message ListBooksRequest {
 	// Format: publishers/{publisher}
 	string parent = 1 [
 	    (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-	    (google.api.resource_reference) = {
+	    (aep.api.field_info).resource_reference = {
 	  		child_type: "library.googleapis.com/Book"
 	    }];
 

@@ -21,9 +21,7 @@ import (
 )
 
 func TestResourceReferenceType(t *testing.T) {
-	annotation := ` [(google.api.resource_reference) = {
-		type: "library.googleapis.com/Author"
-	}]`
+	annotation := ` [(aep.api.field_info).resource_reference = "library.googleapis.com/Author"]`
 	for _, test := range []struct {
 		name       string
 		Type       string
@@ -38,6 +36,7 @@ func TestResourceReferenceType(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 			  import "google/api/resource.proto";
+			  import "aep/api/field_info.proto";
 				message Book {
 					{{.Type}} author = 1{{.Annotation}};
 				}

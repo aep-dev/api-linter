@@ -49,7 +49,7 @@ var requestParentValidReference = &lint.FieldRule{
 
 			if r := utils.GetResource(typ); r != nil && r.GetType() == res {
 				return []lint.Problem{{
-					Message:    fmt.Sprintf("The `google.api.resource_reference` on `%s` field should reference the parent(s) of `%s`.", f.GetName(), res),
+					Message:    fmt.Sprintf("The `(aep.api.field_info).resource_reference` on `%s` field should reference the parent(s) of `%s`.", f.GetName(), res),
 					Descriptor: f,
 					Location:   locations.FieldResourceReference(f),
 				}}

@@ -3,7 +3,7 @@ rule:
   aep: 132
   name: [core, '0132', request-parent-reference]
   summary: |
-    List RPCs should annotate the `parent` field with `google.api.resource_reference`.
+    List RPCs should annotate the `parent` field with `(aep.api.field_info).resource_reference`.
 permalink: /132/request-parent-reference
 redirect_from:
   - /0132/request-parent-reference
@@ -12,13 +12,13 @@ redirect_from:
 # List methods: Resource reference
 
 This rule enforces that all `List` standard methods have
-`google.api.resource_reference` on their `string parent` field, as mandated in
+`(aep.api.field_info).resource_reference` on their `string parent` field, as mandated in
 [AEP-132][].
 
 ## Details
 
 This rule looks at the `parent` field of any message matching `List*Request`
-and complains if it does not have a `google.api.resource_reference` annotation.
+and complains if it does not have a `(aep.api.field_info).resource_reference` annotation.
 
 ## Examples
 
@@ -27,7 +27,7 @@ and complains if it does not have a `google.api.resource_reference` annotation.
 ```proto
 // Incorrect.
 message ListBooksRequest {
-  // The `google.api.resource_reference` annotation should also be included.
+  // The `(aep.api.field_info).resource_reference` annotation should also be included.
   string parent = 1 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
   int32 page_size = 2;
   string page_token = 3;
@@ -41,7 +41,7 @@ message ListBooksRequest {
 message ListBooksRequest {
   string parent = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (google.api.resource_reference).type = "library.googleapis.com/Publisher"
+    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Publisher"
   ];
   int32 page_size = 2;
   string page_token = 3;

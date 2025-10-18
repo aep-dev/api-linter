@@ -36,7 +36,7 @@ rpc GetBook(GetBookRequest) returns (Book) {
 }
 message GetBookRequest {
     string path = 1 [
-        (google.api.resource_reference).type = "library.googleapis.com/Book"
+        (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
     ];
 }
 message Book {
@@ -61,7 +61,7 @@ rpc GetBook(GetBookRequest) returns (Book) {
 }
 message GetBookRequest {
     string path = 1 [
-        (google.api.resource_reference).type = "library.googleapis.com/Book"
+        (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
     ];
 }
 message Book {
