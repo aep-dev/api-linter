@@ -2,7 +2,9 @@
 rule:
   aep: 133
   name: [core, '0133', resource-reference-type]
-  summary: Create should use `resource_reference_child_type` to reference the created resource.
+  summary:
+    Create should use `resource_reference_child_type` to reference the created
+    resource.
 permalink: /133/resource-reference-type
 redirect_from:
   - /0133/resource-reference-type
@@ -11,14 +13,16 @@ redirect_from:
 # Create methods: Parent field resource reference
 
 This rule enforces that all `Create` standard methods with a `string parent`
-field use a proper `(aep.api.field_info).resource_reference_child_type` to refer to the
-created resource, as mandated in [AEP-133][].
+field use a proper `(aep.api.field_info).resource_reference_child_type` or
+`(aep.api.field_info.).resource_reference` to refer to the created resource, as
+mandated in [AEP-133][].
 
 ## Details
 
 This rule looks at any message matching `Create*Request` and complains if the
-`(aep.api.field_info).resource_reference_child_type` or `(aep.api.field_info).resource_reference`
-on the `parent` field refers to the wrong resource. The preferred approach is to use
+`(aep.api.field_info).resource_reference_child_type` or
+`(aep.api.field_info).resource_reference` on the `parent` field refers to the
+wrong resource. The preferred approach is to use
 `resource_reference_child_type` to reference the child resource being created.
 
 ## Examples
