@@ -33,9 +33,7 @@ message Book {
   string path = 1;
 
   // This is not a resource reference; the annotation does not belong.
-  Author author = 2 [(aep.api.field_info).resource_reference = {
-    type: "library.googleapis.com/Author"
-  }];
+  Author author = 2 [(aep.api.field_info).resource_reference = "library.googleapis.com/Author"];
 }
 ```
 
@@ -55,9 +53,7 @@ message Book {
 message Book {
   string path = 1;
 
-  string author = 2 [(aep.api.field_info).resource_reference = {
-    type: "library.googleapis.com/Author"
-  }];
+  string author = 2 [(aep.api.field_info).resource_reference = "library.googleapis.com/Author"];
 }
 ```
 

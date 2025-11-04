@@ -29,7 +29,7 @@ missing.
 message DeletePublisherRequest {
   // Where Publisher parents the Book resource.
   string path = 1 [
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Publisher"]; 
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"]; 
 
   // Missing `bool force` field.
 }
@@ -42,7 +42,7 @@ message DeletePublisherRequest {
 message DeletePublisherRequest {
   // Where Publisher parents the Book resource.
   string path = 1 [
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Publisher"]; 
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"]; 
 
   // If set to true, any books from this publisher will also be deleted.
   // (Otherwise, the request will only work if the publisher has no books.)
@@ -62,7 +62,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message DeletePublisherRequest {
   // Where Publisher parents the Book resource.
   string path = 1 [
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Publisher"]; 
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"]; 
 }
 ```
 

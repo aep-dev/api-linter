@@ -28,7 +28,7 @@ either the `revision_id` field is missing or it has any type other than `string`
 message RollbackBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -38,7 +38,7 @@ message RollbackBookRequest {
 message RollbackBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 
   // Field type should be `string`.
@@ -53,7 +53,7 @@ message RollbackBookRequest {
 message RollbackBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 
   string revision_id = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
@@ -70,7 +70,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message RollbackBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 
   // (-- api-linter: core::0162::rollback-request-revision-id-field=disabled

@@ -41,7 +41,7 @@ message ListBooksRequest {
 message ListBooksRequest {
   string parent = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Publisher"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Publisher"
   ];
   int32 page_size = 2;
   string page_token = 3;

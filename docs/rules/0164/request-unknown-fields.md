@@ -32,7 +32,7 @@ comes across any fields other than:
 message UndeleteBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book",
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book",
   ];
   string library_id = 2;  // Non-standard field.
 }
@@ -45,7 +45,7 @@ message UndeleteBookRequest {
 message UndeleteBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book",
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book",
   ];
 }
 ```
@@ -59,7 +59,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message UndeleteBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book",
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book",
   ];
 
   // (-- api-linter: core::0164::request-unknown-fields=disabled

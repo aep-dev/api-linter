@@ -30,7 +30,7 @@ value of `FIELD_BEHAVIOR_REQUIRED`.
 message CommitBookRequest {
   // The `aep.api.field_behavior` annotation should also be included.
   string name = 1 [
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -42,7 +42,7 @@ message CommitBookRequest {
 message CommitBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -57,7 +57,7 @@ message CommitBookRequest {
   // (-- api-linter: core::0162::commit-request-name-behavior=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
   string name = 1 [
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 }
 ```

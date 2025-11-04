@@ -46,9 +46,7 @@ message Book {
 package google.example.libray.v1;  // Typo: Different package.
 
 message GetBookRequest {
-  string name = 1 [(aep.api.field_info).resource_reference = {
-    type: "library.googleapis.com/Book"  // Lint warning: package mismatch.
-  }];
+  string name = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];  // Lint warning: package mismatch.
 }
 ```
 
@@ -70,9 +68,7 @@ message Book {
 }
 
 message GetBookRequest {
-  string name = 1 [(aep.api.field_info).resource_reference = {
-    type: "library.googleapis.com/Book"
-  }];
+  string name = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 }
 ```
 
@@ -98,9 +94,7 @@ package google.example.library.v1;
 message GetBookRequest {
   // (-- api-linter: core::0124::reference-same-package=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
-  string name = 1 [(aep.api.field_info).resource_reference = {
-    type: "library.googleapis.com/Book"
-  }];
+  string name = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 }
 ```
 

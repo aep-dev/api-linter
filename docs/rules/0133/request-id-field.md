@@ -25,9 +25,7 @@ it lacks a client-specified ID (e.g. `string book_id`) field.
 ```proto
 // Incorrect.
 message CreateBookRequest {
-  string parent = 1 [(aep.api.field_info).resource_reference = {
-    child_type: "library.googleapis.com/Book"
-  }];
+  string parent = 1 [(aep.api.field_info).resource_reference_child_type = "library.googleapis.com/Book"];
 
   Book book = 2;
 
@@ -40,9 +38,7 @@ message CreateBookRequest {
 ```proto
 // Correct.
 message CreateBookRequest {
-  string parent = 1 [(aep.api.field_info).resource_reference = {
-    child_type: "library.googleapis.com/Book"
-  }];
+  string parent = 1 [(aep.api.field_info).resource_reference_child_type = "library.googleapis.com/Book"];
 
   string id = 2;
 
@@ -60,9 +56,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 // (-- api-linter: core::0133::request-id-field=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message CreateBookRequest {
-  string parent = 1 [(aep.api.field_info).resource_reference = {
-    child_type: "library.googleapis.com/Book"
-  }];
+  string parent = 1 [(aep.api.field_info).resource_reference_child_type = "library.googleapis.com/Book"];
 
   Book book = 2;
 }
