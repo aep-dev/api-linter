@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	bitbucket.org/creachadair/stringset v0.0.14
-	buf.build/gen/go/aep/api/protocolbuffers/go v1.36.10-20251016045117-f9844266f27f.1
+	buf.build/gen/go/aep/api/protocolbuffers/go v1.36.10-20251102152130-5f3e69139afa.1
 	buf.build/go/bufplugin v0.9.0
 	cloud.google.com/go/longrunning v0.7.0
 	github.com/bmatcuk/doublestar/v4 v4.9.1

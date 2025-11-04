@@ -40,26 +40,26 @@ var resourceReferenceType = &lint.MethodRule{
 		parent := m.GetInputType().FindFieldByName("parent")
 		ref := utils.GetResourceReference(parent)
 
-		// In AEP format, resource_reference is just a string. When used in Create methods,
-		// it should match the created resource type. The old Google API format distinguishes
-		// between `type` and `child_type`, but AEP format just uses the string value.
-		// If child_type is set (Google API format), check it. Otherwise, check the type field
-		// and treat it as an implicit child_type reference.
-		if ref.GetChildType() != "" {
-			// Google API format with explicit child_type
-			if resource.GetType() != ref.GetChildType() {
+		// Check resource reference matches the created resource type.
+		// In AEP format, use resource_reference_child_type to reference the created resource.
+		// For backwards compatibility, resource_reference (type) is also supported.
+		childTypes := ref.GetChildType()
+		types := ref.GetType()
+
+		if len(childTypes) > 0 {
+			// AEP format with resource_reference_child_type
+			if resource.GetType() != childTypes[0] {
 				return []lint.Problem{{
-					Message:    "Create should use a `child_type` reference to the created resource.",
+					Message:    "Create should use `resource_reference_child_type` to reference the created resource.",
 					Descriptor: parent,
 					Location:   locations.FieldResourceReference(parent),
 				}}
 			}
-		} else if ref.GetType() != "" {
-			// AEP format or Google API format with only type set
-			// In AEP format, this should match the created resource type
-			if resource.GetType() != ref.GetType() {
+		} else if len(types) > 0 {
+			// AEP format with resource_reference only (backwards compatibility)
+			if resource.GetType() != types[0] {
 				return []lint.Problem{{
-					Message:    "Create should use a `child_type` reference to the created resource.",
+					Message:    "Create should use `resource_reference_child_type` to reference the created resource.",
 					Descriptor: parent,
 					Location:   locations.FieldResourceReference(parent),
 				}}

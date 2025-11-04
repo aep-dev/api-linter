@@ -47,18 +47,23 @@ func findCycles(start string, node *desc.MessageDescriptor, seen stringset.Set, 
 		}
 		ref := utils.GetResourceReference(f)
 		// Skip indirect references for now.
-		if ref.GetChildType() != "" {
+		if len(ref.GetChildType()) > 0 {
 			continue
 		}
-		if ref.GetType() == start {
+		types := ref.GetType()
+		if len(types) == 0 {
+			continue
+		}
+		refType := types[0]
+		if refType == start {
 			cycle := strings.Join(append(chain, start), " > ")
 			problems = append(problems, lint.Problem{
 				Message:    "mutable resource reference introduces a reference cycle:\n" + cycle,
 				Descriptor: f,
 				Location:   locations.FieldResourceReference(f),
 			})
-		} else if !seen.Contains(ref.GetType()) {
-			next := utils.FindResourceMessage(ref.GetType(), node.GetFile())
+		} else if !seen.Contains(refType) {
+			next := utils.FindResourceMessage(refType, node.GetFile())
 			// Skip unresolvable references.
 			if next == nil {
 				continue

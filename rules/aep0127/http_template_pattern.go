@@ -66,16 +66,21 @@ func httpResourceReferences(httpRule *utils.HTTPRule, msg *desc.MessageDescripto
 
 		// Extract the name of the resource referenced by this field.
 		ref := utils.GetResourceReference(field)
-		if ref == nil || ref.GetChildType() != "" {
+		if ref == nil || len(ref.GetChildType()) > 0 {
 			// TODO(#1047): Support the case where a resource has
 			// multiple parent resources.
+			continue
+		}
+
+		types := ref.GetType()
+		if len(types) == 0 {
 			continue
 		}
 
 		resourceRefs = append(resourceRefs, resourceReference{
 			fieldPath:       fieldPath,
 			pathTemplate:    template,
-			resourceRefName: ref.GetType(),
+			resourceRefName: types[0],
 		})
 	}
 	return resourceRefs

@@ -29,12 +29,14 @@ var requestParentValidReference = &lint.FieldRule{
 	RuleType: lint.NewRuleType(lint.MustRule),
 	OnlyIf: func(f *desc.FieldDescriptor) bool {
 		ref := utils.GetResourceReference(f)
-		return utils.IsListRequestMessage(f.GetOwner()) && f.GetName() == "parent" && ref != nil && ref.GetType() != ""
+		types := ref.GetType()
+		return utils.IsListRequestMessage(f.GetOwner()) && f.GetName() == "parent" && ref != nil && len(types) > 0
 	},
 	LintField: func(f *desc.FieldDescriptor) []lint.Problem {
 		p := f.GetParent()
 		msg, _ := p.(*desc.MessageDescriptor)
-		res := utils.GetResourceReference(f).GetType()
+		types := utils.GetResourceReference(f).GetType()
+		res := types[0]
 
 		response := utils.FindMessage(f.GetFile(), strings.Replace(msg.GetName(), "Request", "Response", 1))
 		if response == nil {
