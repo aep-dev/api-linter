@@ -30,14 +30,16 @@ option (google.api.resource) = {
 
 	// Set up testing permutations.
 	tests := []struct {
-		testName string
-		TypeName string
+		testName           string
+		Annotation         string
 		ResourceAnnotation string
 		problems           testutils.Problems
 	}{
-		{"ValidMatch", "library.googleapis.com/Book", bookResource, nil},
-		{"InvalidMismatch", "library.googleapis.com/Shelf", bookResource, testutils.Problems{{Message: "`child_type`"}}},
-		{"SkipNoResource", "library.googleapis.com/Book", "", nil},
+		{"ValidMatch_resource_reference", `resource_reference = "library.googleapis.com/Book"`, bookResource, nil},
+		{"InvalidMismatch_resource_reference", `resource_reference = "library.googleapis.com/Shelf"`, bookResource, testutils.Problems{{Message: "`resource_reference_child_type`"}}},
+		{"ValidMatch_resource_reference_child_type", `resource_reference_child_type = "library.googleapis.com/Book"`, bookResource, nil},
+		{"InvalidMismatch_resource_reference_child_type", `resource_reference_child_type = "library.googleapis.com/Shelf"`, bookResource, testutils.Problems{{Message: "`resource_reference_child_type`"}}},
+		{"SkipNoResource", `resource_reference = "library.googleapis.com/Book"`, "", nil},
 	}
 
 	// Run each test.
@@ -50,7 +52,7 @@ option (google.api.resource) = {
 					rpc ListBooks(ListBooksRequest) returns (ListBooksResponse) {}
 				}
 				message ListBooksRequest {
-					string parent = 1 [(aep.api.field_info).resource_reference = "{{ .TypeName }}"];
+					string parent = 1 [(aep.api.field_info).{{ .Annotation }}];
 				}
 				message ListBooksResponse {
 					repeated string unreachable = 2;

@@ -2,6 +2,8 @@ bitbucket.org/creachadair/stringset v0.0.14 h1:t1ejQyf8utS4GZV/4fM+1gvYucggZkfhb
 bitbucket.org/creachadair/stringset v0.0.14/go.mod h1:Ej8fsr6rQvmeMDf6CCWMWGb14H9mz8kmDgPPTdiVT0w=
 buf.build/gen/go/aep/api/protocolbuffers/go v1.36.10-20251016045117-f9844266f27f.1 h1:jK64CGldQTGX2ESi+v41uERp+z28OFqGyAn/T/Qs8Q0=
 buf.build/gen/go/aep/api/protocolbuffers/go v1.36.10-20251016045117-f9844266f27f.1/go.mod h1:JOZpZ+zS3G2OKO02hKlEazAGR5X9uVpFyeCamXBXg5c=
+buf.build/gen/go/aep/api/protocolbuffers/go v1.36.10-20251102152130-5f3e69139afa.1 h1:SEKgDODwWdsVL9nnOPkFBlZ9wAuO7kRQNobSZb5JR7I=
+buf.build/gen/go/aep/api/protocolbuffers/go v1.36.10-20251102152130-5f3e69139afa.1/go.mod h1:JOZpZ+zS3G2OKO02hKlEazAGR5X9uVpFyeCamXBXg5c=
 buf.build/gen/go/bufbuild/bufplugin/protocolbuffers/go v1.36.10-20250718181942-e35f9b667443.1 h1:FzJGrb8r7vir+P3zJ5Ebey8p54LYTYtQsrM/U35YO9Q=
 buf.build/gen/go/bufbuild/bufplugin/protocolbuffers/go v1.36.10-20250718181942-e35f9b667443.1/go.mod h1:E6HwqUm4Ag7bXtg/tX7jHWO7CgpknbmeACgDax0icV0=
 buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1 h1:31on4W/yPcV4nZHL4+UCiCvLPsMqe/vJcNg8Rci0scc=

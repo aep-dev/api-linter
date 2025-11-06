@@ -27,7 +27,8 @@ var forceField = &lint.MessageRule{
 	OnlyIf: func(m *desc.MessageDescriptor) bool {
 		name := m.FindFieldByName("path")
 		ref := utils.GetResourceReference(name)
-		validRef := ref != nil && ref.GetType() != "" && utils.FindResource(ref.GetType(), m.GetFile()) != nil
+		types := ref.GetType()
+		validRef := ref != nil && len(types) > 0 && utils.FindResource(types[0], m.GetFile()) != nil
 
 		return utils.IsDeleteRequestMessage(m) && validRef
 	},
@@ -35,7 +36,8 @@ var forceField = &lint.MessageRule{
 		force := m.FindFieldByName("force")
 		name := m.FindFieldByName("path")
 		ref := utils.GetResourceReference(name)
-		res := utils.FindResource(ref.GetType(), m.GetFile())
+		types := ref.GetType()
+		res := utils.FindResource(types[0], m.GetFile())
 
 		children := utils.FindResourceChildren(res, m.GetFile())
 		if len(children) > 0 && force == nil {

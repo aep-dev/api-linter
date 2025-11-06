@@ -207,8 +207,32 @@ func HasResourceReference(f *desc.FieldDescriptor) bool {
 	return false
 }
 
+// ResourceReference contains resource reference information from aep.api.field_info annotations.
+type ResourceReference struct {
+	// Type is the resource types being referenced (from resource_reference field)
+	Type []string
+	// ChildType is the child resource types (from resource_reference_child_type field)
+	ChildType []string
+}
+
+// GetType returns the resource types.
+func (r *ResourceReference) GetType() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Type
+}
+
+// GetChildType returns the child resource types.
+func (r *ResourceReference) GetChildType() []string {
+	if r == nil {
+		return nil
+	}
+	return r.ChildType
+}
+
 // GetResourceReference returns the aep.api.field_info.resource_reference annotation.
-func GetResourceReference(f *desc.FieldDescriptor) *apb.ResourceReference {
+func GetResourceReference(f *desc.FieldDescriptor) *ResourceReference {
 	if f == nil {
 		return nil
 	}
@@ -218,16 +242,15 @@ func GetResourceReference(f *desc.FieldDescriptor) *apb.ResourceReference {
 	if x := proto.GetExtension(opts, aepapi.E_FieldInfo); x != nil {
 		fieldInfo := x.(*aepapi.FieldInfo)
 		resourceRefs := fieldInfo.GetResourceReference()
-		if len(resourceRefs) > 0 {
-			// Convert aep.api.FieldInfo.resource_reference to google.api.ResourceReference for internal use
-			// Note: aep.api supports multiple resource references, but we only support one
-			// For compatibility, we'll use the first one
-			ref := &apb.ResourceReference{}
-			if resourceRefs[0] == "*" {
-				ref.Type = "*"
-			} else {
-				ref.Type = resourceRefs[0]
+		resourceRefChildTypes := fieldInfo.GetResourceReferenceChildType()
+
+		if len(resourceRefs) > 0 || len(resourceRefChildTypes) > 0 {
+			// Extract resource reference information from aep.api.FieldInfo
+			ref := &ResourceReference{
+				Type:      resourceRefs,
+				ChildType: resourceRefChildTypes,
 			}
+
 			return ref
 		}
 	}

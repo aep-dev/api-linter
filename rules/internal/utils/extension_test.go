@@ -302,8 +302,9 @@ func TestGetResourceReference(t *testing.T) {
 			}
 		`)
 		ref := GetResourceReference(f.GetMessageTypes()[0].GetFields()[0])
-		if got, want := ref.GetType(), "library.googleapis.com/Book"; got != want {
-			t.Errorf("Got %q, expected %q.", got, want)
+		types := ref.GetType()
+		if len(types) != 1 || types[0] != "library.googleapis.com/Book" {
+			t.Errorf("Got %v, expected [\"library.googleapis.com/Book\"].", types)
 		}
 	})
 	t.Run("Absent", func(t *testing.T) {
