@@ -10,12 +10,12 @@ redirect_from:
 
 # Resource type name
 
-This rule enforces that messages that have a `google.api.resource` annotation,
+This rule enforces that messages that have a `aep.api.resource` annotation,
 have a properly formatted `plural`, as described in [AEP-4][].
 
 ## Details
 
-This rule scans messages with a `google.api.resource` annotation, and
+This rule scans messages with a `aep.api.resource` annotation, and
 verifies the `plural` field exists.
 
 ## Examples
@@ -26,7 +26,7 @@ verifies the `plural` field exists.
 // Incorrect.
 message Book {
   // no plural annotation
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/BookShelf"
     pattern: "publishers/{publisher}/bookShelves/{book_shelf}"
   };
@@ -40,7 +40,7 @@ message Book {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/BookShelf"
     pattern: "publishers/{publisher}/bookShelves/{book_shelf}"
     plural: "bookShelves",
@@ -58,7 +58,7 @@ If you need to violate this rule, use a leading comment above the message.
 // (-- api-linter: core::4::resource-plural=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Genre/Mystery/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };

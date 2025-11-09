@@ -22,7 +22,7 @@ import (
 
 func TestResourceReferenceType(t *testing.T) {
 	bookResource := `
-option (google.api.resource) = {
+option (aep.api.resource) = {
 	type: "library.googleapis.com/Book"
 	pattern: "shelves/{shelf}/books/{book}"
 };

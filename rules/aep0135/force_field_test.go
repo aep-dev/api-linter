@@ -39,7 +39,7 @@ func TestForceField(t *testing.T) {
   import "aep/api/field_info.proto";
 
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "publishers/{publisher}/books/{book}"
 					};
@@ -48,7 +48,7 @@ func TestForceField(t *testing.T) {
 				}
 
 				message Publisher {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Publisher"
 						pattern: "publishers/{publisher}"
 					};

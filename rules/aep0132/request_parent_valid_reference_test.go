@@ -41,7 +41,7 @@ func TestRequestParentValidReference(t *testing.T) {
 			}
 
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 				};

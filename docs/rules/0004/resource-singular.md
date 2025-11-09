@@ -10,12 +10,12 @@ redirect_from:
 
 # Resource type name
 
-This rule enforces that messages that have a `google.api.resource` annotation,
+This rule enforces that messages that have a `aep.api.resource` annotation,
 have a properly formatted `singular`, as described in [AEP-4][].
 
 ## Details
 
-This rule scans messages with a `google.api.resource` annotation, and validates
+This rule scans messages with a `aep.api.resource` annotation, and validates
 the format of the `singular` field is the lower camel case of type.
 
 ## Examples
@@ -25,7 +25,7 @@ the format of the `singular` field is the lower camel case of type.
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/BookShelf"
     pattern: "publishers/{publisher}/bookShelves/{book_shelf}"
     // does not match type.
@@ -41,7 +41,7 @@ message Book {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/BookShelf"
     pattern: "publishers/{publisher}/bookShelves/{book_shelf}"
     singular: "bookShelf",
@@ -59,7 +59,7 @@ If you need to violate this rule, use a leading comment above the message.
 // (-- api-linter: core::4::resource-singular=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Genre/Mystery/Book"
     pattern: "publishers/{publisher}/books/{book}"
     singular: "shelf",

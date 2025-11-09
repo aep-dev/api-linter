@@ -45,7 +45,7 @@ func TestRequestParentFieldRequired(t *testing.T) {
 				Book book = 2;
 			}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					pattern: "books/{book}"
 				};
 				string name = 1;

@@ -26,7 +26,7 @@ This rule looks on for fields named `uid` and complains if it does not have the
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "books/{book}"
   };
@@ -41,7 +41,7 @@ message Book {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "books/{book}"
   };
@@ -59,7 +59,7 @@ comment explaining why.
 
 ```proto
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "books/{book}"
   };

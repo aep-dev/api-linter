@@ -71,7 +71,7 @@ func TestHttpTemplatePattern_PatternMatching(t *testing.T) {
 					string path = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 				}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "{{.ResourcePattern}}"
 					};
@@ -115,7 +115,7 @@ func TestHttpTemplatePattern_MultiplePatterns(t *testing.T) {
 					string path = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 				}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "{{.ResourcePattern1}}"
 						pattern: "{{.ResourcePattern2}}"
@@ -143,7 +143,7 @@ func TestHttpTemplatePattern_SkipCheckIfNoHTTPRules(t *testing.T) {
 				string path = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 			}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 				};
 				string path = 1;
@@ -170,7 +170,7 @@ func TestHttpTemplatePattern_SkipCheckIfHTTPRuleHasNoVariables(t *testing.T) {
 				string path = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
 			}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 				};
 				string path = 1;
@@ -197,7 +197,7 @@ func TestHttpTemplatePattern_SkipCheckIfFieldPathMissingResourceAnnotation(t *te
 				string path = 1;
 			}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 				};
 				string path = 1;

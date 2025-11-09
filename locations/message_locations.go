@@ -20,7 +20,7 @@ import (
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
 
-// MessageResource returns the precise location of the `google.api.resource`
+// MessageResource returns the precise location of the `aep.api.resource`
 // annotation.
 func MessageResource(m *desc.MessageDescriptor) *dpb.SourceCodeInfo_Location {
 	return pathLocation(m, 7, int(apb.E_Resource.TypeDescriptor().Number())) // MessageDescriptor.options == 7

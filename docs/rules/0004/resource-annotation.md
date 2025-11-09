@@ -2,7 +2,7 @@
 rule:
   aep: 4
   name: [core, '4', resource-annotation]
-  summary: Resource messages should be annotated with `google.api.resource`.
+  summary: Resource messages should be annotated with `aep.api.resource`.
 permalink: /4/resource-annotation
 redirect_from:
   - /4/resource-annotation
@@ -11,13 +11,13 @@ redirect_from:
 # Resource annotation presence
 
 This rule enforces that top-level messages that appear to represent resources
-have a `google.api.resource` annotation, as described in [AEP-4][].
+have a `aep.api.resource` annotation, as described in [AEP-4][].
 
 ## Details
 
 This rule scans all top-level messages, and assumes that messages with a
  `string path` field are resources unless the message name ends with `Request`.
-For messages that are resources, it complains if the `google.api.resource`
+For messages that are resources, it complains if the `aep.api.resource`
 annotation is missing.
 
 ## Examples
@@ -27,7 +27,7 @@ annotation is missing.
 ```proto
 // Incorrect.
 message Book {
-  // A `google.api.resource` annotation should be here.
+  // A `aep.api.resource` annotation should be here.
   string path = 1;
 }
 ```
@@ -37,7 +37,7 @@ message Book {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };

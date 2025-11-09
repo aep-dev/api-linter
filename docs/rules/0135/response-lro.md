@@ -17,7 +17,7 @@ operations, as mandated in [AEP-135][].
 ## Details
 
 This rule looks at any `Delete` method connected to a resource with a
-`google.api.resource` annotation that includes `style: DECLARATIVE_FRIENDLY`,
+`aep.api.resource` annotation that includes `style: DECLARATIVE_FRIENDLY`,
 and complains if it does not use long-running operations.
 
 ## Examples

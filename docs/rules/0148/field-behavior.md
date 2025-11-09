@@ -15,7 +15,7 @@ This rule enforces that all standard resource fields have the correct
 
 ## Details
 
-This rule looks at any message with a `google.api.resource` annotation, and
+This rule looks at any message with a `aep.api.resource` annotation, and
 complains if any of the following fields does not have a
 `aep.api.field_behavior` annotation with a value of `OUTPUT_ONLY`:
 
@@ -31,7 +31,7 @@ complains if any of the following fields does not have a
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -57,7 +57,7 @@ message Book {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -81,7 +81,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };

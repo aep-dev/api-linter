@@ -11,12 +11,12 @@ redirect_from:
 # Resource patterns
 
 This rule enforces that files that define a resource with the
-`google.api.resource_definition` annotation have a `pattern` defined, as
+`aep.api.resource_definition` annotation have a `pattern` defined, as
 described in [AEP-123][].
 
 ## Details
 
-This rule scans all `google.api.resource_definition` annotations in all files,
+This rule scans all `aep.api.resource_definition` annotations in all files,
 and complains if `pattern` is not provided at least once. It also complains if
 the segments outside of variable names contain underscores.
 
@@ -28,7 +28,7 @@ the segments outside of variable names contain underscores.
 import "google/api/resources.proto";
 
 // Incorrect.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/Book"
   // pattern should be here
 };
@@ -38,7 +38,7 @@ option (google.api.resource_definition) = {
 import "google/api/resources.proto";
 
 // Incorrect.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/ElectronicBook"
   // Should be: publishers/{publisher}/electronicBooks/{electronic_book}
   pattern: "publishers/{publisher}/electronic_books/{electronic_book}"
@@ -51,7 +51,7 @@ option (google.api.resource_definition) = {
 import "google/api/resources.proto";
 
 // Correct.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/Book"
   pattern: "publishers/{publisher}/books/{book}"
 };
@@ -61,7 +61,7 @@ option (google.api.resource_definition) = {
 import "google/api/resource.proto";
 
 // Correct.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/ElectronicBook"
   pattern: "publishers/{publisher}/electronicBooks/{electronic_book}"
 };
@@ -76,7 +76,7 @@ import "google/api/resource.proto";
 
 // (-- api-linter: core::0123::resource-definition-pattern=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/Book"
 };
 ```

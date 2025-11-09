@@ -50,7 +50,7 @@ func TestHTTPURIParent(t *testing.T) {
 				}
 				message {{.MethodName}}Request {}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						pattern: "{{.Pattern}}"
 					};
 				}
@@ -78,7 +78,7 @@ func TestHTTPURIParent(t *testing.T) {
 				}
 				message {{.MethodName}}Request {}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						pattern: "{{.Pattern}}"
 					};
 				}
@@ -108,7 +108,7 @@ func TestHTTPURIParent(t *testing.T) {
 			}
 			message CreateBookRequest {}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					pattern: "publishers/{publisher}/books/{book}"
 				};
 			}

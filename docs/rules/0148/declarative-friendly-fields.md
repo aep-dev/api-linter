@@ -15,7 +15,7 @@ as mandated in [AIP-148][].
 
 ## Details
 
-This rule looks at any resource with a `google.api.resource` annotation that
+This rule looks at any resource with a `aep.api.resource` annotation that
 includes `style: DECLARATIVE_FRIENDLY`, and complains if it does not include
 all of the following fields:
 
@@ -33,7 +33,7 @@ all of the following fields:
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}
     style: DECLARATIVE_FRIENDLY
@@ -53,7 +53,7 @@ message Book {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}
     style: DECLARATIVE_FRIENDLY
@@ -77,7 +77,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 // (-- api-linter: core::0148::declarative-friendly-fields=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}
     style: DECLARATIVE_FRIENDLY

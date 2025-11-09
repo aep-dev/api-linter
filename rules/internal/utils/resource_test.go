@@ -112,7 +112,7 @@ func TestIsResourceRevision(t *testing.T) {
 		{
 			name:     "valid_revision",
 			Message:  "BookRevision",
-			Resource: `option (google.api.resource) = {type: "library.googleapis.com/BookRevision"};`,
+			Resource: `option (aep.api.resource) = {type: "library.googleapis.com/BookRevision"};`,
 			want:     true,
 		},
 		{
@@ -123,7 +123,7 @@ func TestIsResourceRevision(t *testing.T) {
 		{
 			name:     "not_revision_bad_name",
 			Message:  "Book",
-			Resource: `option (google.api.resource) = {type: "library.googleapis.com/Book"};`,
+			Resource: `option (aep.api.resource) = {type: "library.googleapis.com/Book"};`,
 			want:     false,
 		},
 	} {

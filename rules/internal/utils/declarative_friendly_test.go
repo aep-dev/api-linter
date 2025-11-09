@@ -22,7 +22,7 @@ import (
 )
 
 func TestDeclarativeFriendlyMessage(t *testing.T) {
-	// Test the cases where a google.api.resource annotation is present.
+	// Test the cases where a aep.api.resource annotation is present.
 	for _, test := range []struct {
 		name  string
 		Style string
@@ -37,7 +37,7 @@ func TestDeclarativeFriendlyMessage(t *testing.T) {
 				import "google/api/resource.proto";
 
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						{{.Style}}
 					};
@@ -61,7 +61,7 @@ func TestDeclarativeFriendlyMessage(t *testing.T) {
 		})
 	}
 
-	// Test the case where the google.api.resource annotation is not present.
+	// Test the case where the aep.api.resource annotation is not present.
 	t.Run("NotResource", func(t *testing.T) {
 		m := testutils.ParseProto3String(t, "message Book {}").GetMessageTypes()[0]
 		if IsDeclarativeFriendlyMessage(m) {
@@ -159,7 +159,7 @@ func TestDeclarativeFriendlyMethod(t *testing.T) {
 						%s
 
 						message Book {
-							option (google.api.resource) = {
+							option (aep.api.resource) = {
 								type: "library.googleapis.com/Book"
 								{{.Style}}
 							};

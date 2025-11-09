@@ -51,7 +51,7 @@ func TestRequestParentRequired(t *testing.T) {
 					repeated Book books = 1;
 				}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						pattern: "books/{book}"
 					};
 					string path = 1;

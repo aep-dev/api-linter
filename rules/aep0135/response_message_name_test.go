@@ -31,7 +31,7 @@ func TestResponseMessageName(t *testing.T) {
 			}
 			message {{.MethodName}}Request {}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 					{{.Style}}
@@ -56,7 +56,7 @@ func TestResponseMessageName(t *testing.T) {
 			}
 			message {{.MethodName}}Request {}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 					{{.Style}}

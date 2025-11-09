@@ -72,7 +72,7 @@ func FileRubyPackage(f *desc.FileDescriptor) *dpb.SourceCodeInfo_Location {
 	return pathLocation(f, 8, 45) // 8 == options, 45 == ruby_package
 }
 
-// FileResourceDefinition returns the precise location of the `google.api.resource_definition`
+// FileResourceDefinition returns the precise location of the `aep.api.resource_definition`
 // annotation.
 func FileResourceDefinition(f *desc.FileDescriptor, index int) *dpb.SourceCodeInfo_Location {
 	// 8 == options

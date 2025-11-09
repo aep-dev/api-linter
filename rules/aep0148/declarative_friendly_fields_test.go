@@ -82,7 +82,7 @@ func TestDeclarativeFriendlyFields(t *testing.T) {
 						import "google/api/resource.proto";
 						import "google/protobuf/timestamp.proto";
 						message Book {
-							option (google.api.resource) = {
+							option (aep.api.resource) = {
 								type: "library.googleapis.com/Book"
 								pattern: "publishers/{publisher}/books/{book}"
 								{{.Style}}
@@ -125,7 +125,7 @@ func TestDeclarativeFriendlyFieldsSingleton(t *testing.T) {
 				import "google/api/resource.proto";
 				import "google/protobuf/timestamp.proto";
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Settings"
 						pattern: "publishers/{publisher}/settings"
 						style: DECLARATIVE_FRIENDLY

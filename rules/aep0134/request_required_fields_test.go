@@ -94,7 +94,7 @@ func TestRequiredFieldTests(t *testing.T) {
 				}
 
 				message BookShelf {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/BookShelf"
 						pattern: "publishers/{publisher}/bookShelves/{book_shelf}"
 					};

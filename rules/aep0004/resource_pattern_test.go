@@ -41,7 +41,7 @@ func TestResourcePattern(t *testing.T) {
 				import "google/api/resource.proto";
 
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						{{.Pattern}}
 					};

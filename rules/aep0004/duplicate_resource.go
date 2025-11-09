@@ -34,7 +34,7 @@ type resourceDef struct {
 func (d *resourceDef) String() string {
 	switch d.desc.(type) {
 	case *desc.FileDescriptor:
-		return fmt.Sprintf("`google.api.resource_definition` %d in file `%s`", d.idx, d.desc.GetFullyQualifiedName())
+		return fmt.Sprintf("`aep.api.resource_definition` %d in file `%s`", d.idx, d.desc.GetFullyQualifiedName())
 	case *desc.MessageDescriptor:
 		return fmt.Sprintf("message `%s`", d.desc.GetFullyQualifiedName())
 	default:

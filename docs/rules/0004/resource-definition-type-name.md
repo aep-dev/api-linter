@@ -11,12 +11,12 @@ redirect_from:
 # Resource type name
 
 This rule enforces that files that define a resource with the
-`google.api.resource_definition` annotation have a properly formatted `type`, as
+`aep.api.resource_definition` annotation have a properly formatted `type`, as
 described in [AEP-123][].
 
 ## Details
 
-This rule scans files with `google.api.resource_definition` annotations, and
+This rule scans files with `aep.api.resource_definition` annotations, and
 validates the format of the `type` field conforms to `{Service Name}/{Type}`.
 
 ## Examples
@@ -27,7 +27,7 @@ validates the format of the `type` field conforms to `{Service Name}/{Type}`.
 import "google/api/resource.proto";
 
 // Incorrect.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   // Should not have more than one separating '/'.
   type: "library.googleapis.com/Genre/Mystery/Book"
   pattern: "publishers/{publisher}/books/{book}"
@@ -40,7 +40,7 @@ option (google.api.resource_definition) = {
 import "google/api/resource.proto";
 
 // Correct.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/Book"
   pattern: "publishers/{publisher}/books/{book}"
 };
@@ -55,7 +55,7 @@ import "google/api/resource.proto";
 
 // (-- api-linter: core::0123::resource-definition-type-name=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/Genre/Mystery/Book"
   pattern: "publishers/{publisher}/books/{book}"
 };

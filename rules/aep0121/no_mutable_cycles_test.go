@@ -108,7 +108,7 @@ func TestNoMutableCycles(t *testing.T) {
 			import "google/api/resource.proto";
 			import "aep/api/field_info.proto";
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 				};
@@ -118,7 +118,7 @@ func TestNoMutableCycles(t *testing.T) {
 			}
 
 			message Publisher {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Publisher"
 					pattern: "publishers/{publisher}"
 				};
@@ -130,7 +130,7 @@ func TestNoMutableCycles(t *testing.T) {
 			}
 
 			message Library {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Library"
 					pattern: "libraries/{library}"
 				};

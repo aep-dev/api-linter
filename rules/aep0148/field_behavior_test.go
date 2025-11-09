@@ -21,7 +21,7 @@ import (
 )
 
 func TestFieldBehavior(t *testing.T) {
-	const messageOptsResource = `option (google.api.resource).type = "library.googleapis.com/Book";`
+	const messageOptsResource = `option (aep.api.resource).type = "library.googleapis.com/Book";`
 	const fieldOptsOutputOnly = `[(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_OUTPUT_ONLY]`
 	missingOutputOnly := testutils.Problems{{Message: "OUTPUT_ONLY"}}
 

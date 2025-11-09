@@ -51,7 +51,7 @@ func TestHTTPURIResource(t *testing.T) {
 				}
 				message CreateBookRequest {}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						pattern: "{{.Pattern}}"
 					};
 				}

@@ -218,7 +218,7 @@ func TestGetResource(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
 			import "google/api/resource.proto";
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 				};
@@ -257,7 +257,7 @@ func TestGetResourceDefinition(t *testing.T) {
 	t.Run("One", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
 			import "google/api/resource.proto";
-			option (google.api.resource_definition) = {
+			option (aep.api.resource_definition) = {
 				type: "library.googleapis.com/Book"
 			};
 		`)
@@ -272,10 +272,10 @@ func TestGetResourceDefinition(t *testing.T) {
 	t.Run("Two", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
 			import "google/api/resource.proto";
-			option (google.api.resource_definition) = {
+			option (aep.api.resource_definition) = {
 				type: "library.googleapis.com/Book"
 			};
-			option (google.api.resource_definition) = {
+			option (aep.api.resource_definition) = {
 				type: "library.googleapis.com/Author"
 			};
 		`)
@@ -324,7 +324,7 @@ func TestFindResource(t *testing.T) {
 			import "google/api/resource.proto";
 
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 				};
@@ -340,7 +340,7 @@ func TestFindResource(t *testing.T) {
 			import "google/api/resource.proto";
 
 			message Shelf {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Shelf"
 					pattern: "shelves/{shelf}"
 				};
@@ -385,7 +385,7 @@ func TestFindResourceMessage(t *testing.T) {
 			import "google/api/resource.proto";
 
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 				};
@@ -401,7 +401,7 @@ func TestFindResourceMessage(t *testing.T) {
 			import "google/api/resource.proto";
 
 			message Shelf {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Shelf"
 					pattern: "shelves/{shelf}"
 				};
@@ -498,7 +498,7 @@ func TestGetOutputOrLROResponseMessage(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -568,7 +568,7 @@ func TestFindResourceChildren(t *testing.T) {
 			import "google/api/resource.proto";
 
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 				};
@@ -577,7 +577,7 @@ func TestFindResourceChildren(t *testing.T) {
 			}
 
 			message Edition {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Edition"
 					pattern: "publishers/{publisher}/books/{book}/editions/{edition}"
 				};
@@ -593,7 +593,7 @@ func TestFindResourceChildren(t *testing.T) {
 			import "google/api/resource.proto";
 
 			message Shelf {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Shelf"
 					pattern: "shelves/{shelf}"
 				};

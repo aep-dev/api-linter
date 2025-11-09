@@ -38,7 +38,7 @@ func TestResourceIdOutputOnly(t *testing.T) {
 			import "aep/api/field_info.proto";
 
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "books/{book}"
 				};

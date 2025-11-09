@@ -11,12 +11,12 @@ redirect_from:
 # Resource annotation presence
 
 This rule enforces that the same resource type doesn't appear in more than one
-`google.api.resource` annotation, as described in [AEP-004][].
+`aep.api.resource` annotation, as described in [AEP-004][].
 
 ## Details
 
 This rule complains about messages that have the same `type` for the
-`google.api.resource` annotation, which frequently occur due to copy-paste
+`aep.api.resource` annotation, which frequently occur due to copy-paste
 errors and messages spread across multiple files and/or packages. Duplicate
 resource definitions can cause compilation problems in generated client code.
 
@@ -26,7 +26,7 @@ resource definitions can cause compilation problems in generated client code.
 
 ```proto
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -35,7 +35,7 @@ message Book {
 }
 
 message Author {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     // Incorrect: should be "library.googleapis.com/Author".
     type: "library.googleapis.com/Book"
     pattern: "authors/{author}"
@@ -50,7 +50,7 @@ message Author {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -59,7 +59,7 @@ message Book {
 }
 
 message Author {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Author"
     pattern: "authors/{author}"
   };
@@ -79,7 +79,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 syntax = "proto3";
 
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -88,7 +88,7 @@ message Book {
 }
 
 message Author {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "authors/{author}"
   };

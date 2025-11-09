@@ -27,10 +27,10 @@ import (
 // associated with this descriptor.
 //
 // For messages:
-// If the message is annotated with google.api.resource and
+// If the message is annotated with aep.api.resource and
 // style: DECLARATIVE_FRIENDLY is set, that message is returned.
 // If the message is a standard method request message for a resource with
-// google.api.resource and style:DECLARATIVE_FRIENDLY set, then the resource
+// aep.api.resource and style:DECLARATIVE_FRIENDLY set, then the resource
 // is returned.
 //
 // For methods:
@@ -48,7 +48,7 @@ import (
 func DeclarativeFriendlyResource(d desc.Descriptor) *desc.MessageDescriptor {
 	switch m := d.(type) {
 	case *desc.MessageDescriptor:
-		// Get the google.api.resource annotation and see if it is styled
+		// Get the aep.api.resource annotation and see if it is styled
 		// declarative-friendly.
 		if resource := GetResource(m); resource != nil {
 			for _, style := range resource.GetStyle() {
@@ -96,7 +96,7 @@ func DeclarativeFriendlyResource(d desc.Descriptor) *desc.MessageDescriptor {
 			}
 		}
 
-		// If the return value has a google.api.resource annotation, we can
+		// If the return value has a aep.api.resource annotation, we can
 		// assume it is the resource and check it.
 		if IsResource(response) {
 			return DeclarativeFriendlyResource(response)

@@ -39,8 +39,8 @@ var resourceVariables = &lint.MessageRule{
 
 // lintResourceVariables lints the resource ID segments of the pattern(s) in the
 // give ResourceDescriptor. This is used for both the file-level annotation
-// google.api.resource_definition and the message-level annotation
-// google.api.resource.
+// aep.api.resource_definition and the message-level annotation
+// aep.api.resource.
 func lintResourceVariables(resource *annotations.ResourceDescriptor, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
 	for _, pattern := range resource.GetPattern() {
 		for _, variable := range getVariables(pattern) {

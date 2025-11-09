@@ -43,7 +43,7 @@ func TestIsCreateMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -93,7 +93,7 @@ func TestIsUpdateMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -142,7 +142,7 @@ func TestIsListMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -153,7 +153,7 @@ func TestIsListMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message BookRevision {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/BookRevision"
 						pattern: "books/{book}/revisions/{revision}"
 						singular: "bookRevision"
@@ -224,7 +224,7 @@ func TestIsLegacyListRevisionsMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -287,7 +287,7 @@ func TestGetListResourceMessage(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"

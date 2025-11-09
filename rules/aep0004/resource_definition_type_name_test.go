@@ -33,7 +33,7 @@ func TestResourceDefinitionTypeName(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 			import "google/api/resource.proto";
-			option (google.api.resource_definition) = {
+			option (aep.api.resource_definition) = {
 				type: "{{ .TypeName }}"
 				pattern: "publishers/{publisher}/books/{book}"
 			};

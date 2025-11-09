@@ -40,7 +40,7 @@ func TestResponseLRO(t *testing.T) {
 					rpc UndeleteBook(UndeleteBookRequest) returns ({{.ResponseType}});
 				}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "publishers/{publisher}/books/{book}"
 						{{.Style}}

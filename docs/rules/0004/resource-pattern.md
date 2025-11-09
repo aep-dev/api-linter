@@ -11,12 +11,12 @@ redirect_from:
 # Resource patterns
 
 This rule enforces that messages that appear to represent resources have a
-`pattern` defined on their `google.api.resource` annotation, as described in
+`pattern` defined on their `aep.api.resource` annotation, as described in
 [AEP-4][].
 
 ## Details
 
-This rule scans all messages with `google.api.resource` annotations, and
+This rule scans all messages with `aep.api.resource` annotations, and
 complains if `pattern` is not provided at least once. It also complains if the
 segments outside of variable names contain underscores.
 
@@ -27,7 +27,7 @@ segments outside of variable names contain underscores.
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     // pattern should be here
   };
@@ -39,7 +39,7 @@ message Book {
 ```proto
 // Incorrect.
 message ElectronicBook {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/ElectronicBook"
     // Should be: publishers/{publisher}/electronicBooks/{electronic_book}
     pattern: "publishers/{publisher}/electronic_books/{electronic_book}"
@@ -54,7 +54,7 @@ message ElectronicBook {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -66,7 +66,7 @@ message Book {
 ```proto
 // Correct.
 message ElectronicBook {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/ElectronicBook"
     pattern: "publishers/{publisher}/electronicBooks/{electronic_book}"
   };
@@ -83,7 +83,7 @@ If you need to violate this rule, use a leading comment above the message.
 // (-- api-linter: core::4::resource-pattern=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
   };
 

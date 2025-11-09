@@ -52,7 +52,7 @@ func TestAllowMissing(t *testing.T) {
 				}
 
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "{{.Pattern}}"
 						{{.Style}}

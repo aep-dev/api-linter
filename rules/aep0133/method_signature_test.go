@@ -100,7 +100,7 @@ func TestMethodSignature(t *testing.T) {
 				string book_id = 2;
 			}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					pattern: "books/{book}"
 				};
 			}

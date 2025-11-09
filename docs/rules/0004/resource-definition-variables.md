@@ -15,7 +15,7 @@ conventions, as described in [AEP-4][].
 
 ## Details
 
-This rule scans all files with `google.api.resource_definition` annotations, and
+This rule scans all files with `aep.api.resource_definition` annotations, and
 complains if variables in a `pattern` use camel case, or end in `_id`.
 
 ## Examples
@@ -26,7 +26,7 @@ complains if variables in a `pattern` use camel case, or end in `_id`.
 import "google/api/resource.proto";
 
 // Incorrect.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/Book"
   // Should be: publishers/{publisher}/books/{book}
   pattern: "publishers/{publisher_id}/books/{book_id}"
@@ -37,7 +37,7 @@ option (google.api.resource_definition) = {
 import "google/api/resource.proto";
 
 // Incorrect.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/ElectronicBook"
   // Should be: publishers/{publisher}/electronicBooks/{electronic_book}
   pattern: "publishers/{publisher}/electronicBooks/{electronicBook}"
@@ -50,7 +50,7 @@ option (google.api.resource_definition) = {
 import "google/api/resource.proto";
 
 // Correct.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/Book"
   pattern: "publishers/{publisher}/books/{book}"
 };
@@ -60,7 +60,7 @@ option (google.api.resource_definition) = {
 import "google/api/resource.proto";
 
 // Correct.
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/ElectronicBook"
   pattern: "publishers/{publisher}/electronicBooks/{electronic_book}"
 };
@@ -75,7 +75,7 @@ import "google/api/resource.proto";
 
 // (-- api-linter: core::4::resource-definition-variables=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
-option (google.api.resource_definition) = {
+option (aep.api.resource_definition) = {
   type: "library.googleapis.com/Book"
   pattern: "publishers/{publisher_id}/books/{book_id}"
 };
