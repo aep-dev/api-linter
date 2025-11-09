@@ -33,7 +33,7 @@ message GetBookRequest {
   // reference.
   string path = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.child_type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference_child_type = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -45,7 +45,7 @@ message GetBookRequest {
 message GetBookRequest {
   string path = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 }
 ```
@@ -61,7 +61,7 @@ message GetBookRequest {
   //     aep.dev/not-precedent: We need to do this because reasons. --)
   string path = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.child_type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference_child_type = "library.googleapis.com/Book"
   ];
 }
 ```

@@ -33,7 +33,7 @@ message ListBooksRequest {
   // being listed.
   string parent = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
   int32 page_size = 2;
   string page_token = 3;
@@ -47,7 +47,7 @@ message ListBooksRequest {
 message ListBooksRequest {
   string parent = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.child_type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference_child_type = "library.googleapis.com/Book"
   ];
   int32 page_size = 2;
   string page_token = 3;
@@ -65,7 +65,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 message ListBooksRequest {
   string parent = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 }
 ```

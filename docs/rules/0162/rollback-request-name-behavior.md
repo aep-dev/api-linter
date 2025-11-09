@@ -30,7 +30,7 @@ value of `FIELD_BEHAVIOR_REQUIRED`.
 message RollbackBookRequest {
   // The `aep.api.field_behavior` annotation should also be included.
   string name = 1 [
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 
   string revision_id = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
@@ -44,7 +44,7 @@ message RollbackBookRequest {
 message RollbackBookRequest {
   string name = 1 [
     (aep.api.field_behavior) = FIELD_BEHAVIOR_REQUIRED,
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 
   string revision_id = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];
@@ -61,7 +61,7 @@ message RollbackBookRequest {
   // (-- api-linter: core::0162::rollback-request-name-behavior=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
   string name = 1 [
-    (aep.api.field_info).resource_reference.type = "library.googleapis.com/Book"
+    (aep.api.field_info).resource_reference = "library.googleapis.com/Book"
   ];
 
   string revision_id = 2 [(aep.api.field_info).field_behavior = FIELD_BEHAVIOR_REQUIRED];

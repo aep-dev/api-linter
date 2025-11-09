@@ -28,9 +28,7 @@ message Book {
   string path = 1;
 
   // Resource references should be strings.
-  Author author = 2 [(aep.api.field_info).resource_reference = {
-    type: "library.googleapis.com/Author"
-  }];
+  Author author = 2 [(aep.api.field_info).resource_reference = "library.googleapis.com/Author"];
 }
 ```
 
@@ -41,9 +39,7 @@ message Book {
 message Book {
   string path = 1;
 
-  string author = 2 [(aep.api.field_info).resource_reference = {
-    type: "library.googleapis.com/Author"
-  }];
+  string author = 2 [(aep.api.field_info).resource_reference = "library.googleapis.com/Author"];
 }
 ```
 
@@ -69,9 +65,7 @@ message Book {
 
   // (-- api-linter: core::0122::resource-reference-type=disabled
   //     aep.dev/not-precedent: We need to do this because reasons. --)
-  Author author = 2 [(aep.api.field_info).resource_reference = {
-    type: "library.googleapis.com/Author"
-  }];
+  Author author = 2 [(aep.api.field_info).resource_reference = "library.googleapis.com/Author"];
 }
 ```
 
