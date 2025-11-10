@@ -46,7 +46,7 @@ option (aep.api.resource) = {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
   import "aep/api/field_info.proto";
 				service Library {
 					rpc ListBooks(ListBooksRequest) returns (ListBooksResponse) {}

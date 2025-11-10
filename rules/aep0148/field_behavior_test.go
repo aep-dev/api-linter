@@ -46,7 +46,7 @@ func TestFieldBehavior(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 				import "aep/api/field_info.proto";
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/timestamp.proto";
 				message Book {
 					{{.MessageOpts}}

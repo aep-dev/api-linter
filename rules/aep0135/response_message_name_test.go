@@ -24,7 +24,7 @@ func TestResponseMessageName(t *testing.T) {
 	tmpl := map[string]string{
 		"sync": `
 			package test;
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			import "google/protobuf/empty.proto";
 			service Library {
 				rpc {{.MethodName}}({{.MethodName}}Request) returns ({{.RespTypeName}});
@@ -34,7 +34,6 @@ func TestResponseMessageName(t *testing.T) {
 				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
-					{{.Style}}
 				};
 			}
 			{{ if (ne .RespTypeName "google.protobuf.Empty") }}{{ if (ne .RespTypeName "Book") }}
@@ -43,7 +42,7 @@ func TestResponseMessageName(t *testing.T) {
 		`,
 		"lro": `
 			package test;
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			import "google/longrunning/operations.proto";
 			service Library {
 				rpc {{.MethodName}}({{.MethodName}}Request)
@@ -59,7 +58,6 @@ func TestResponseMessageName(t *testing.T) {
 				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
-					{{.Style}}
 				};
 			}
 		`,

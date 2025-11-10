@@ -24,7 +24,7 @@ import (
 func TestDuplicateResource(t *testing.T) {
 	f := testutils.ParseProto3Tmpls(t, map[string]string{
 		"dep.proto": `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			package xyz;
 			message Publisher {
 				option (aep.api.resource) = { type: "library.googleapis.com/Publisher" };
@@ -32,11 +32,12 @@ func TestDuplicateResource(t *testing.T) {
 			`,
 		"test.proto": `
 			import "dep.proto";
+			import "aep/api/resource.proto";
 			import "google/api/resource.proto";
 			package abc;
-			option (aep.api.resource_definition) = { type: "library.googleapis.com/Publisher" };
-			option (aep.api.resource_definition) = { type: "library.googleapis.com/Author" };
-			option (aep.api.resource_definition) = { type: "library.googleapis.com/Editor" };
+			option (google.api.resource_definition) = { type: "library.googleapis.com/Publisher" };
+			option (google.api.resource_definition) = { type: "library.googleapis.com/Author" };
+			option (google.api.resource_definition) = { type: "library.googleapis.com/Editor" };
 			message Book {
 				option (aep.api.resource) = { type: "library.googleapis.com/Book" };
 			}

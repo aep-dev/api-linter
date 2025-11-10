@@ -34,7 +34,7 @@ func TestIsCreateMethod(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}
@@ -84,7 +84,7 @@ func TestIsUpdateMethod(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}
@@ -133,7 +133,7 @@ func TestIsListMethod(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}
@@ -215,7 +215,7 @@ func TestIsLegacyListRevisionsMethod(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}
@@ -278,7 +278,7 @@ func TestGetListResourceMessage(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}

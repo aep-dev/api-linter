@@ -45,7 +45,7 @@ func TestRequestParentRequired(t *testing.T) {
 		t.Run(test.testName, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				{{.Package}}
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				message ListBooksRequest {}
 				message ListBooksResponse {
 					repeated Book books = 1;

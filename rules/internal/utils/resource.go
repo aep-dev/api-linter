@@ -55,14 +55,14 @@ func GetResourcePlural(r *aepapi.ResourceDescriptor) string {
 
 // GetResourceNameField is a convenience method for getting the name of the
 // field that represents the resource's name. Since AEP ResourceDescriptor
-// doesn't have a name_field attribute, this always returns "name".
+// doesn't have a name_field attribute, this always returns "path".
 func GetResourceNameField(r *aepapi.ResourceDescriptor) string {
 	if r == nil {
 		return ""
 	}
 	// AEP ResourceDescriptor doesn't have a name_field attribute,
-	// so we always default to "name"
-	return "name"
+	// so we always default to "path"
+	return "path"
 }
 
 // IsResourceRevision determines if the given message represents a resource

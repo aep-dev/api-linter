@@ -24,7 +24,7 @@ func TestResourceAnnotation(t *testing.T) {
 	// The rule should pass if the option is present on a resource message.
 	t.Run("Present", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			message Book {
 				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"

@@ -22,7 +22,7 @@ import (
 
 func TestMessageResource(t *testing.T) {
 	f := parse(t, `
-		import "google/api/resource.proto";
+		import "aep/api/resource.proto";
 		message Book {
 		  option (aep.api.resource) = {
 		    type: "library.googleapis.com/Book"

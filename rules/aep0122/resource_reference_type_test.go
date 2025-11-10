@@ -34,7 +34,7 @@ func TestResourceReferenceType(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
   import "aep/api/field_info.proto";
 
 				message Book {

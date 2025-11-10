@@ -18,6 +18,7 @@ import (
 	"testing"
 
 	"bitbucket.org/creachadair/stringset"
+	aepapi "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/google/go-cmp/cmp"
 	apb "google.golang.org/genproto/googleapis/api/annotations"
@@ -216,7 +217,7 @@ func TestGetOperationInfoMetadataType(t *testing.T) {
 func TestGetResource(t *testing.T) {
 	t.Run("Present", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			message Book {
 				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
@@ -248,7 +249,7 @@ func TestGetResource(t *testing.T) {
 func TestGetResourceDefinition(t *testing.T) {
 	t.Run("Zero", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 		`)
 		if got := GetResourceDefinitions(f); got != nil {
 			t.Errorf("Got %v, expected nil.", got)
@@ -256,8 +257,9 @@ func TestGetResourceDefinition(t *testing.T) {
 	})
 	t.Run("One", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
+			import "aep/api/resource.proto";
 			import "google/api/resource.proto";
-			option (aep.api.resource_definition) = {
+			option (google.api.resource_definition) = {
 				type: "library.googleapis.com/Book"
 			};
 		`)
@@ -271,11 +273,12 @@ func TestGetResourceDefinition(t *testing.T) {
 	})
 	t.Run("Two", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
+			import "aep/api/resource.proto";
 			import "google/api/resource.proto";
-			option (aep.api.resource_definition) = {
+			option (google.api.resource_definition) = {
 				type: "library.googleapis.com/Book"
 			};
-			option (aep.api.resource_definition) = {
+			option (google.api.resource_definition) = {
 				type: "library.googleapis.com/Author"
 			};
 		`)
@@ -295,7 +298,7 @@ func TestGetResourceDefinition(t *testing.T) {
 func TestGetResourceReference(t *testing.T) {
 	t.Run("Present", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			import "aep/api/field_info.proto";
 			message GetBookRequest {
 				string name = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];
@@ -321,7 +324,7 @@ func TestFindResource(t *testing.T) {
 			syntax = "proto3";
 			package test;
 
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 
 			message Book {
 				option (aep.api.resource) = {
@@ -337,7 +340,7 @@ func TestFindResource(t *testing.T) {
 			package test;
 
 			import "book.proto";
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 
 			message Shelf {
 				option (aep.api.resource) = {
@@ -382,7 +385,7 @@ func TestFindResourceMessage(t *testing.T) {
 			syntax = "proto3";
 			package test;
 
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 
 			message Book {
 				option (aep.api.resource) = {
@@ -398,7 +401,7 @@ func TestFindResourceMessage(t *testing.T) {
 			package test;
 
 			import "book.proto";
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 
 			message Shelf {
 				option (aep.api.resource) = {
@@ -488,7 +491,7 @@ func TestGetOutputOrLROResponseMessage(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/longrunning/operations.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
@@ -565,7 +568,7 @@ func TestFindResourceChildren(t *testing.T) {
 			syntax = "proto3";
 			package test;
 
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 
 			message Book {
 				option (aep.api.resource) = {
@@ -590,7 +593,7 @@ func TestFindResourceChildren(t *testing.T) {
 			package test;
 
 			import "book.proto";
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 
 			message Shelf {
 				option (aep.api.resource) = {

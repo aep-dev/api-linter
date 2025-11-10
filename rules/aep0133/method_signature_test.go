@@ -89,7 +89,7 @@ func TestMethodSignature(t *testing.T) {
 	t.Run("NoParent", func(t *testing.T) {
 		file := testutils.ParseProto3String(t, `
 			import "google/api/client.proto";
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			service Library {
 				rpc CreateBook(CreateBookRequest) returns (Book) {
 					option (google.api.method_signature) = "book,book_id";

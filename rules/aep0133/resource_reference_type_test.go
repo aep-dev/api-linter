@@ -37,7 +37,7 @@ func TestResourceReferenceType(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
   import "aep/api/field_info.proto";
 				import "google/longrunning/operations.proto";
 				service Library {
@@ -82,7 +82,7 @@ func TestResourceReferenceTypeLRO(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
   import "aep/api/field_info.proto";
 				import "google/longrunning/operations.proto";
 				service Library {

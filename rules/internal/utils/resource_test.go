@@ -128,7 +128,7 @@ func TestIsResourceRevision(t *testing.T) {
 		},
 	} {
 		f := testutils.ParseProto3Tmpl(t, `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			message {{.Message}} {
 				{{.Resource}}
 				string name = 1;

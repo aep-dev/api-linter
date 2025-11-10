@@ -23,23 +23,22 @@ import (
 
 func TestDeclarativeFriendlyMessage(t *testing.T) {
 	// Test the cases where a aep.api.resource annotation is present.
+	// Note: AEP ResourceDescriptor doesn't have a Style field, so we can't
+	// check for DECLARATIVE_FRIENDLY style directly on message descriptors.
+	// All message-level checks should return false.
 	for _, test := range []struct {
-		name  string
-		Style string
-		want  bool
+		name string
+		want bool
 	}{
-		{"True", "style: DECLARATIVE_FRIENDLY", true},
-		{"FalseNoStyle", "", false},
-		{"FalseOtherStyle", "style: STYLE_UNSPECIFIED", false},
+		{"WithResource", false},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+			f := testutils.ParseProto3String(t, `
+				import "aep/api/resource.proto";
 
 				message Book {
 					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
-						{{.Style}}
 					};
 				}
 
@@ -50,7 +49,7 @@ func TestDeclarativeFriendlyMessage(t *testing.T) {
 				service Library {
 					rpc CreateBook(CreateBookRequest) returns (Book);
 				}
-			`, test)
+			`)
 			for _, m := range f.GetMessageTypes() {
 				t.Run(m.GetName(), func(t *testing.T) {
 					if got := IsDeclarativeFriendlyMessage(m); got != test.want {
@@ -76,6 +75,9 @@ func TestDeclarativeFriendlyMethod(t *testing.T) {
 	// Note: The Book resource itself is always present and omitted here to
 	// avoid excess repetition; it is appended to the templates in the body of
 	// the test.
+	//
+	// Note: AEP ResourceDescriptor doesn't have a Style field, so declarative-friendly
+	// detection is not possible. All tests should expect false.
 	tmpls := map[string]string{
 		// The basic template just returns the resource with no frills.
 		"basic": `
@@ -137,39 +139,24 @@ func TestDeclarativeFriendlyMethod(t *testing.T) {
 
 	for key, tmpl := range tmpls {
 		t.Run(key, func(t *testing.T) {
-			for _, test := range []struct {
-				name string
-				want bool
-			}{
-				{"true", true},
-				{"false", false},
-			} {
-				t.Run(test.name, func(t *testing.T) {
-					// Set the style of the resource to DECLARATIVE_FRIENDLY if that
-					// is the expected result.
-					s := struct{ Style string }{Style: ""}
-					if test.want == true {
-						s.Style = "style: DECLARATIVE_FRIENDLY"
-					}
+			// Since AEP doesn't support the style field, all tests expect false
+			want := false
 
-					// Parse the template and test the method.
-					f := testutils.ParseProto3Tmpl(t, fmt.Sprintf(`
-						import "google/api/resource.proto";
+			// Parse the template and test the method.
+			f := testutils.ParseProto3String(t, fmt.Sprintf(`
+				import "aep/api/resource.proto";
 
-						%s
+				%s
 
-						message Book {
-							option (aep.api.resource) = {
-								type: "library.googleapis.com/Book"
-								{{.Style}}
-							};
-						}
-					`, tmpl), s)
-					m := f.GetServices()[0].GetMethods()[0]
-					if got := IsDeclarativeFriendlyMethod(m); got != test.want {
-						t.Errorf("Got %v, expected %v.", got, test.want)
-					}
-				})
+				message Book {
+					option (aep.api.resource) = {
+						type: "library.googleapis.com/Book"
+					};
+				}
+			`, tmpl))
+			m := f.GetServices()[0].GetMethods()[0]
+			if got := IsDeclarativeFriendlyMethod(m); got != want {
+				t.Errorf("Got %v, expected %v.", got, want)
 			}
 		})
 	}

@@ -87,7 +87,7 @@ func TestResourceMustSupportList(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/longrunning/operations.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {

@@ -28,7 +28,7 @@ func TestLocations(t *testing.T) {
 		// proto3 rules!
 		syntax = "proto3";
 
-		import "google/api/resource.proto";
+		import "aep/api/resource.proto";
 
 		package google.api.linter;
 
@@ -86,7 +86,7 @@ func TestLocations(t *testing.T) {
 				testName: "Import",
 				idxFx:    FileImport,
 				idx:      0,
-				wantSpan: []int32{3, 0, int32(len(`import "google/api/resource.proto";`))},
+				wantSpan: []int32{3, 0, int32(len(`import "aep/api/resource.proto";`))},
 			},
 			{
 				testName: "CCEnableArenas",

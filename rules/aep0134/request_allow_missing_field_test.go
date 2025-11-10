@@ -23,24 +23,25 @@ import (
 func TestAllowMissing(t *testing.T) {
 	const singletonPattern = `books/{book}/settings`
 	const nonSingletonPattern = `books/{book}`
-	problems := testutils.Problems{{Message: "include a singular `bool allow_missing`"}}
+	// Note: AEP ResourceDescriptor doesn't have a style field, so declarative-friendly
+	// detection is not possible. All tests expect nil since resources won't be
+	// detected as declarative-friendly.
 	for _, test := range []struct {
 		name         string
-		Style        string
 		Pattern      string
 		AllowMissing string
 		problems     testutils.Problems
 	}{
-		{"IgnoredNotDF", "", nonSingletonPattern, "", nil},
-		{"ValidIncluded", "style: DECLARATIVE_FRIENDLY", nonSingletonPattern, "bool allow_missing = 2;", nil},
-		{"Invalid", "style: DECLARATIVE_FRIENDLY", nonSingletonPattern, "", problems},
-		{"InvalidWrongType", "style: DECLARATIVE_FRIENDLY", nonSingletonPattern, "string allow_missing = 2;", problems},
-		{"InvalidRepeated", "style: DECLARATIVE_FRIENDLY", nonSingletonPattern, "repeated bool allow_missing = 2;", problems},
-		{"IgnoredSingleton", "style: DECLARATIVE_FRIENDLY", singletonPattern, "", nil},
+		{"IgnoredNotDF", nonSingletonPattern, "", nil},
+		{"ValidIncluded", nonSingletonPattern, "bool allow_missing = 2;", nil},
+		{"NoLongerInvalid", nonSingletonPattern, "", nil},
+		{"NoLongerInvalidWrongType", nonSingletonPattern, "string allow_missing = 2;", nil},
+		{"NoLongerInvalidRepeated", nonSingletonPattern, "repeated bool allow_missing = 2;", nil},
+		{"IgnoredSingleton", singletonPattern, "", nil},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 
 				service Library {
 					rpc UpdateBook(UpdateBookRequest) returns (Book);
@@ -55,7 +56,6 @@ func TestAllowMissing(t *testing.T) {
 					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "{{.Pattern}}"
-						{{.Style}}
 					};
 				}
 			`, test)

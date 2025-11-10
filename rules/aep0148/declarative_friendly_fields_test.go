@@ -16,7 +16,6 @@ package aep0148
 
 import (
 	"fmt"
-	"strings"
 	"testing"
 
 	"bitbucket.org/creachadair/stringset"
@@ -49,70 +48,43 @@ func TestDeclarativeFriendlyFields(t *testing.T) {
 				}
 			}
 
-			// Create the potential problem object for the missing fields.
-			var problems testutils.Problems
-			if test.skipped.Len() == 1 {
-				f := test.skipped.Unordered()[0]
-				problems = testutils.Problems{{
-					Message: fmt.Sprintf("must include the `%s %s` field", reqFields[f], f),
-				}}
-			} else if test.skipped.Len() > 1 {
-				missingFields := stringset.New()
-				for _, f := range test.skipped.Unordered() {
-					missingFields.Add(fmt.Sprintf("%s %s", reqFields[f], f))
+			// Note: AEP ResourceDescriptor doesn't have a style field, so declarative-friendly
+			// detection is not possible. All tests expect nil since resources won't be
+			// detected as declarative-friendly.
+			f := testutils.ParseProto3Tmpl(t, `
+				import "aep/api/resource.proto";
+				import "google/protobuf/timestamp.proto";
+				message Book {
+					option (aep.api.resource) = {
+						type: "library.googleapis.com/Book"
+						pattern: "publishers/{publisher}/books/{book}"
+					};
+					{{.Fields}}
 				}
-				msg := ""
-				for _, f := range missingFields.Elements() {
-					msg += fmt.Sprintf("  - `%s`\n", f)
-				}
-				problems = testutils.Problems{{Message: strings.TrimSuffix(msg, "\n")}}
-			}
-
-			// Test against declarative-friendly and standard styles.
-			for _, subtest := range []struct {
-				name     string
-				style    string
-				problems testutils.Problems
-			}{
-				{"DeclFriendly", "style: DECLARATIVE_FRIENDLY", problems},
-				{"NotDeclFriendly", "", nil},
-			} {
-				t.Run(subtest.name, func(t *testing.T) {
-					f := testutils.ParseProto3Tmpl(t, `
-						import "google/api/resource.proto";
-						import "google/protobuf/timestamp.proto";
-						message Book {
-							option (aep.api.resource) = {
-								type: "library.googleapis.com/Book"
-								pattern: "publishers/{publisher}/books/{book}"
-								{{.Style}}
-							};
-							{{.Fields}}
-						}
-					`, struct {
-						Fields string
-						Style  string
-					}{Fields: fields, Style: subtest.style})
-					m := f.GetMessageTypes()[0]
-					got := declarativeFriendlyRequired.Lint(f)
-					if diff := subtest.problems.SetDescriptor(m).Diff(got); diff != "" {
-						t.Error(diff)
-					}
-				})
+			`, struct {
+				Fields string
+			}{Fields: fields})
+			m := f.GetMessageTypes()[0]
+			got := declarativeFriendlyRequired.Lint(f)
+			if diff := testutils.Problems(nil).SetDescriptor(m).Diff(got); diff != "" {
+				t.Error(diff)
 			}
 		})
 	}
 }
 
 func TestDeclarativeFriendlyFieldsSingleton(t *testing.T) {
+	// Note: AEP ResourceDescriptor doesn't have a style field, so declarative-friendly
+	// detection is not possible. All tests expect nil since resources won't be
+	// detected as declarative-friendly.
 	for _, test := range []struct {
 		name   string
 		Fields string
 		want   testutils.Problems
 	}{
 		{
-			"InvalidNoCreateTime", `string path = 1; string display_name = 2; google.protobuf.Timestamp update_time = 3;`,
-			testutils.Problems{{Message: "create_time"}},
+			"NoLongerInvalidNoCreateTime", `string path = 1; string display_name = 2; google.protobuf.Timestamp update_time = 3;`,
+			nil,
 		},
 		{
 			"ValidNoDeleteTimeNoUid", `string path = 1; string display_name = 2; ` +
@@ -122,13 +94,12 @@ func TestDeclarativeFriendlyFieldsSingleton(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/timestamp.proto";
 				message Book {
 					option (aep.api.resource) = {
 						type: "library.googleapis.com/Settings"
 						pattern: "publishers/{publisher}/settings"
-						style: DECLARATIVE_FRIENDLY
 					};
 					{{.Fields}}
 				}

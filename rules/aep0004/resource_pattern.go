@@ -23,7 +23,6 @@ import (
 	"github.com/aep-dev/api-linter/locations"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
-	apb "google.golang.org/genproto/googleapis/api/annotations"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
 
@@ -38,11 +37,6 @@ var resourcePattern = &lint.MessageRule{
 }
 
 func lintResourcePattern(resource *aepapi.ResourceDescriptor, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
-	return lintResourcePatternCommon(resource.GetPattern(), desc, loc)
-}
-
-// lintResourcePatternGoogleAPI lints resource patterns for Google API ResourceDescriptor (used for file-level resource definitions)
-func lintResourcePatternGoogleAPI(resource *apb.ResourceDescriptor, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
 	return lintResourcePatternCommon(resource.GetPattern(), desc, loc)
 }
 
