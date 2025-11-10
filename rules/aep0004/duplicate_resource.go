@@ -27,38 +27,18 @@ import (
 )
 
 type resourceDef struct {
-	desc desc.Descriptor
-	idx  int
+	desc *desc.MessageDescriptor
 }
 
 func (d *resourceDef) String() string {
-	switch d.desc.(type) {
-	case *desc.FileDescriptor:
-		return fmt.Sprintf("`aep.api.resource_definition` %d in file `%s`", d.idx, d.desc.GetFullyQualifiedName())
-	case *desc.MessageDescriptor:
-		return fmt.Sprintf("message `%s`", d.desc.GetFullyQualifiedName())
-	default:
-		return fmt.Sprintf("unexpected descriptor type %T", d.desc)
-	}
+	return fmt.Sprintf("message `%s`", d.desc.GetFullyQualifiedName())
 }
 
 func (d *resourceDef) location() *dpb.SourceCodeInfo_Location {
-	switch desc := d.desc.(type) {
-	case *desc.FileDescriptor:
-		return locations.FileResourceDefinition(desc, d.idx)
-	case *desc.MessageDescriptor:
-		return locations.MessageResource(desc)
-	default:
-		return nil
-	}
+	return locations.MessageResource(d.desc)
 }
 
 func resourceDefsInFile(f *desc.FileDescriptor, defs map[string][]resourceDef) map[string][]resourceDef {
-	for i, rd := range utils.GetResourceDefinitions(f) {
-		if t := rd.GetType(); t != "" {
-			defs[t] = append(defs[t], resourceDef{f, i})
-		}
-	}
 	for _, m := range f.GetMessageTypes() {
 		resourceDefsInMsg(m, defs)
 	}
@@ -67,7 +47,7 @@ func resourceDefsInFile(f *desc.FileDescriptor, defs map[string][]resourceDef) m
 
 func resourceDefsInMsg(m *desc.MessageDescriptor, defs map[string][]resourceDef) {
 	if t := utils.GetResource(m).GetType(); t != "" {
-		defs[t] = append(defs[t], resourceDef{m, -1})
+		defs[t] = append(defs[t], resourceDef{m})
 	}
 	for _, m := range m.GetNestedMessageTypes() {
 		resourceDefsInMsg(m, defs)
@@ -109,17 +89,16 @@ var duplicateResource = &lint.FileRule{
 		for _, t := range resourceTypes {
 			ds := defsInFile[t]
 			locs := []string{}
-			// Duplicates in this file.
-			if len(ds) > 1 {
-				for _, d := range ds {
-					locs = append(locs, d.String())
-				}
+			// Collect all definitions from current file
+			for _, d := range ds {
+				locs = append(locs, d.String())
 			}
-			// Duplicates in dependencies.
+			// Collect all definitions from dependencies
 			for _, d := range defsInDeps[t] {
 				locs = append(locs, d.String())
 			}
-			if len(locs) == 0 {
+			// Only report if there are duplicates (2 or more total definitions)
+			if len(locs) <= 1 {
 				continue
 			}
 			sort.Strings(locs)
