@@ -18,11 +18,12 @@ import (
 	"fmt"
 	"strings"
 
+	aepapi "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/locations"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
-	"google.golang.org/genproto/googleapis/api/annotations"
+	apb "google.golang.org/genproto/googleapis/api/annotations"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
 
@@ -36,9 +37,18 @@ var resourcePattern = &lint.MessageRule{
 	},
 }
 
-func lintResourcePattern(resource *annotations.ResourceDescriptor, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
+func lintResourcePattern(resource *aepapi.ResourceDescriptor, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
+	return lintResourcePatternCommon(resource.GetPattern(), desc, loc)
+}
+
+// lintResourcePatternGoogleAPI lints resource patterns for Google API ResourceDescriptor (used for file-level resource definitions)
+func lintResourcePatternGoogleAPI(resource *apb.ResourceDescriptor, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
+	return lintResourcePatternCommon(resource.GetPattern(), desc, loc)
+}
+
+func lintResourcePatternCommon(patterns []string, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
 	// Are any patterns declared at all? If not, complain.
-	if len(resource.GetPattern()) == 0 {
+	if len(patterns) == 0 {
 		return []lint.Problem{{
 			Message:    "Resources should declare resource name pattern(s).",
 			Descriptor: desc,
@@ -48,7 +58,7 @@ func lintResourcePattern(resource *annotations.ResourceDescriptor, desc desc.Des
 
 	// Ensure that the constant segments of the pattern uses camel case,
 	// not snake case, and there are no spaces.
-	for _, pattern := range resource.GetPattern() {
+	for _, pattern := range patterns {
 		plainPattern := getPlainPattern(pattern)
 
 		if strings.Contains(plainPattern, "_") {

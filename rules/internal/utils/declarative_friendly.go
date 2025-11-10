@@ -20,7 +20,6 @@ import (
 	"bitbucket.org/creachadair/stringset"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/stoewer/go-strcase"
-	apb "google.golang.org/genproto/googleapis/api/annotations"
 )
 
 // DeclarativeFriendlyResource returns the declarative-friendly resource
@@ -48,15 +47,9 @@ import (
 func DeclarativeFriendlyResource(d desc.Descriptor) *desc.MessageDescriptor {
 	switch m := d.(type) {
 	case *desc.MessageDescriptor:
-		// Get the aep.api.resource annotation and see if it is styled
-		// declarative-friendly.
-		if resource := GetResource(m); resource != nil {
-			for _, style := range resource.GetStyle() {
-				if style == apb.ResourceDescriptor_DECLARATIVE_FRIENDLY {
-					return m
-				}
-			}
-		}
+		// Note: AEP ResourceDescriptor doesn't have a Style field,
+		// so we can't check for DECLARATIVE_FRIENDLY style directly.
+		// Declarative-friendly detection will rely on method-level checks.
 
 		// If this is a standard method request message, find the corresponding
 		// resource message. The easiest way to do this is to farm it out to the

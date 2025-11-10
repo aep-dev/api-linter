@@ -18,11 +18,12 @@ import (
 	"fmt"
 	"strings"
 
+	aepapi "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/locations"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
-	"google.golang.org/genproto/googleapis/api/annotations"
+	apb "google.golang.org/genproto/googleapis/api/annotations"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
 
@@ -38,11 +39,19 @@ var resourceVariables = &lint.MessageRule{
 }
 
 // lintResourceVariables lints the resource ID segments of the pattern(s) in the
-// give ResourceDescriptor. This is used for both the file-level annotation
-// aep.api.resource_definition and the message-level annotation
+// give ResourceDescriptor. This is used for the message-level annotation
 // aep.api.resource.
-func lintResourceVariables(resource *annotations.ResourceDescriptor, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
-	for _, pattern := range resource.GetPattern() {
+func lintResourceVariables(resource *aepapi.ResourceDescriptor, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
+	return lintResourceVariablesCommon(resource.GetPattern(), desc, loc)
+}
+
+// lintResourceVariablesGoogleAPI lints resource variables for Google API ResourceDescriptor (used for file-level resource definitions)
+func lintResourceVariablesGoogleAPI(resource *apb.ResourceDescriptor, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
+	return lintResourceVariablesCommon(resource.GetPattern(), desc, loc)
+}
+
+func lintResourceVariablesCommon(patterns []string, desc desc.Descriptor, loc *dpb.SourceCodeInfo_Location) []lint.Problem {
+	for _, pattern := range patterns {
 		for _, variable := range getVariables(pattern) {
 			if strings.ToLower(variable) != variable {
 				return []lint.Problem{{

@@ -15,11 +15,11 @@
 package aep0132
 
 import (
+	aepapi "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/locations"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
-	"google.golang.org/genproto/googleapis/api/annotations"
 )
 
 // List methods should reference the target resource via `child_type` or the
@@ -30,7 +30,7 @@ var resourceReferenceType = &lint.MethodRule{
 	OnlyIf: func(m *desc.MethodDescriptor) bool {
 		p := m.GetInputType().FindFieldByName("parent")
 
-		var resource *annotations.ResourceDescriptor
+		var resource *aepapi.ResourceDescriptor
 		resourceField := utils.GetListResourceMessage(m)
 		if resourceField != nil {
 			resource = utils.GetResource(resourceField)

@@ -536,25 +536,25 @@ func TestGetOutputOrLROResponseMessage(t *testing.T) {
 }
 
 func TestFindResourceChildren(t *testing.T) {
-	publisher := &apb.ResourceDescriptor{
+	publisher := &aepapi.ResourceDescriptor{
 		Type: "library.googleapis.com/Publisher",
 		Pattern: []string{
 			"publishers/{publisher}",
 		},
 	}
-	shelf := &apb.ResourceDescriptor{
+	shelf := &aepapi.ResourceDescriptor{
 		Type: "library.googleapis.com/Shelf",
 		Pattern: []string{
 			"shelves/{shelf}",
 		},
 	}
-	book := &apb.ResourceDescriptor{
+	book := &aepapi.ResourceDescriptor{
 		Type: "library.googleapis.com/Book",
 		Pattern: []string{
 			"publishers/{publisher}/books/{book}",
 		},
 	}
-	edition := &apb.ResourceDescriptor{
+	edition := &aepapi.ResourceDescriptor{
 		Type: "library.googleapis.com/Edition",
 		Pattern: []string{
 			"publishers/{publisher}/books/{book}/editions/{edition}",
@@ -607,11 +607,11 @@ func TestFindResourceChildren(t *testing.T) {
 
 	for _, tst := range []struct {
 		name   string
-		parent *apb.ResourceDescriptor
-		want   []*apb.ResourceDescriptor
+		parent *aepapi.ResourceDescriptor
+		want   []*aepapi.ResourceDescriptor
 	}{
-		{"has_child_same_file", book, []*apb.ResourceDescriptor{edition}},
-		{"has_child_other_file", publisher, []*apb.ResourceDescriptor{book, edition}},
+		{"has_child_same_file", book, []*aepapi.ResourceDescriptor{edition}},
+		{"has_child_other_file", publisher, []*aepapi.ResourceDescriptor{book, edition}},
 		{"no_children", shelf, nil},
 	} {
 		t.Run(tst.name, func(t *testing.T) {

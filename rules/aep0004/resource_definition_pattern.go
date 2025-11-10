@@ -31,7 +31,7 @@ var resourceDefinitionPatterns = &lint.FileRule{
 
 		for ndx, resource := range resources {
 			loc := locations.FileResourceDefinition(f, ndx)
-			probs := lintResourcePattern(resource, f, loc)
+			probs := lintResourcePatternGoogleAPI(resource, f, loc)
 			problems = append(problems, probs...)
 		}
 		return problems
