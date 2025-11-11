@@ -30,7 +30,7 @@ Certain common resource types are exempt from this rule.
 package google.example.library.v1;
 
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -57,7 +57,7 @@ message GetBookRequest {
 package google.example.library;
 
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -81,7 +81,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 package google.example.library.common;
 
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };

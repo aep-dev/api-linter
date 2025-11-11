@@ -61,7 +61,7 @@ func TestRequiredFieldTests(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
 				import "aep/api/field_info.proto";
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 
 				service Library {
@@ -83,7 +83,7 @@ func TestRequiredFieldTests(t *testing.T) {
 				}
 
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "publishers/{publisher}/books/{book}"
 					};

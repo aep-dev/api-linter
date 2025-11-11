@@ -41,7 +41,7 @@ func TestHTTPURIResource(t *testing.T) {
 		t.Run(test.testName, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				service Library {
 					rpc CreateBook(CreateBookRequest) returns (Book) {
 						option (google.api.http) = {
@@ -51,7 +51,7 @@ func TestHTTPURIResource(t *testing.T) {
 				}
 				message CreateBookRequest {}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						pattern: "{{.Pattern}}"
 					};
 				}

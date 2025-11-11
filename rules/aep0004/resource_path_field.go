@@ -26,7 +26,7 @@ var resourcePathField = &lint.MessageRule{
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		f := "path"
-		if nf := utils.GetResource(m).GetNameField(); nf != "" {
+		if nf := utils.GetResourceNameField(utils.GetResource(m)); nf != "" {
 			f = nf
 		}
 

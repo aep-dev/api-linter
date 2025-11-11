@@ -41,9 +41,6 @@ func AddRules(r lint.RuleRegistry) error {
 		resourceSingular,
 		resourceTypeName,
 		resourceVariables,
-		resourceDefinitionVariables,
-		resourceDefinitionPatterns,
-		resourceDefinitionTypeName,
 		pathNeverOptional,
 	)
 }
@@ -58,10 +55,6 @@ func isResourceMessage(m *desc.MessageDescriptor) bool {
 
 func hasResourceAnnotation(m *desc.MessageDescriptor) bool {
 	return utils.GetResource(m) != nil
-}
-
-func hasResourceDefinitionAnnotation(f *desc.FileDescriptor) bool {
-	return len(utils.GetResourceDefinitions(f)) > 0
 }
 
 // getVariables returns a slice of variables declared in the pattern.

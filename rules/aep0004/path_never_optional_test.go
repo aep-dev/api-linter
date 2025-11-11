@@ -24,23 +24,19 @@ func TestPathNeverOptional(t *testing.T) {
 	for _, test := range []struct {
 		name      string
 		FieldPath string
-		PathField string
 		Label     string
 		problems  testutils.Problems
 	}{
-		{"Valid", "path", "", "", testutils.Problems{}},
-		{"ValidAlternativePath", "resource", "resource", "", testutils.Problems{}},
-		{"InvalidProto3Optional", "path", "", "optional", testutils.Problems{{Message: "never be labeled"}}},
-		{"SkipPathFieldDNE", "path", "does_not_exist", "", testutils.Problems{}},
+		{"Valid", "path", "", testutils.Problems{}},
+		{"InvalidProto3Optional", "path", "optional", testutils.Problems{{Message: "never be labeled"}}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "publishers/{publisher}/books/{book}"
-						name_field: "{{.PathField}}"
 					};
 
 					{{.Label}} string {{.FieldPath}} = 1;

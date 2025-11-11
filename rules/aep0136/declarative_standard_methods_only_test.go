@@ -21,6 +21,9 @@ import (
 )
 
 func TestDeclarativeFriendly(t *testing.T) {
+	// Note: AEP ResourceDescriptor doesn't have a style field, so declarative-friendly
+	// detection is not possible. All tests expect nil since resources won't be
+	// detected as declarative-friendly.
 	for _, test := range []struct {
 		name       string
 		MethodName string
@@ -35,11 +38,11 @@ func TestDeclarativeFriendly(t *testing.T) {
 		{"ValidUndelete", "UndeleteBook", "", nil},
 		{"ValidBatch", "BatchGetBooks", "", nil},
 		{"ValidCustomImperativeOnly", "FrobBook", "IMPERATIVE ONLY.", nil},
-		{"Invalid", "FrobBook", "", testutils.Problems{{Message: "avoid custom methods"}}},
+		{"NoLongerInvalid", "FrobBook", "", nil},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 
 				service Library {
 					// The {{.MethodName}} method.
@@ -51,10 +54,9 @@ func TestDeclarativeFriendly(t *testing.T) {
 				message {{.MethodName}}Response {}
 
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "publishers/{publisher}/books/{book}"
-						style: DECLARATIVE_FRIENDLY
 					};
 				}
 			`, test)

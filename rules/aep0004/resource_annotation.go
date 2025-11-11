@@ -27,7 +27,7 @@ var resourceAnnotation = &lint.MessageRule{
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		if utils.GetResource(m) == nil {
 			return []lint.Problem{{
-				Message:    "Resource messages should include a `google.api.resource` annotation.",
+				Message:    "Resource messages should include a `aep.api.resource` annotation.",
 				Descriptor: m,
 			}}
 		}

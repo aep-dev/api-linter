@@ -25,7 +25,7 @@ named `self_link`.
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "books/{book}"
   };
@@ -41,7 +41,7 @@ message Book {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "books/{book}"
   };
@@ -57,7 +57,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "books/{book}"
   };

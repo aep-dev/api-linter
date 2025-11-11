@@ -15,7 +15,7 @@ conventions, as described in [AEP-4][].
 
 ## Details
 
-This rule scans all messages with `google.api.resource` annotations, and
+This rule scans all messages with `aep.api.resource` annotations, and
 complains if variables in a `pattern` use camel case, or end in `_id`.
 
 ## Examples
@@ -25,7 +25,7 @@ complains if variables in a `pattern` use camel case, or end in `_id`.
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     // Should be: publishers/{publisher}/books/{book}
     pattern: "publishers/{publisher_id}/books/{book_id}"
@@ -38,7 +38,7 @@ message Book {
 ```proto
 // Incorrect.
 message ElectronicBook {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/ElectronicBook"
     // Should be: publishers/{publisher}/electronicBooks/{electronic_book}
     pattern: "publishers/{publisher}/electronicBooks/{electronicBook}"
@@ -53,7 +53,7 @@ message ElectronicBook {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -65,7 +65,7 @@ message Book {
 ```proto
 // Correct.
 message ElectronicBook {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/ElectronicBook"
     pattern: "publishers/{publisher}/electronicBooks/{electronic_book}"
   };
@@ -82,7 +82,7 @@ If you need to violate this rule, use a leading comment above the message.
 // (-- api-linter: core::4::resource-variables=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher_id}/books/{book_id}"
   };

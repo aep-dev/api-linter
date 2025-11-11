@@ -30,7 +30,7 @@ func TestRequestParentValidReference(t *testing.T) {
 		{"Invalid", "library.googleapis.com/Book", testutils.Problems{{Message: "reference the parent(s)"}}},
 	} {
 		f := testutils.ParseProto3Tmpl(t, `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
   import "aep/api/field_info.proto";
 			message ListBooksRequest {
 				string parent = 1 [(aep.api.field_info).resource_reference = "{{.ReferenceType}}"];
@@ -41,7 +41,7 @@ func TestRequestParentValidReference(t *testing.T) {
 			}
 
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 				};

@@ -40,12 +40,12 @@ func TestRequestParentFieldRequired(t *testing.T) {
 	// than the other tests and therefore handled separately.
 	t.Run("ValidTopLevel", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			message CreateBookRequest {
 				Book book = 2;
 			}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					pattern: "books/{book}"
 				};
 				string name = 1;

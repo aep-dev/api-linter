@@ -147,19 +147,19 @@ func GetMethodSignatures(m *desc.MethodDescriptor) [][]string {
 	return answer
 }
 
-// GetResource returns the google.api.resource annotation.
-func GetResource(m *desc.MessageDescriptor) *apb.ResourceDescriptor {
+// GetResource returns the aep.api.resource annotation.
+func GetResource(m *desc.MessageDescriptor) *aepapi.ResourceDescriptor {
 	if m == nil {
 		return nil
 	}
 	opts := m.GetMessageOptions()
-	if x := proto.GetExtension(opts, apb.E_Resource); x != nil {
-		return x.(*apb.ResourceDescriptor)
+	if x := proto.GetExtension(opts, aepapi.E_Resource); x != nil {
+		return x.(*aepapi.ResourceDescriptor)
 	}
 	return nil
 }
 
-// IsResource returns true if the message has a populated google.api.resource
+// IsResource returns true if the message has a populated aep.api.resource
 // annotation with a non-empty "type" field.
 func IsResource(m *desc.MessageDescriptor) bool {
 	if res := GetResource(m); res != nil {
@@ -185,7 +185,8 @@ func IsSingletonResource(m *desc.MessageDescriptor) bool {
 }
 
 // GetResourceDefinitions returns the google.api.resource_definition annotations
-// for a file.
+// for a file. Note: This still uses the Google API extension as AEP doesn't have
+// a file-level resource_definition extension yet.
 func GetResourceDefinitions(f *desc.FileDescriptor) []*apb.ResourceDescriptor {
 	opts := f.GetFileOptions()
 	if x := proto.GetExtension(opts, apb.E_ResourceDefinition); x != nil {
@@ -263,7 +264,7 @@ func GetResourceReference(f *desc.FieldDescriptor) *ResourceReference {
 // depenedencies, it cannot search within the entire protobuf package.
 // This is especially useful for resolving aep.api.field_info.resource_reference
 // annotations.
-func FindResource(reference string, file *desc.FileDescriptor) *apb.ResourceDescriptor {
+func FindResource(reference string, file *desc.FileDescriptor) *aepapi.ResourceDescriptor {
 	m := FindResourceMessage(reference, file)
 	return GetResource(m)
 }
@@ -305,7 +306,7 @@ func SplitResourceTypeName(typ string) (service string, typeName string, ok bool
 
 // FindResourceChildren attempts to search for other resources defined in the
 // package that are parented by the given resource.
-func FindResourceChildren(parent *apb.ResourceDescriptor, file *desc.FileDescriptor) []*apb.ResourceDescriptor {
+func FindResourceChildren(parent *aepapi.ResourceDescriptor, file *desc.FileDescriptor) []*aepapi.ResourceDescriptor {
 	pats := parent.GetPattern()
 	if len(pats) == 0 {
 		return nil
@@ -315,7 +316,7 @@ func FindResourceChildren(parent *apb.ResourceDescriptor, file *desc.FileDescrip
 	// 2. The true first pattern is the one most likely to be used as a parent.
 	first := pats[0]
 
-	var children []*apb.ResourceDescriptor
+	var children []*aepapi.ResourceDescriptor
 	files := append(file.GetDependencies(), file)
 	for _, f := range files {
 		for _, m := range f.GetMessageTypes() {

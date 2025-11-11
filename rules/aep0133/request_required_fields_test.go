@@ -89,7 +89,7 @@ func TestRequiredFieldTests(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
 				import "aep/api/field_info.proto";
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 
 				service Library {
 					rpc CreateBookShelf(CreateBookShelfRequest) returns (BookShelf) {
@@ -100,7 +100,7 @@ func TestRequiredFieldTests(t *testing.T) {
 				}
 
 				message BookShelf {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/BookShelf"
 						pattern: "publishers/{publisher}/bookShelves/{book_shelf}"
 						singular: "{{.Singular}}"

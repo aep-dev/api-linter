@@ -34,7 +34,7 @@ func TestIsCreateMethod(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}
@@ -43,7 +43,7 @@ func TestIsCreateMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -84,7 +84,7 @@ func TestIsUpdateMethod(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}
@@ -93,7 +93,7 @@ func TestIsUpdateMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -133,7 +133,7 @@ func TestIsListMethod(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}
@@ -142,7 +142,7 @@ func TestIsListMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -153,7 +153,7 @@ func TestIsListMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message BookRevision {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/BookRevision"
 						pattern: "books/{book}/revisions/{revision}"
 						singular: "bookRevision"
@@ -215,7 +215,7 @@ func TestIsLegacyListRevisionsMethod(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}
@@ -224,7 +224,7 @@ func TestIsLegacyListRevisionsMethod(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -278,7 +278,7 @@ func TestGetListResourceMessage(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
 					{{.RPCs}}
@@ -287,7 +287,7 @@ func TestGetListResourceMessage(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"

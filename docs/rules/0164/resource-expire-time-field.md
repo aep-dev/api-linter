@@ -34,7 +34,7 @@ service Library {
 }
 
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -59,7 +59,7 @@ service Library {
 }
 
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -88,7 +88,7 @@ service Library {
 // (-- api-linter: core::0164::resource-expire-time-field=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };

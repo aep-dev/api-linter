@@ -24,7 +24,7 @@ other resources do not create a mutable cycle between them.
 
 ```proto
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "books/{book}"
   };
@@ -38,7 +38,7 @@ message Book {
 }
 
 message Author {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Author"
     pattern: "authors/{author}"
   };
@@ -56,7 +56,7 @@ message Author {
 
 ```proto
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "books/{book}"
   };
@@ -70,7 +70,7 @@ message Book {
 }
 
 message Author {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Author"
     pattern: "authors/{author}"
   };
@@ -92,7 +92,7 @@ Remember to also include an [aep.dev/not-precedent][] comment explaining why.
 
 ```proto
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "books/{book}"
   };
@@ -107,7 +107,7 @@ message Book {
 }
 
 message Author {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Author"
     pattern: "authors/{author}"
   };

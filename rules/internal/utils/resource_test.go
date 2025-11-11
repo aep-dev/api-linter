@@ -17,26 +17,26 @@ package utils
 import (
 	"testing"
 
+	aepapi "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
-	apb "google.golang.org/genproto/googleapis/api/annotations"
 )
 
 func TestGetResourceSingular(t *testing.T) {
 	for _, test := range []struct {
 		name     string
-		resource *apb.ResourceDescriptor
+		resource *aepapi.ResourceDescriptor
 		want     string
 	}{
 		{
 			name: "SingularSpecified",
-			resource: &apb.ResourceDescriptor{
+			resource: &aepapi.ResourceDescriptor{
 				Singular: "bookShelf",
 			},
 			want: "bookShelf",
 		},
 		{
 			name: "SingularAndTypeSpecified",
-			resource: &apb.ResourceDescriptor{
+			resource: &aepapi.ResourceDescriptor{
 				Singular: "bookShelf",
 				// NOTE: this is not a correct resource annotation.
 				// it must match singular.
@@ -46,14 +46,14 @@ func TestGetResourceSingular(t *testing.T) {
 		},
 		{
 			name: "TypeSpecified",
-			resource: &apb.ResourceDescriptor{
+			resource: &aepapi.ResourceDescriptor{
 				Type: "library.googleapis.com/bookShelf",
 			},
 			want: "bookShelf",
 		},
 		{
 			name:     "NothingSpecified",
-			resource: &apb.ResourceDescriptor{},
+			resource: &aepapi.ResourceDescriptor{},
 			want:     "",
 		},
 		{
@@ -74,19 +74,19 @@ func TestGetResourceSingular(t *testing.T) {
 func TestGetResourcePlural(t *testing.T) {
 	for _, test := range []struct {
 		name     string
-		resource *apb.ResourceDescriptor
+		resource *aepapi.ResourceDescriptor
 		want     string
 	}{
 		{
 			name: "PluralSpecified",
-			resource: &apb.ResourceDescriptor{
+			resource: &aepapi.ResourceDescriptor{
 				Plural: "bookShelves",
 			},
 			want: "bookShelves",
 		},
 		{
 			name:     "NothingSpecified",
-			resource: &apb.ResourceDescriptor{},
+			resource: &aepapi.ResourceDescriptor{},
 			want:     "",
 		},
 		{
@@ -112,7 +112,7 @@ func TestIsResourceRevision(t *testing.T) {
 		{
 			name:     "valid_revision",
 			Message:  "BookRevision",
-			Resource: `option (google.api.resource) = {type: "library.googleapis.com/BookRevision"};`,
+			Resource: `option (aep.api.resource) = {type: "library.googleapis.com/BookRevision"};`,
 			want:     true,
 		},
 		{
@@ -123,12 +123,12 @@ func TestIsResourceRevision(t *testing.T) {
 		{
 			name:     "not_revision_bad_name",
 			Message:  "Book",
-			Resource: `option (google.api.resource) = {type: "library.googleapis.com/Book"};`,
+			Resource: `option (aep.api.resource) = {type: "library.googleapis.com/Book"};`,
 			want:     false,
 		},
 	} {
 		f := testutils.ParseProto3Tmpl(t, `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			message {{.Message}} {
 				{{.Resource}}
 				string name = 1;
@@ -173,8 +173,8 @@ func TestIsRevisionRelationship(t *testing.T) {
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			a := &apb.ResourceDescriptor{Type: test.typeA}
-			b := &apb.ResourceDescriptor{Type: test.typeB}
+			a := &aepapi.ResourceDescriptor{Type: test.typeA}
+			b := &aepapi.ResourceDescriptor{Type: test.typeB}
 			if got := IsRevisionRelationship(a, b); got != test.want {
 				t.Errorf("IsRevisionRelationship(%s, %s): got %v, want %v", test.typeA, test.typeB, got, test.want)
 			}

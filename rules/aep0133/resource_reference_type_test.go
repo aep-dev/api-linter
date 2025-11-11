@@ -37,7 +37,7 @@ func TestResourceReferenceType(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
   import "aep/api/field_info.proto";
 				import "google/longrunning/operations.proto";
 				service Library {
@@ -47,7 +47,7 @@ func TestResourceReferenceType(t *testing.T) {
 					string parent = 1 [(aep.api.field_info).{{ .Annotation }}];
 				}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "shelves/{shelf}/books/{book}"
 					};
@@ -82,7 +82,7 @@ func TestResourceReferenceTypeLRO(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
   import "aep/api/field_info.proto";
 				import "google/longrunning/operations.proto";
 				service Library {
@@ -97,7 +97,7 @@ func TestResourceReferenceTypeLRO(t *testing.T) {
 					string parent = 1 [(aep.api.field_info).{{ .Annotation }}];
 				}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "shelves/{shelf}/books/{book}"
 					};

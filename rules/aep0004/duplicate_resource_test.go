@@ -24,51 +24,40 @@ import (
 func TestDuplicateResource(t *testing.T) {
 	f := testutils.ParseProto3Tmpls(t, map[string]string{
 		"dep.proto": `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			package xyz;
 			message Publisher {
-				option (google.api.resource) = { type: "library.googleapis.com/Publisher" };
+				option (aep.api.resource) = { type: "library.googleapis.com/Publisher" };
 			}
 			`,
 		"test.proto": `
 			import "dep.proto";
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			package abc;
-			option (google.api.resource_definition) = { type: "library.googleapis.com/Publisher" };
-			option (google.api.resource_definition) = { type: "library.googleapis.com/Author" };
-			option (google.api.resource_definition) = { type: "library.googleapis.com/Editor" };
 			message Book {
-				option (google.api.resource) = { type: "library.googleapis.com/Book" };
+				option (aep.api.resource) = { type: "library.googleapis.com/Book" };
 			}
-			message Author {
-				option (google.api.resource) = { type: "library.googleapis.com/Author" };
+			message Publisher {
+				option (aep.api.resource) = { type: "library.googleapis.com/Publisher" };
 			}
 			message Foo {
 				message Tome {
-					option (google.api.resource) = { type: "library.googleapis.com/Book" };
+					option (aep.api.resource) = { type: "library.googleapis.com/Book" };
 				}
 			}`,
 	}, nil)["test.proto"]
 	want := testutils.Problems{
 		lint.Problem{
-			Message:    "resource \"library.googleapis.com/Author\": `google.api.resource_definition` 1 in file `test.proto`, message `abc.Author`.",
-			Descriptor: f,
-		},
-		lint.Problem{
-			Message:    "resource \"library.googleapis.com/Author\": `google.api.resource_definition` 1 in file `test.proto`, message `abc.Author`.",
-			Descriptor: f.GetMessageTypes()[1],
-		},
-		lint.Problem{
-			Message:    "resource \"library.googleapis.com/Book\": message `abc.Book`, message `abc.Foo.Tome`.",
+			Message:    "Multiple definitions for resource \"library.googleapis.com/Book\": message `abc.Book`, message `abc.Foo.Tome`.",
 			Descriptor: f.GetMessageTypes()[0],
 		},
 		lint.Problem{
-			Message:    "resource \"library.googleapis.com/Book\": message `abc.Book`, message `abc.Foo.Tome`.",
+			Message:    "Multiple definitions for resource \"library.googleapis.com/Book\": message `abc.Book`, message `abc.Foo.Tome`.",
 			Descriptor: f.GetMessageTypes()[2].GetNestedMessageTypes()[0],
 		},
 		lint.Problem{
-			Message:    "resource \"library.googleapis.com/Publisher\": message `xyz.Publisher`.",
-			Descriptor: f,
+			Message:    "Multiple definitions for resource \"library.googleapis.com/Publisher\": message `abc.Publisher`, message `xyz.Publisher`.",
+			Descriptor: f.GetMessageTypes()[1],
 		},
 	}
 	if diff := want.Diff(duplicateResource.Lint(f)); diff != "" {

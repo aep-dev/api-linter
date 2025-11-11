@@ -15,7 +15,7 @@ This rule enforces that messages that appear to represent resources have a
 
 ## Details
 
-This rule scans all messages that have a `google.api.resource` annotation, and
+This rule scans all messages that have a `aep.api.resource` annotation, and
 complains if the `path` field is missing or if it is any type other than
 singular `string`.
 
@@ -26,7 +26,7 @@ singular `string`.
 ```proto
 // Incorrect: missing `string path` field.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -36,7 +36,7 @@ message Book {
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -51,7 +51,7 @@ message Book {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -69,7 +69,7 @@ above the field if it is the wrong type.
 // (-- api-linter: core::4::resource-path-field=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };

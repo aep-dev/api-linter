@@ -175,7 +175,7 @@ service Bookstore {
 
 // A Book.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "bookstore.example.com/book",
     pattern: [ "publishers/{publisher}/books/{book}" ],
     plural: "books",
@@ -212,7 +212,7 @@ message Book {
 
 // A BookEdition.
 message BookEdition {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "bookstore.example.com/book-edition",
     pattern: [
       "publishers/{publisher}/books/{book}/editions/{book-edition}"
@@ -230,7 +230,7 @@ message BookEdition {
 
 // A Isbn.
 message Isbn {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "bookstore.example.com/isbn",
     pattern: [ "isbns/{isbn}" ],
     plural: "isbns",
@@ -243,7 +243,7 @@ message Isbn {
 
 // A Publisher.
 message Publisher {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "bookstore.example.com/publisher",
     pattern: [ "publishers/{publisher}" ],
     plural: "publishers",

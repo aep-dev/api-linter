@@ -73,7 +73,7 @@ func TestFieldLabel(t *testing.T) {
 
 func TestFieldResourceReference(t *testing.T) {
 	f := parse(t, `
-		import "google/api/resource.proto";
+		import "aep/api/resource.proto";
 		import "aep/api/field_info.proto";
 		message GetBookRequest {
 		  string name = 1 [(aep.api.field_info).resource_reference = "library.googleapis.com/Book"];

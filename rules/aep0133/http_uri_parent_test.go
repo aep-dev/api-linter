@@ -40,7 +40,7 @@ func TestHTTPURIParent(t *testing.T) {
 		t.Run(test.testName, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				service Library {
 					rpc {{.MethodName}}({{.MethodName}}Request) returns (Book) {
 						option (google.api.http) = {
@@ -50,7 +50,7 @@ func TestHTTPURIParent(t *testing.T) {
 				}
 				message {{.MethodName}}Request {}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						pattern: "{{.Pattern}}"
 					};
 				}
@@ -63,7 +63,7 @@ func TestHTTPURIParent(t *testing.T) {
 		t.Run(test.testName+"/Operation", func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
 				import "google/api/annotations.proto";
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/longrunning/operations.proto";
 				service Library {
 					rpc {{.MethodName}}({{.MethodName}}Request) returns (google.longrunning.Operation) {
@@ -78,7 +78,7 @@ func TestHTTPURIParent(t *testing.T) {
 				}
 				message {{.MethodName}}Request {}
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						pattern: "{{.Pattern}}"
 					};
 				}
@@ -93,7 +93,7 @@ func TestHTTPURIParent(t *testing.T) {
 	t.Run("AdditionalBinding", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
 			import "google/api/annotations.proto";
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			service Library {
 				rpc CreateBook(CreateBookRequest) returns (Book) {
 					option (google.api.http) = {
@@ -108,7 +108,7 @@ func TestHTTPURIParent(t *testing.T) {
 			}
 			message CreateBookRequest {}
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					pattern: "publishers/{publisher}/books/{book}"
 				};
 			}

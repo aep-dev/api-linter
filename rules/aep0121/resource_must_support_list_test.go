@@ -23,7 +23,7 @@ import (
 
 // TestResourceMustSupportList tests the resourceMustSupportList
 // lint rule by declaring a service proto, then declaring a
-// google.api.resource message, then declaring non-List
+// aep.api.resource message, then declaring non-List
 // methods.
 func TestResourceMustSupportList(t *testing.T) {
 	for _, test := range []struct {
@@ -87,7 +87,7 @@ func TestResourceMustSupportList(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			file := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				import "google/longrunning/operations.proto";
 				import "google/protobuf/field_mask.proto";
 				service Foo {
@@ -97,7 +97,7 @@ func TestResourceMustSupportList(t *testing.T) {
 				// This is at the top to make it retrievable
 				// by the test code.
 				message Book {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/Book"
 						pattern: "books/{book}"
 						singular: "book"
@@ -106,7 +106,7 @@ func TestResourceMustSupportList(t *testing.T) {
 				}
 
 				message BookCover {
-					option (google.api.resource) = {
+					option (aep.api.resource) = {
 						type: "library.googleapis.com/BookCover"
 						pattern: "books/{book}/bookCover"
 						singular: "bookCover"

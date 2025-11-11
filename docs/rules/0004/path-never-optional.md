@@ -15,7 +15,7 @@ proto3_optional.
 
 ## Details
 
-This rule scans for messages with a `google.api.resource` annotation and ensures
+This rule scans for messages with a `aep.api.resource` annotation and ensures
 that the configured path field (either `path` or whichever field specified via
 `path_field`) is not labeled as `optional`.
 
@@ -26,7 +26,7 @@ that the configured path field (either `path` or whichever field specified via
 ```proto
 // Incorrect.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -41,7 +41,7 @@ message Book {
 ```proto
 // Correct.
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -58,7 +58,7 @@ If you need to violate this rule, use a leading comment above the message.
 // (-- api-linter: core::04::path-never-optional=disabled
 //     aep.dev/not-precedent: We need to do this because reasons. --)
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };

@@ -24,9 +24,9 @@ func TestResourceAnnotation(t *testing.T) {
 	// The rule should pass if the option is present on a resource message.
 	t.Run("Present", func(t *testing.T) {
 		f := testutils.ParseProto3String(t, `
-			import "google/api/resource.proto";
+			import "aep/api/resource.proto";
 			message Book {
-				option (google.api.resource) = {
+				option (aep.api.resource) = {
 					type: "library.googleapis.com/Book"
 					pattern: "publishers/{publisher}/books/{book}"
 				};
@@ -63,7 +63,7 @@ func TestResourceAnnotation(t *testing.T) {
 		{"ValidNoNameField", "Book", "title", testutils.Problems{}},
 		{"ValidRequestMessage", "GetBookRequest", "path", testutils.Problems{}},
 		{"ValidResponseMessage", "GetBookResponse", "path", testutils.Problems{}},
-		{"Invalid", "Book", "path", testutils.Problems{{Message: "google.api.resource"}}},
+		{"Invalid", "Book", "path", testutils.Problems{{Message: "aep.api.resource"}}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `

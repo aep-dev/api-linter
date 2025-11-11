@@ -29,16 +29,15 @@ func TestResourceNameField(t *testing.T) {
 		Field    string
 		problems testutils.Problems
 	}{
-		{"ValidBothPresent", `option (google.api.resource) = { type: "foo" };`, `string path = 1;`, nil},
-		{"InvalidNoField", `option (google.api.resource) = { type: "foo" };`, ``, testutils.Problems{{Message: "`path`"}}},
-		{"InvalidTypeNotString", `option (google.api.resource) = { type: "foo" };`, `int32 path = 1;`, testutils.Problems{{Suggestion: "string"}}},
-		{"InvalidTypeRepeated", `option (google.api.resource) = { type: "foo" };`, `repeated string path = 1;`, testutils.Problems{{Suggestion: "string"}}},
+		{"ValidBothPresent", `option (aep.api.resource) = { type: "foo" };`, `string path = 1;`, nil},
+		{"InvalidNoField", `option (aep.api.resource) = { type: "foo" };`, ``, testutils.Problems{{Message: "`path`"}}},
+		{"InvalidTypeNotString", `option (aep.api.resource) = { type: "foo" };`, `int32 path = 1;`, testutils.Problems{{Suggestion: "string"}}},
+		{"InvalidTypeRepeated", `option (aep.api.resource) = { type: "foo" };`, `repeated string path = 1;`, testutils.Problems{{Suggestion: "string"}}},
 		{"IrrelevantNoAnnotation", ``, ``, nil},
-		{"ValidNameField", `option (google.api.resource) = { type: "foo" name_field: "other_path"};`, "string other_path = 1;", nil},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `
-				import "google/api/resource.proto";
+				import "aep/api/resource.proto";
 				message Book {
 					{{.Options}}
 					{{.Field}}

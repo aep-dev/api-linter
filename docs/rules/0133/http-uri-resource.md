@@ -38,7 +38,7 @@ rpc CreateBook(CreateBookRequest) returns (Book) {
 }
 
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
@@ -57,7 +57,7 @@ rpc CreateBook(CreateBookRequest) returns (Book) {
 }
 
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     // The pattern does not contain the collection identifier `books`.
     pattern: "publishers/{publisher}"
@@ -77,7 +77,7 @@ rpc CreateBook(CreateBookRequest) returns (Book) {
 }
 
 message Book {
-  option (google.api.resource) = {
+  option (aep.api.resource) = {
     type: "library.googleapis.com/Book"
     pattern: "publishers/{publisher}/books/{book}"
   };
