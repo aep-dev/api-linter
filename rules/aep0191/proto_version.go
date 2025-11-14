@@ -18,17 +18,18 @@ import (
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/locations"
 	"github.com/jhump/protoreflect/desc"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-// APIs must use proto3.
+// APIs must use proto3 or newer edition.
 var syntax = &lint.FileRule{
 	Name:     lint.NewRuleName(191, "proto-version"),
 	RuleType: lint.NewRuleType(lint.MustRule),
 	LintFile: func(f *desc.FileDescriptor) []lint.Problem {
-		if !f.IsProto3() {
+		if !f.IsProto3() && f.Edition() < descriptorpb.Edition_EDITION_PROTO3 {
 			return []lint.Problem{{
-				Message:    "All API proto files must use proto3 syntax.",
-				Suggestion: "syntax = \"proto3\";",
+				Message:    "All API proto files must use proto3 or newer edition.",
+				Suggestion: "edition = \"2023\";",
 				Descriptor: f,
 				Location:   locations.FileSyntax(f),
 			}}
