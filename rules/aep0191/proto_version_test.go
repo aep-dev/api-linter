@@ -19,28 +19,30 @@ import (
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/jhump/protoreflect/desc/builder"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 func TestSyntax(t *testing.T) {
 	// Set up the two permutations.
 	tests := []struct {
 		testName string
-		isProto3 bool
+		edition  descriptorpb.Edition
 		problems testutils.Problems
 	}{
-		{"Valid", true, testutils.Problems{}},
-		{"Invalid", false, testutils.Problems{{Suggestion: `syntax = "proto3";`}}},
+		{"Valid (proto3)", descriptorpb.Edition_EDITION_PROTO3, testutils.Problems{}},
+		{"Valid (2023)", descriptorpb.Edition_EDITION_2023, testutils.Problems{}},
+		{"Valid (2024)", descriptorpb.Edition_EDITION_2024, testutils.Problems{}},
+		{"Invalid (proto2)", descriptorpb.Edition_EDITION_PROTO2, testutils.Problems{{Suggestion: `edition = "2023";`}}},
 	}
 
 	// Run each permutation as an individual test.
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Build an appropriate file descriptor.
-			f, err := builder.NewFile("library.proto").SetProto3(test.isProto3).Build()
+			f, err := builder.NewFile("library.proto").SetEdition(test.edition).Build()
 			if err != nil {
 				t.Fatalf("Could not build file descriptor.")
 			}
-
 			// Lint the file, and ensure we got the expected problems.
 			if diff := test.problems.SetDescriptor(f).Diff(syntax.Lint(f)); diff != "" {
 				t.Error(diff)
