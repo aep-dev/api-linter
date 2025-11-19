@@ -44,6 +44,7 @@ func TestUnknownFields(t *testing.T) {
 		{"Invalid", "GetBookRequest", "application_id", builder.FieldTypeString(), testutils.Problems{{
 			Message: "Unexpected field",
 		}}},
+		{"ShowDeleted", "GetBookRequest", "show_deleted", builder.FieldTypeBool(), testutils.Problems{}},
 		{"Irrelevant", "AcquireBookRequest", "application_id", builder.FieldTypeString(), testutils.Problems{}},
 	}
 
