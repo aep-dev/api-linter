@@ -25,10 +25,11 @@ import (
 )
 
 var allowedFields = stringset.New(
-	"path",       // AEP-131
-	"request_id", // AEP-155
-	"read_mask",  // AEP-157
-	"view",       // AEP-157
+	"path",         // AEP-131
+	"request_id",   // AEP-155
+	"read_mask",    // AEP-157
+	"view",         // AEP-157
+	"show_deleted", // AEP-164
 )
 
 // Get methods should not have unrecognized fields.
