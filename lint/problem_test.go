@@ -84,12 +84,12 @@ func TestProblemYAML(t *testing.T) {
 
 func TestProblemDescriptor(t *testing.T) {
 	mb := testutils.NewMessage(t, "Foo")
-	testutils.NewFile(t, "foo.proto").AddMessage(mb)
-
-	m, err := mb.Build()
+	fd, err := testutils.NewFile(t, "foo.proto").AddMessage(mb).Build()
 	if err != nil {
 		t.Fatalf("%v", err)
 	}
+
+	m := fd.GetMessageTypes()[0]
 	m.GetSourceInfo().Span = []int32{42, 0, 79}
 	problem := &Problem{
 		Message:    "foo bar",

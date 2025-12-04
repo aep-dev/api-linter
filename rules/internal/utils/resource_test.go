@@ -58,7 +58,7 @@ func TestGetResourceSingular(t *testing.T) {
 		},
 		{
 			name:     "Nil",
-			resource: {},
+			resource: nil,
 			want:     "",
 		},
 	} {
@@ -91,7 +91,7 @@ func TestGetResourcePlural(t *testing.T) {
 		},
 		{
 			name:     "Nil",
-			resource: {},
+			resource: nil,
 			want:     "",
 		},
 	} {

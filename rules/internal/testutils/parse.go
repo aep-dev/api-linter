@@ -34,6 +34,7 @@ import (
 	_ "google.golang.org/genproto/googleapis/type/date"
 	_ "google.golang.org/genproto/googleapis/type/datetime"
 	_ "google.golang.org/genproto/googleapis/type/timeofday"
+	_ "google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // ParseProtoStrings parses a map representing a proto files, and returns

@@ -28,6 +28,7 @@ import (
 	"github.com/bufbuild/protocompile"
 	"github.com/bufbuild/protocompile/reporter"
 	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/reflect/protoregistry"
 )
 
 // ErrorWithPos represents a parse error with position information.
@@ -87,17 +88,35 @@ func (m mapAccessor) Open(filename string) (io.ReadCloser, error) {
 
 // ParseFiles parses the given proto files.
 func (p *Parser) ParseFiles(filenames ...string) ([]*desc.FileDescriptor, error) {
-	resolver := protocompile.SourceResolver{
+	resolver := &protocompile.SourceResolver{
 		ImportPaths: p.ImportPaths,
 	}
 
 	if p.Accessor != nil {
-		adapter := &accessorAdapter{accessor: p.Accessor, importPaths: p.ImportPaths}
+		adapter := &accessorAdapter{accessor: p.Accessor, importPaths: p.ImportPaths, lookupImport: p.LookupImport}
 		resolver.Accessor = adapter.Open
 	}
 
+	// Wrap resolver with standard imports (well-known types)
+	resolverWithStdImports := protocompile.WithStandardImports(resolver)
+
+	// Create a composite resolver that checks the global registry first
+	compositeResolver := protocompile.CompositeResolver{
+		protocompile.ResolverFunc(func(path string) (protocompile.SearchResult, error) {
+			// Try to find in global registry
+			fd, err := protoregistry.GlobalFiles.FindFileByPath(path)
+			if err == nil {
+				// Found in registry, return it
+				return &registrySearchResult{fd: fd}, nil
+			}
+			// Not in registry, fall through to next resolver
+			return nil, fs.ErrNotExist
+		}),
+		resolverWithStdImports,
+	}
+
 	compiler := &protocompile.Compiler{
-		Resolver:       &resolver,
+		Resolver:       compositeResolver,
 		SourceInfoMode: protocompile.SourceInfoStandard,
 	}
 
@@ -138,8 +157,9 @@ func (er *errorReporter) Warning(reporter.ErrorWithPos) {
 }
 
 type accessorAdapter struct {
-	accessor    FileAccessor
-	importPaths []string
+	accessor     FileAccessor
+	importPaths  []string
+	lookupImport func(string) (*desc.FileDescriptor, error)
 }
 
 func (a *accessorAdapter) Open(path string) (io.ReadCloser, error) {
@@ -156,8 +176,30 @@ func (a *accessorAdapter) Open(path string) (io.ReadCloser, error) {
 		}
 	}
 
+	// Try lookup import (for well-known types)
+	if a.lookupImport != nil {
+		if fd, err := a.lookupImport(path); err == nil {
+			// Convert the FileDescriptor to a proto and return it as a reader
+			proto := fd.AsProto()
+			// Note: protocompile needs the source, but we have the compiled descriptor.
+			// This won't work for source info. For well-known types, we'll skip them
+			// by returning an error and let protocompile use its built-in resolution.
+			_ = proto
+			// Fall through to filesystem
+		}
+	}
+
 	// Fall back to file system
 	return os.Open(path)
+}
+
+// registrySearchResult implements protocompile.SearchResult for registry lookups.
+type registrySearchResult struct {
+	fd protoreflect.FileDescriptor
+}
+
+func (r *registrySearchResult) Desc() protoreflect.FileDescriptor {
+	return r.fd
 }
 
 // ResolveFilenames resolves file paths relative to import paths.

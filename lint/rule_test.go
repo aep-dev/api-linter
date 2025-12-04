@@ -113,9 +113,9 @@ func TestFieldRule(t *testing.T) {
 	// Create a file descriptor with one message and two fields in that message.
 	fd, err := testutils.NewFile(t, "test.proto").AddMessage(
 		testutils.NewMessage(t, "Book").AddField(
-			/* field: "title", testutils.FieldTypeString( */),
+			newField("title", "string", 1),
 		).AddField(
-			/* field: "edition_count", testutils.FieldTypeInt32( */),
+			newField("edition_count", "int32", 2),
 		),
 	).Build()
 	if err != nil {
@@ -170,19 +170,22 @@ func TestServiceRule(t *testing.T) {
 
 func TestMethodRule(t *testing.T) {
 	// Create a file descriptor with a service.
-	book := builder.RpcTypeMessage(testutils.NewMessage(t, "Book"), false)
-	fd, err := testutils.NewFile(t, "test.proto").AddService(
+	book := testutils.NewMessage(t, "Book")
+	getBookRequest := testutils.NewMessage(t, "GetBookRequest")
+	createBookRequest := testutils.NewMessage(t, "CreateBookRequest")
+
+	fd, err := testutils.NewFile(t, "test.proto").AddMessage(book).AddMessage(getBookRequest).AddMessage(createBookRequest).AddService(
 		builder.NewService("Library").AddMethod(
 			builder.NewMethod(
 				"GetBook",
-				builder.RpcTypeMessage(testutils.NewMessage(t, "GetBookRequest"), false),
-				book,
+				builder.RpcTypeMessage(getBookRequest, false),
+				builder.RpcTypeMessage(book, false),
 			),
 		).AddMethod(
 			builder.NewMethod(
 				"CreateBook",
-				builder.RpcTypeMessage(testutils.NewMessage(t, "CreateBookRequest"), false),
-				book,
+				builder.RpcTypeMessage(createBookRequest, false),
+				builder.RpcTypeMessage(book, false),
 			),
 		),
 	).Build()
@@ -213,9 +216,9 @@ func TestMethodRule(t *testing.T) {
 func TestEnumRule(t *testing.T) {
 	// Create a file descriptor with top-level enums.
 	fd, err := testutils.NewFile(t, "test.proto").AddEnum(
-		/* enum: "Format" */.AddValue(/* enum_value: "PDF" */),
+		newEnum("Format").AddValue(newEnumValue("PDF", 0)),
 	).AddEnum(
-		/* enum: "Edition" */.AddValue(/* enum_value: "PUBLISHER_ONLY" */),
+		newEnum("Edition").AddValue(newEnumValue("PUBLISHER_ONLY", 0)),
 	).Build()
 	if err != nil {
 		t.Fatalf("Error building test proto:%s ", err)
@@ -243,7 +246,7 @@ func TestEnumRule(t *testing.T) {
 func TestEnumValueRule(t *testing.T) {
 	// Create a file descriptor with a top-level enum with values.
 	fd, err := testutils.NewFile(t, "test.proto").AddEnum(
-		/* enum: "Format" */.AddValue(/* enum_value: "YAML" */).AddValue(/* enum_value: "JSON" */),
+		newEnum("Format").AddValue(newEnumValue("YAML", 0)).AddValue(newEnumValue("JSON", 1)),
 	).Build()
 	if err != nil {
 		t.Fatalf("Error building test proto:%s ", err)
@@ -272,9 +275,9 @@ func TestEnumRuleNested(t *testing.T) {
 	// Create a file descriptor with top-level enums.
 	fd, err := testutils.NewFile(t, "test.proto").AddMessage(
 		testutils.NewMessage(t, "Book").AddNestedEnum(
-			/* enum: "Format" */.AddValue(/* enum_value: "PDF" */),
+			newEnum("Format").AddValue(newEnumValue("PDF", 0)),
 		).AddNestedEnum(
-			/* enum: "Edition" */.AddValue(/* enum_value: "PUBLISHER_ONLY" */),
+			newEnum("Edition").AddValue(newEnumValue("PUBLISHER_ONLY", 0)),
 		),
 	).Build()
 	if err != nil {
@@ -303,10 +306,10 @@ func TestEnumRuleNested(t *testing.T) {
 func TestDescriptorRule(t *testing.T) {
 	// Create a file with one of everything in it.
 	book := testutils.NewMessage(t, "Book").AddNestedEnum(
-		/* enum: "Format" */.AddValue(
-			/* enum_value: "FORMAT_UNSPECIFIED" */,
-		).AddValue(/* enum_value: "PAPERBACK" */),
-	).AddField(/* field: "name", testutils.FieldTypeString( */)).AddNestedMessage(
+		newEnum("Format").AddValue(
+			newEnumValue("FORMAT_UNSPECIFIED", 0),
+		).AddValue(newEnumValue("PAPERBACK", 1)),
+	).AddField(newField("name", "string", 1)).AddNestedMessage(
 		testutils.NewMessage(t, "Author"),
 	)
 	fd, err := testutils.NewFile(t, "library.proto").AddMessage(book).AddService(
@@ -317,7 +320,7 @@ func TestDescriptorRule(t *testing.T) {
 				builder.RpcTypeMessage(book, false),
 			),
 		),
-	).AddEnum(/* enum: "State" */.AddValue(/* enum_value: "AVAILABLE" */)).Build()
+	).AddEnum(newEnum("State").AddValue(newEnumValue("AVAILABLE", 0))).Build()
 	if err != nil {
 		t.Fatalf("%v", err)
 	}

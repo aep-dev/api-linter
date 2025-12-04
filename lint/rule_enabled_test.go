@@ -70,10 +70,10 @@ func TestRuleIsEnabled(t *testing.T) {
 	// Run the specific tests individually.
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
-			f, err := testutils.NewFile(t, "test.proto").SetSyntaxComments(builder.Comments{
+			f, err := testutils.NewFile(t, "test.proto").SetSyntaxComments(Comments{
 				LeadingComment: test.fileComment,
 			}).AddMessage(
-				testutils.NewMessage(t, "MyMessage").SetComments(builder.Comments{
+				testutils.NewMessage(t, "MyMessage").SetComments(Comments{
 					LeadingComment: test.messageComment,
 				}),
 			).Build()
@@ -93,10 +93,10 @@ func TestRuleIsEnabled(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("MustRule/%s", test.testName), func(t *testing.T) {
-			f, err := testutils.NewFile(t, "test.proto").SetSyntaxComments(builder.Comments{
+			f, err := testutils.NewFile(t, "test.proto").SetSyntaxComments(Comments{
 				LeadingComment: test.fileComment,
 			}).AddMessage(
-				testutils.NewMessage(t, "MyMessage").SetComments(builder.Comments{
+				testutils.NewMessage(t, "MyMessage").SetComments(Comments{
 					LeadingComment: test.messageComment,
 				}),
 			).Build()
@@ -121,7 +121,7 @@ func TestRuleIsEnabledFirstMessage(t *testing.T) {
 
 	// Build a proto and check that ruleIsEnabled does the right thing.
 	f, err := testutils.NewFile(t, "test.proto").AddMessage(
-		testutils.NewMessage(t, "FirstMessage").SetComments(builder.Comments{
+		testutils.NewMessage(t, "FirstMessage").SetComments(Comments{
 			LeadingComment: "api-linter: test=disabled",
 		}),
 	).AddMessage(
@@ -149,11 +149,11 @@ func TestRuleIsEnabledParent(t *testing.T) {
 
 	// Build a proto with two messages, one of which disables the rule.
 	f, err := testutils.NewFile(t, "test.proto").AddMessage(
-		testutils.NewMessage(t, "Foo").SetComments(builder.Comments{
+		testutils.NewMessage(t, "Foo").SetComments(Comments{
 			LeadingComment: "api-linter: test=disabled",
-		}).AddField(/* field: "foo", testutils.FieldTypeBool( */)),
+		}).AddField(newField("foo", "bool", 1)),
 	).AddMessage(
-		testutils.NewMessage(t, "Bar").AddField(/* field: "bar", testutils.FieldTypeBool( */)),
+		testutils.NewMessage(t, "Bar").AddField(newField("bar", "bool", 1)),
 	).Build()
 	if err != nil {
 		t.Fatalf("Error building test file: %q", err)
@@ -191,7 +191,7 @@ func TestRuleIsEnabledDeprecated(t *testing.T) {
 			f, err := testutils.NewFile(t, "test.proto").AddMessage(
 				testutils.NewMessage(t, "Foo").SetOptions(&dpb.MessageOptions{
 					Deprecated: &test.msgDeprecated,
-				}).AddField(/* field: "bar", testutils.FieldTypeBool( */).SetOptions(
+				}).AddField(newField("bar", "bool", 1).SetOptions(
 					&dpb.FieldOptions{Deprecated: &test.fieldDeprecated},
 				)),
 			).Build()

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
-
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 func TestLintSingularStringField(t *testing.T) {
@@ -246,7 +246,7 @@ func TestLintSingularField(t *testing.T) {
 				}
 			`, test)
 			field := f.GetMessageTypes()[0].GetFields()[0]
-			problems := LintSingularField(field, testutils.FieldTypeString(), "string")
+			problems := LintSingularField(field, descriptorpb.FieldDescriptorProto_TYPE_STRING, "string")
 			if diff := test.problems.SetDescriptor(field).Diff(problems); diff != "" {
 				t.Error(diff)
 			}
