@@ -18,7 +18,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 func TestParseProtoStrings(t *testing.T) {

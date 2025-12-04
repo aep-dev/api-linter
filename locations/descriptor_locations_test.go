@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 func TestDescriptorName(t *testing.T) {

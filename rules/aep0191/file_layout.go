@@ -16,7 +16,7 @@ package aep0191
 
 import (
 	"github.com/aep-dev/api-linter/lint"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 var fileLayout = &lint.FileRule{

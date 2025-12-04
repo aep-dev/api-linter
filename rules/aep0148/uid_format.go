@@ -17,7 +17,7 @@ package aep0148
 import (
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/types/descriptorpb"
 )

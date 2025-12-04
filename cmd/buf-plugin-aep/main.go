@@ -11,7 +11,7 @@ import (
 	"buf.build/go/bufplugin/descriptor"
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 

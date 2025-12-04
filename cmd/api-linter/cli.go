@@ -24,8 +24,8 @@ import (
 
 	"github.com/aep-dev/api-linter/internal"
 	"github.com/aep-dev/api-linter/lint"
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/protoparse"
+	"github.com/aep-dev/api-linter/internal/desc"
+	"github.com/aep-dev/api-linter/internal/protoparse"
 	"github.com/spf13/pflag"
 	"google.golang.org/protobuf/proto"
 	dpb "google.golang.org/protobuf/types/descriptorpb"

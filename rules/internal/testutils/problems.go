@@ -19,7 +19,7 @@ import (
 
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/google/go-cmp/cmp"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 // Problems is a slice of individual Problem objects.

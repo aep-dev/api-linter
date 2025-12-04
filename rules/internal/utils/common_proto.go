@@ -17,7 +17,7 @@ package utils
 import (
 	"strings"
 
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 // IsCommonProto returns true if a proto file is considered "common".

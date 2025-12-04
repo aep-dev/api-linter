@@ -16,7 +16,7 @@ package locations
 
 import (
 	lrpb "cloud.google.com/go/longrunning/autogen/longrunningpb"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 	apb "google.golang.org/genproto/googleapis/api/annotations"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )

@@ -17,7 +17,7 @@ package aep0131
 import (
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 // Get request should have a string path field.

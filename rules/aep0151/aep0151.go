@@ -18,7 +18,7 @@ package aep0151
 import (
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 // AddRules adds all of the AEP-151 rules to the provided registry.

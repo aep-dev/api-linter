@@ -20,7 +20,7 @@ import (
 	"strings"
 
 	"github.com/aep-dev/api-linter/lint"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 // AddRules adds all of the AEP-158 rules to the provided registry.

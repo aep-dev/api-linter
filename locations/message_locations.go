@@ -16,7 +16,7 @@ package locations
 
 import (
 	aepapi "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
 

@@ -21,8 +21,8 @@ import (
 	"testing"
 	"text/template"
 
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/protoparse"
+	"github.com/aep-dev/api-linter/internal/desc"
+	"github.com/aep-dev/api-linter/internal/protoparse"
 	"github.com/lithammer/dedent"
 
 	// These imports cause the common protos to be registered with

@@ -15,7 +15,7 @@
 package locations
 
 import (
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
 

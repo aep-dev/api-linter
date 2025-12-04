@@ -18,7 +18,7 @@ import (
 	"strings"
 
 	"bitbucket.org/creachadair/stringset"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 	"github.com/stoewer/go-strcase"
 )
 
