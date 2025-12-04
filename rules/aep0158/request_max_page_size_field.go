@@ -18,7 +18,7 @@ import (
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 var requestPaginationMaxPageSize = &lint.MessageRule{
@@ -32,7 +32,7 @@ var requestPaginationMaxPageSize = &lint.MessageRule{
 		}
 		// Checks that page_size is of type int32 and is not a oneof. These are
 		// noops if page_size is not a oneof and is a int32.
-		problems = append(problems, utils.LintSingularField(f, builder.FieldTypeInt32(), "int32")...)
+		problems = append(problems, utils.LintSingularField(f, descriptorpb.FieldDescriptorProto_TYPE_INT32, "int32")...)
 		problems = append(problems, utils.LintNotOneof(f)...)
 
 		return problems

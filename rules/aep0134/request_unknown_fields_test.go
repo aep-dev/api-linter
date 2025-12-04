@@ -18,7 +18,7 @@ import (
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+
 	fpb "google.golang.org/genproto/protobuf/field_mask"
 )
 
@@ -34,38 +34,38 @@ func TestUnknownFields(t *testing.T) {
 		testName    string
 		messageName string
 		fieldName   string
-		fieldType   *builder.FieldType
+		fieldType   *testutils.FieldType
 		problems    testutils.Problems
 	}{
 		// Use BigBook instead of Book to test correct casing logic
 		{
 			"UpdateMask", "UpdateBigBookRequest", "update_mask",
-			builder.FieldTypeImportedMessage(fieldMask),
+			testutils.FieldTypeImportedMessage(fieldMask),
 			testutils.Problems{},
 		},
 		{
 			"ValidateOnly", "UpdateBigBookRequest", "validate_only",
-			builder.FieldTypeBool(),
+			testutils.FieldTypeBool(),
 			testutils.Problems{},
 		},
 		{
 			"PathOnly", "UpdateBigBookRequest", "path",
-			builder.FieldTypeString(),
+			testutils.FieldTypeString(),
 			testutils.Problems{},
 		},
 		{
 			"Invalid", "UpdateBigBookRequest", "application_id",
-			builder.FieldTypeString(),
+			testutils.FieldTypeString(),
 			testutils.Problems{{Message: "Unexpected field"}},
 		},
 		{
 			"InvalidCasing", "UpdateBigBookRequest", "bigbook",
-			builder.FieldTypeString(),
+			testutils.FieldTypeString(),
 			testutils.Problems{{Message: "Unexpected field"}},
 		},
 		{
 			"Irrelevant", "AcquireBigBookRequest", "application_id",
-			builder.FieldTypeString(),
+			testutils.FieldTypeString(),
 			testutils.Problems{},
 		},
 	}
@@ -74,10 +74,10 @@ func TestUnknownFields(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Create an appropriate message descriptor.
-			message, err := builder.NewMessage(test.messageName).AddField(
-				builder.NewField("big_book", builder.FieldTypeMessage(builder.NewMessage("BigBook"))),
+			message, err := testutils.NewMessage(t, test.messageName).AddField(
+				/* field: "big_book", testutils.FieldTypeMessage(testutils.NewMessage(t, "BigBook" */)),
 			).AddField(
-				builder.NewField(test.fieldName, test.fieldType),
+				/* field: test.fieldName, test.fieldType */,
 			).Build()
 			if err != nil {
 				t.Fatalf("Could not build UpdateBookRequest message.")

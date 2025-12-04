@@ -19,7 +19,7 @@ import (
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 func TestResourceField(t *testing.T) {
@@ -34,7 +34,7 @@ func TestResourceField(t *testing.T) {
 		{
 			"Valid",
 			"CreateBookRequest",
-			&field{"book", builder.FieldTypeMessage(builder.NewMessage("Book"))},
+			&field{"book", testutils.FieldTypeMessage(testutils.NewMessage(t, "Book"))},
 			nil,
 			testutils.Problems{},
 		},
@@ -48,7 +48,7 @@ func TestResourceField(t *testing.T) {
 		{
 			"WrongName",
 			"CreateBookRequest",
-			&field{"payload", builder.FieldTypeMessage(builder.NewMessage("Book"))},
+			&field{"payload", testutils.FieldTypeMessage(testutils.NewMessage(t, "Book"))},
 			func(m *desc.MessageDescriptor) desc.Descriptor {
 				return m.GetFields()[0]
 			},
@@ -60,11 +60,11 @@ func TestResourceField(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Create an appropriate message descriptor.
-			messageBuilder := builder.NewMessage(test.messageName)
+			messageBuilder := testutils.NewMessage(t, test.messageName)
 
 			if test.messageField != nil {
 				messageBuilder.AddField(
-					builder.NewField(test.messageField.fieldName, test.messageField.fieldType),
+					/* field: test.messageField.fieldName, test.messageField.fieldType */,
 				)
 			}
 

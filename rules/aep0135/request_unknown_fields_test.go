@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 func TestUnknownFields(t *testing.T) {
@@ -27,28 +27,28 @@ func TestUnknownFields(t *testing.T) {
 		testName    string
 		messageName string
 		fieldName   string
-		fieldType   *builder.FieldType
+		fieldType   *testutils.FieldType
 		problems    testutils.Problems
 	}{
-		{"Force", "DeleteBookRequest", "force", builder.FieldTypeBool(), testutils.Problems{}},
-		{"Etag", "DeleteBookRequest", "etag", builder.FieldTypeString(), testutils.Problems{}},
-		{"AllowMissing", "DeleteBookRequest", "allow_missing", builder.FieldTypeBool(), testutils.Problems{}},
-		{"RequestId", "DeleteBookRequest", "request_id", builder.FieldTypeString(), testutils.Problems{}},
-		{"ValidateOnly", "DeleteBookRequest", "validate_only", builder.FieldTypeBool(), testutils.Problems{}},
-		{"Invalid", "DeleteBookRequest", "application_id", builder.FieldTypeString(), testutils.Problems{{
+		{"Force", "DeleteBookRequest", "force", testutils.FieldTypeBool(), testutils.Problems{}},
+		{"Etag", "DeleteBookRequest", "etag", testutils.FieldTypeString(), testutils.Problems{}},
+		{"AllowMissing", "DeleteBookRequest", "allow_missing", testutils.FieldTypeBool(), testutils.Problems{}},
+		{"RequestId", "DeleteBookRequest", "request_id", testutils.FieldTypeString(), testutils.Problems{}},
+		{"ValidateOnly", "DeleteBookRequest", "validate_only", testutils.FieldTypeBool(), testutils.Problems{}},
+		{"Invalid", "DeleteBookRequest", "application_id", testutils.FieldTypeString(), testutils.Problems{{
 			Message: "Unexpected field",
 		}}},
-		{"Irrelevant", "RemoveBookRequest", "application_id", builder.FieldTypeString(), testutils.Problems{}},
+		{"Irrelevant", "RemoveBookRequest", "application_id", testutils.FieldTypeString(), testutils.Problems{}},
 	}
 
 	// Run each test individually.
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Create an appropriate message descriptor.
-			message, err := builder.NewMessage(test.messageName).AddField(
-				builder.NewField("path", builder.FieldTypeString()),
+			message, err := testutils.NewMessage(t, test.messageName).AddField(
+				/* field: "path", testutils.FieldTypeString( */),
 			).AddField(
-				builder.NewField(test.fieldName, test.fieldType),
+				/* field: test.fieldName, test.fieldType */,
 			).Build()
 			if err != nil {
 				t.Fatalf("Could not build DeleteBookRequest message.")

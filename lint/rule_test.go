@@ -19,12 +19,12 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 func TestFileRule(t *testing.T) {
 	// Create a file descriptor with nothing in it.
-	fd, err := builder.NewFile("test.proto").Build()
+	fd, err := testutils.NewFile(t, "test.proto").Build()
 	if err != nil {
 		t.Fatalf("Could not build file descriptor: %q", err)
 	}
@@ -50,10 +50,10 @@ func TestFileRule(t *testing.T) {
 
 func TestMessageRule(t *testing.T) {
 	// Create a file descriptor with two messages in it.
-	fd, err := builder.NewFile("test.proto").AddMessage(
-		builder.NewMessage("Book"),
+	fd, err := testutils.NewFile(t, "test.proto").AddMessage(
+		testutils.NewMessage(t, "Book"),
 	).AddMessage(
-		builder.NewMessage("Author"),
+		testutils.NewMessage(t, "Author"),
 	).Build()
 	if err != nil {
 		t.Fatalf("Failed to build file descriptor.")
@@ -82,8 +82,8 @@ func TestMessageRule(t *testing.T) {
 // Establish that nested messages are tested.
 func TestMessageRuleNested(t *testing.T) {
 	// Create a file descriptor with a message and nested message in it.
-	fd, err := builder.NewFile("test.proto").AddMessage(
-		builder.NewMessage("Book").AddNestedMessage(builder.NewMessage("Author")),
+	fd, err := testutils.NewFile(t, "test.proto").AddMessage(
+		testutils.NewMessage(t, "Book").AddNestedMessage(testutils.NewMessage(t, "Author")),
 	).Build()
 	if err != nil {
 		t.Fatalf("Failed to build file descriptor.")
@@ -111,11 +111,11 @@ func TestMessageRuleNested(t *testing.T) {
 
 func TestFieldRule(t *testing.T) {
 	// Create a file descriptor with one message and two fields in that message.
-	fd, err := builder.NewFile("test.proto").AddMessage(
-		builder.NewMessage("Book").AddField(
-			builder.NewField("title", builder.FieldTypeString()),
+	fd, err := testutils.NewFile(t, "test.proto").AddMessage(
+		testutils.NewMessage(t, "Book").AddField(
+			/* field: "title", testutils.FieldTypeString( */),
 		).AddField(
-			builder.NewField("edition_count", builder.FieldTypeInt32()),
+			/* field: "edition_count", testutils.FieldTypeInt32( */),
 		),
 	).Build()
 	if err != nil {
@@ -144,7 +144,7 @@ func TestFieldRule(t *testing.T) {
 
 func TestServiceRule(t *testing.T) {
 	// Create a file descriptor with a service.
-	fd, err := builder.NewFile("test.proto").AddService(
+	fd, err := testutils.NewFile(t, "test.proto").AddService(
 		builder.NewService("Library"),
 	).Build()
 	if err != nil {
@@ -170,18 +170,18 @@ func TestServiceRule(t *testing.T) {
 
 func TestMethodRule(t *testing.T) {
 	// Create a file descriptor with a service.
-	book := builder.RpcTypeMessage(builder.NewMessage("Book"), false)
-	fd, err := builder.NewFile("test.proto").AddService(
+	book := builder.RpcTypeMessage(testutils.NewMessage(t, "Book"), false)
+	fd, err := testutils.NewFile(t, "test.proto").AddService(
 		builder.NewService("Library").AddMethod(
 			builder.NewMethod(
 				"GetBook",
-				builder.RpcTypeMessage(builder.NewMessage("GetBookRequest"), false),
+				builder.RpcTypeMessage(testutils.NewMessage(t, "GetBookRequest"), false),
 				book,
 			),
 		).AddMethod(
 			builder.NewMethod(
 				"CreateBook",
-				builder.RpcTypeMessage(builder.NewMessage("CreateBookRequest"), false),
+				builder.RpcTypeMessage(testutils.NewMessage(t, "CreateBookRequest"), false),
 				book,
 			),
 		),
@@ -212,10 +212,10 @@ func TestMethodRule(t *testing.T) {
 
 func TestEnumRule(t *testing.T) {
 	// Create a file descriptor with top-level enums.
-	fd, err := builder.NewFile("test.proto").AddEnum(
-		builder.NewEnum("Format").AddValue(builder.NewEnumValue("PDF")),
+	fd, err := testutils.NewFile(t, "test.proto").AddEnum(
+		/* enum: "Format" */.AddValue(/* enum_value: "PDF" */),
 	).AddEnum(
-		builder.NewEnum("Edition").AddValue(builder.NewEnumValue("PUBLISHER_ONLY")),
+		/* enum: "Edition" */.AddValue(/* enum_value: "PUBLISHER_ONLY" */),
 	).Build()
 	if err != nil {
 		t.Fatalf("Error building test proto:%s ", err)
@@ -242,8 +242,8 @@ func TestEnumRule(t *testing.T) {
 
 func TestEnumValueRule(t *testing.T) {
 	// Create a file descriptor with a top-level enum with values.
-	fd, err := builder.NewFile("test.proto").AddEnum(
-		builder.NewEnum("Format").AddValue(builder.NewEnumValue("YAML")).AddValue(builder.NewEnumValue("JSON")),
+	fd, err := testutils.NewFile(t, "test.proto").AddEnum(
+		/* enum: "Format" */.AddValue(/* enum_value: "YAML" */).AddValue(/* enum_value: "JSON" */),
 	).Build()
 	if err != nil {
 		t.Fatalf("Error building test proto:%s ", err)
@@ -270,11 +270,11 @@ func TestEnumValueRule(t *testing.T) {
 
 func TestEnumRuleNested(t *testing.T) {
 	// Create a file descriptor with top-level enums.
-	fd, err := builder.NewFile("test.proto").AddMessage(
-		builder.NewMessage("Book").AddNestedEnum(
-			builder.NewEnum("Format").AddValue(builder.NewEnumValue("PDF")),
+	fd, err := testutils.NewFile(t, "test.proto").AddMessage(
+		testutils.NewMessage(t, "Book").AddNestedEnum(
+			/* enum: "Format" */.AddValue(/* enum_value: "PDF" */),
 		).AddNestedEnum(
-			builder.NewEnum("Edition").AddValue(builder.NewEnumValue("PUBLISHER_ONLY")),
+			/* enum: "Edition" */.AddValue(/* enum_value: "PUBLISHER_ONLY" */),
 		),
 	).Build()
 	if err != nil {
@@ -302,14 +302,14 @@ func TestEnumRuleNested(t *testing.T) {
 
 func TestDescriptorRule(t *testing.T) {
 	// Create a file with one of everything in it.
-	book := builder.NewMessage("Book").AddNestedEnum(
-		builder.NewEnum("Format").AddValue(
-			builder.NewEnumValue("FORMAT_UNSPECIFIED"),
-		).AddValue(builder.NewEnumValue("PAPERBACK")),
-	).AddField(builder.NewField("name", builder.FieldTypeString())).AddNestedMessage(
-		builder.NewMessage("Author"),
+	book := testutils.NewMessage(t, "Book").AddNestedEnum(
+		/* enum: "Format" */.AddValue(
+			/* enum_value: "FORMAT_UNSPECIFIED" */,
+		).AddValue(/* enum_value: "PAPERBACK" */),
+	).AddField(/* field: "name", testutils.FieldTypeString( */)).AddNestedMessage(
+		testutils.NewMessage(t, "Author"),
 	)
-	fd, err := builder.NewFile("library.proto").AddMessage(book).AddService(
+	fd, err := testutils.NewFile(t, "library.proto").AddMessage(book).AddService(
 		builder.NewService("Library").AddMethod(
 			builder.NewMethod(
 				"ConjureBook",
@@ -317,7 +317,7 @@ func TestDescriptorRule(t *testing.T) {
 				builder.RpcTypeMessage(book, false),
 			),
 		),
-	).AddEnum(builder.NewEnum("State").AddValue(builder.NewEnumValue("AVAILABLE"))).Build()
+	).AddEnum(/* enum: "State" */.AddValue(/* enum_value: "AVAILABLE" */)).Build()
 	if err != nil {
 		t.Fatalf("%v", err)
 	}

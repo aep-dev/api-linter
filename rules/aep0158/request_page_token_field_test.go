@@ -20,7 +20,7 @@ import (
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 func TestRequestPaginationPageToken(t *testing.T) {
@@ -36,7 +36,7 @@ func TestRequestPaginationPageToken(t *testing.T) {
 		{
 			"Valid",
 			"ListFooRequest",
-			[]field{{"page_token", builder.FieldTypeString()}},
+			[]field{{"page_token", testutils.FieldTypeString()}},
 			false,
 			testutils.Problems{},
 			nil,
@@ -44,7 +44,7 @@ func TestRequestPaginationPageToken(t *testing.T) {
 		{
 			"MissingField",
 			"ListFooRequest",
-			[]field{{"name", builder.FieldTypeString()}},
+			[]field{{"name", testutils.FieldTypeString()}},
 			false,
 			testutils.Problems{{Message: "page_token"}},
 			nil,
@@ -62,7 +62,7 @@ func TestRequestPaginationPageToken(t *testing.T) {
 		{
 			"IrrelevantMessage",
 			"ListFooPageToken",
-			[]field{{"page_size", builder.FieldTypeInt32()}},
+			[]field{{"page_size", testutils.FieldTypeInt32()}},
 			false,
 			nil,
 			nil,
@@ -70,7 +70,7 @@ func TestRequestPaginationPageToken(t *testing.T) {
 		{
 			"InvalidIsOneof",
 			"ListFooRequest",
-			[]field{{"page_token", builder.FieldTypeString()}},
+			[]field{{"page_token", testutils.FieldTypeString()}},
 			/* isOneof */ true,
 			testutils.Problems{{Message: "oneof"}},
 			func(m *desc.MessageDescriptor) desc.Descriptor {
@@ -83,10 +83,10 @@ func TestRequestPaginationPageToken(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Create an appropriate message descriptor.
-			messageBuilder := builder.NewMessage(test.messageName)
+			messageBuilder := testutils.NewMessage(t, test.messageName)
 
 			for _, f := range test.messageFields {
-				fb := builder.NewField(f.fieldName, f.fieldType)
+				fb := /* field: f.fieldName, f.fieldType */
 				if test.isOneof {
 					messageBuilder.AddOneOf(builder.NewOneOf(fmt.Sprintf("%s_oneof", f.fieldName)).AddChoice(fb))
 				} else {

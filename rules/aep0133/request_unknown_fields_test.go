@@ -19,12 +19,12 @@ import (
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 type field struct {
 	fieldName string
-	fieldType *builder.FieldType
+	fieldType *testutils.FieldType
 }
 
 func TestUnknownFields(t *testing.T) {
@@ -39,14 +39,14 @@ func TestUnknownFields(t *testing.T) {
 		{
 			"Parent",
 			"CreateBookRequest",
-			[]field{{"parent", builder.FieldTypeString()}},
+			[]field{{"parent", testutils.FieldTypeString()}},
 			testutils.Problems{},
 			nil,
 		},
 		{
 			"ValidateOnly",
 			"CreateBookRequest",
-			[]field{{"parent", builder.FieldTypeString()}, {"validate_only", builder.FieldTypeBool()}},
+			[]field{{"parent", testutils.FieldTypeString()}, {"validate_only", testutils.FieldTypeBool()}},
 			testutils.Problems{},
 			nil,
 		},
@@ -54,8 +54,8 @@ func TestUnknownFields(t *testing.T) {
 			"ResourceRelatedField",
 			"CreateBookRequest",
 			[]field{
-				{"book", builder.FieldTypeMessage(builder.NewMessage("Book"))},
-				{"id", builder.FieldTypeString()},
+				{"book", testutils.FieldTypeMessage(testutils.NewMessage(t, "Book"))},
+				{"id", testutils.FieldTypeString()},
 			},
 			testutils.Problems{},
 			nil,
@@ -63,21 +63,21 @@ func TestUnknownFields(t *testing.T) {
 		{
 			"ResourceRelatedField",
 			"CreateBookStoreRequest",
-			[]field{{"id", builder.FieldTypeString()}},
+			[]field{{"id", testutils.FieldTypeString()}},
 			testutils.Problems{},
 			nil,
 		},
 		{
 			"RequestIdField",
 			"CreateBookRequest",
-			[]field{{"request_id", builder.FieldTypeString()}},
+			[]field{{"request_id", testutils.FieldTypeString()}},
 			testutils.Problems{},
 			nil,
 		},
 		{
 			"Invalid",
 			"CreateBookRequest",
-			[]field{{"name", builder.FieldTypeString()}},
+			[]field{{"name", testutils.FieldTypeString()}},
 			testutils.Problems{{Message: "Create RPCs must only contain fields explicitly described in AEPs, not \"name\"."}},
 			func(m *desc.MessageDescriptor) desc.Descriptor {
 				return m.FindFieldByName("name")
@@ -86,7 +86,7 @@ func TestUnknownFields(t *testing.T) {
 		{
 			"InvalidResourceRelatedField",
 			"CreateBookStoreRequest",
-			[]field{{"book_id", builder.FieldTypeString()}},
+			[]field{{"book_id", testutils.FieldTypeString()}},
 			testutils.Problems{{Message: "Create RPCs must only contain fields explicitly described in AEPs, not \"book_id\"."}},
 			func(m *desc.MessageDescriptor) desc.Descriptor {
 				return m.FindFieldByName("book_id")
@@ -95,7 +95,7 @@ func TestUnknownFields(t *testing.T) {
 		{
 			"Irrelevant",
 			"GetBookRequest",
-			[]field{{"name", builder.FieldTypeString()}},
+			[]field{{"name", testutils.FieldTypeString()}},
 			testutils.Problems{},
 			nil,
 		},
@@ -105,10 +105,10 @@ func TestUnknownFields(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Create an appropriate message descriptor.
-			msgBuilder := builder.NewMessage(test.messageName)
+			msgBuilder := testutils.NewMessage(t, test.messageName)
 			for _, messageField := range test.messageFields {
 				msgBuilder.AddField(
-					builder.NewField(messageField.fieldName, messageField.fieldType),
+					/* field: messageField.fieldName, messageField.fieldType */,
 				)
 			}
 			message, err := msgBuilder.Build()

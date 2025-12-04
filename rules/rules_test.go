@@ -16,7 +16,7 @@ func TestAddAEPRules(t *testing.T) {
 	}{
 		{
 			name:          "EmptyRules_NoError",
-			addRulesFuncs: nil,
+			addRulesFuncs: {},
 			err:           nil,
 		},
 		{
@@ -24,7 +24,7 @@ func TestAddAEPRules(t *testing.T) {
 			addRulesFuncs: []addRulesFuncType{
 				func(lint.RuleRegistry) error { return nil },
 			},
-			err: nil,
+			err: {},
 		},
 		{
 			name: "ReturnError",

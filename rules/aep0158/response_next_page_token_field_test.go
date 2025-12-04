@@ -19,12 +19,12 @@ import (
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 type field struct {
 	fieldName string
-	fieldType *builder.FieldType
+	fieldType *testutils.FieldType
 }
 
 func TestResponsePaginationNextPageToken(t *testing.T) {
@@ -39,21 +39,21 @@ func TestResponsePaginationNextPageToken(t *testing.T) {
 		{
 			"Valid",
 			"ListBooksResponse",
-			[]field{{"books", builder.FieldTypeString()}, {"next_page_token", builder.FieldTypeString()}},
+			[]field{{"books", testutils.FieldTypeString()}, {"next_page_token", testutils.FieldTypeString()}},
 			testutils.Problems{},
 			nil,
 		},
 		{
 			"MissingField",
 			"ListBooksResponse",
-			[]field{{"books", builder.FieldTypeString()}},
+			[]field{{"books", testutils.FieldTypeString()}},
 			testutils.Problems{{Message: "next_page_token"}},
 			nil,
 		},
 		{
 			"InvalidType",
 			"ListFooResponse",
-			[]field{{"name", builder.FieldTypeString()}, {"next_page_token", builder.FieldTypeDouble()}},
+			[]field{{"name", testutils.FieldTypeString()}, {"next_page_token", builder.FieldTypeDouble()}},
 			testutils.Problems{{Suggestion: "string"}},
 			func(m *desc.MessageDescriptor) desc.Descriptor {
 				return m.FindFieldByName("next_page_token")
@@ -65,11 +65,11 @@ func TestResponsePaginationNextPageToken(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Create an appropriate message descriptor.
-			messageBuilder := builder.NewMessage(test.messageName)
+			messageBuilder := testutils.NewMessage(t, test.messageName)
 
 			for _, f := range test.messageFields {
 				messageBuilder.AddField(
-					builder.NewField(f.fieldName, f.fieldType),
+					/* field: f.fieldName, f.fieldType */,
 				)
 			}
 

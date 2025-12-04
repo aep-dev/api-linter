@@ -19,7 +19,7 @@ import (
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+
 	fpb "google.golang.org/genproto/protobuf/field_mask"
 )
 
@@ -35,27 +35,27 @@ func TestUnknownFields(t *testing.T) {
 		testName    string
 		messageName string
 		fieldName   string
-		fieldType   *builder.FieldType
+		fieldType   *testutils.FieldType
 		problems    testutils.Problems
 	}{
-		{"RequestId", "GetBookRequest", "request_id", builder.FieldTypeImportedMessage(fieldMask), testutils.Problems{}},
-		{"ReadMask", "GetBookRequest", "read_mask", builder.FieldTypeImportedMessage(fieldMask), testutils.Problems{}},
-		{"View", "GetBookRequest", "view", builder.FieldTypeEnum(builder.NewEnum("View").AddValue(builder.NewEnumValue("BASIC"))), testutils.Problems{}},
-		{"Invalid", "GetBookRequest", "application_id", builder.FieldTypeString(), testutils.Problems{{
+		{"RequestId", "GetBookRequest", "request_id", testutils.FieldTypeImportedMessage(fieldMask), testutils.Problems{}},
+		{"ReadMask", "GetBookRequest", "read_mask", testutils.FieldTypeImportedMessage(fieldMask), testutils.Problems{}},
+		{"View", "GetBookRequest", "view", testutils.FieldTypeEnum(/* enum: "View" */.AddValue(/* enum_value: "BASIC" */)), testutils.Problems{}},
+		{"Invalid", "GetBookRequest", "application_id", testutils.FieldTypeString(), testutils.Problems{{
 			Message: "Unexpected field",
 		}}},
-		{"ShowDeleted", "GetBookRequest", "show_deleted", builder.FieldTypeBool(), testutils.Problems{}},
-		{"Irrelevant", "AcquireBookRequest", "application_id", builder.FieldTypeString(), testutils.Problems{}},
+		{"ShowDeleted", "GetBookRequest", "show_deleted", testutils.FieldTypeBool(), testutils.Problems{}},
+		{"Irrelevant", "AcquireBookRequest", "application_id", testutils.FieldTypeString(), testutils.Problems{}},
 	}
 
 	// Run each test individually.
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Create an appropriate message descriptor.
-			message, err := builder.NewMessage(test.messageName).AddField(
-				builder.NewField("path", builder.FieldTypeString()),
+			message, err := testutils.NewMessage(t, test.messageName).AddField(
+				/* field: "path", testutils.FieldTypeString( */),
 			).AddField(
-				builder.NewField(test.fieldName, test.fieldType),
+				/* field: test.fieldName, test.fieldType */,
 			).Build()
 			if err != nil {
 				t.Fatalf("Could not build GetBookRequest message: %s", err)

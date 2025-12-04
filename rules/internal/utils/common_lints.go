@@ -20,7 +20,7 @@ import (
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/locations"
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 // LintFieldPresent returns a problem if the given message does not have the given field.
@@ -37,12 +37,12 @@ func LintFieldPresent(m *desc.MessageDescriptor, field string) (*desc.FieldDescr
 
 // LintSingularStringField returns a problem if the field is not a singular string.
 func LintSingularStringField(f *desc.FieldDescriptor) []lint.Problem {
-	return LintSingularField(f, builder.FieldTypeString(), "string")
+	return LintSingularField(f, descriptorpb.FieldDescriptorProto_TYPE_STRING, "string")
 }
 
 // LintSingularField returns a problem if the field is not singular i.e. it is repeated.
-func LintSingularField(f *desc.FieldDescriptor, t *builder.FieldType, want string) []lint.Problem {
-	if f.GetType() != t.GetType() || f.IsRepeated() {
+func LintSingularField(f *desc.FieldDescriptor, t descriptorpb.FieldDescriptorProto_Type, want string) []lint.Problem {
+	if f.GetType() != t || f.IsRepeated() {
 		return []lint.Problem{{
 			Message:    fmt.Sprintf("The `%s` field must be a singular %s.", f.GetName(), want),
 			Suggestion: want,
@@ -55,7 +55,7 @@ func LintSingularField(f *desc.FieldDescriptor, t *builder.FieldType, want strin
 
 // LintSingularBoolField returns a problem if the field is not a singular bool.
 func LintSingularBoolField(f *desc.FieldDescriptor) []lint.Problem {
-	return LintSingularField(f, builder.FieldTypeBool(), "bool")
+	return LintSingularField(f, descriptorpb.FieldDescriptorProto_TYPE_BOOL, "bool")
 }
 
 // LintFieldMask returns a problem if the field is not a singular google.protobuf.FieldMask.

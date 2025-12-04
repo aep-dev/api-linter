@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 func TestProtoPkg(t *testing.T) {
@@ -35,7 +35,7 @@ func TestProtoPkg(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
-			f, err := builder.NewFile(test.filename).SetPackageName(test.pkg).Build()
+			f, err := testutils.NewFile(t, test.filename).SetPackageName(test.pkg).Build()
 			if err != nil {
 				t.Fatalf("Failed to build file: %s", err)
 			}

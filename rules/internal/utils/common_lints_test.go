@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 func TestLintSingularStringField(t *testing.T) {
@@ -246,7 +246,7 @@ func TestLintSingularField(t *testing.T) {
 				}
 			`, test)
 			field := f.GetMessageTypes()[0].GetFields()[0]
-			problems := LintSingularField(field, builder.FieldTypeString(), "string")
+			problems := LintSingularField(field, testutils.FieldTypeString(), "string")
 			if diff := test.problems.SetDescriptor(field).Diff(problems); diff != "" {
 				t.Error(diff)
 			}

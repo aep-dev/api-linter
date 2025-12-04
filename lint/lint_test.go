@@ -21,11 +21,11 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/internal/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 func TestLinter_run(t *testing.T) {
-	fd, err := builder.NewFile("protofile.proto").Build()
+	fd, err := testutils.NewFile(t, "protofile.proto").Build()
 	if err != nil {
 		t.Fatalf("Failed to build a file descriptor.")
 	}
@@ -103,7 +103,7 @@ func TestLinter_run(t *testing.T) {
 }
 
 func TestLinter_LintProtos_RulePanics(t *testing.T) {
-	fd, err := builder.NewFile("test.proto").Build()
+	fd, err := testutils.NewFile(t, "test.proto").Build()
 	if err != nil {
 		t.Fatalf("Failed to build the file descriptor.")
 	}

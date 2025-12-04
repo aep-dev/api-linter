@@ -19,7 +19,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jhump/protoreflect/desc/builder"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 	"gopkg.in/yaml.v2"
 )
@@ -84,8 +83,8 @@ func TestProblemYAML(t *testing.T) {
 }
 
 func TestProblemDescriptor(t *testing.T) {
-	mb := builder.NewMessage("Foo")
-	builder.NewFile("foo.proto").AddMessage(mb)
+	mb := testutils.NewMessage(t, "Foo")
+	testutils.NewFile(t, "foo.proto").AddMessage(mb)
 
 	m, err := mb.Build()
 	if err != nil {

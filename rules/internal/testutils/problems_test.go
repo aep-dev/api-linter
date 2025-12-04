@@ -18,12 +18,12 @@ import (
 	"testing"
 
 	. "github.com/aep-dev/api-linter/lint"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 func TestDiffEquivalent(t *testing.T) {
 	// Build a message for the descriptor test.
-	m, err := builder.NewMessage("Foo").Build()
+	m, err := testutils.NewMessage(t, "Foo").Build()
 	if err != nil {
 		t.Fatalf("Could not build descriptor.")
 	}
@@ -53,8 +53,8 @@ func TestDiffEquivalent(t *testing.T) {
 
 func TestDiffNotEquivalent(t *testing.T) {
 	// Build a message for the descriptor test.
-	m1, err1 := builder.NewMessage("Foo").Build()
-	m2, err2 := builder.NewMessage("Bar").Build()
+	m1, err1 := testutils.NewMessage(t, "Foo").Build()
+	m2, err2 := testutils.NewMessage(t, "Bar").Build()
 	if err1 != nil || err2 != nil {
 		t.Fatalf("Could not build descriptor.")
 	}
@@ -84,7 +84,7 @@ func TestDiffNotEquivalent(t *testing.T) {
 }
 
 func TestSetDescriptor(t *testing.T) {
-	m, err := builder.NewMessage("Foo").Build()
+	m, err := testutils.NewMessage(t, "Foo").Build()
 	if err != nil {
 		t.Fatalf("Could not build descriptor.")
 	}
