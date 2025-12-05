@@ -26,6 +26,7 @@ import (
 
 	"github.com/aep-dev/api-linter/internal/desc"
 	"github.com/bufbuild/protocompile"
+	"github.com/bufbuild/protocompile/linker"
 	"github.com/bufbuild/protocompile/reporter"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
@@ -106,11 +107,17 @@ func (p *Parser) ParseFiles(filenames ...string) ([]*desc.FileDescriptor, error)
 			// Try to find in global registry
 			fd, err := protoregistry.GlobalFiles.FindFileByPath(path)
 			if err == nil {
-				// Found in registry, return it
-				return &registrySearchResult{fd: fd}, nil
+				// Wrap the FileDescriptor as a linker.File for proper extension support
+				linkedFile, err := linker.NewFileRecursive(fd)
+				if err != nil {
+					// If wrapping fails, fall through to other resolvers
+					return protocompile.SearchResult{}, fs.ErrNotExist
+				}
+				// Return the linked file as a SearchResult
+				return protocompile.SearchResult{Desc: linkedFile}, nil
 			}
 			// Not in registry, fall through to next resolver
-			return nil, fs.ErrNotExist
+			return protocompile.SearchResult{}, fs.ErrNotExist
 		}),
 		resolverWithStdImports,
 	}
@@ -191,15 +198,6 @@ func (a *accessorAdapter) Open(path string) (io.ReadCloser, error) {
 
 	// Fall back to file system
 	return os.Open(path)
-}
-
-// registrySearchResult implements protocompile.SearchResult for registry lookups.
-type registrySearchResult struct {
-	fd protoreflect.FileDescriptor
-}
-
-func (r *registrySearchResult) Desc() protoreflect.FileDescriptor {
-	return r.fd
 }
 
 // ResolveFilenames resolves file paths relative to import paths.
