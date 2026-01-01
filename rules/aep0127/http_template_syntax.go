@@ -25,7 +25,7 @@ import (
 )
 
 var (
-	literal          = `(\w+)`
+	literal          = `([a-z]([a-z0-9\-_]*[a-z0-9])?)`
 	identifier       = `(\w+)`
 	verb             = fmt.Sprintf("(:%s)", literal)
 	fieldPath        = fmt.Sprintf(`(%s(\.%s)*)`, identifier, identifier)

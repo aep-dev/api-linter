@@ -35,6 +35,7 @@ func TestHttpTemplateSyntax(t *testing.T) {
 		{"VersionedTemplate", "/{$api_version}/books", true},
 		{"TwoLiterals", "/v1/books", true},
 		{"ThreeLiterals", "/v1/books/shelves", true},
+		{"KebabCaseLiteral", "/user-events", true},
 		{"SingleLiteralWithVerb", "/v1:verb", true},
 		{"MultipleLiteralsWithVerb", "/v1/books:verb", true},
 		{"SingleWildcard", "/v1/*", true},
@@ -55,6 +56,7 @@ func TestHttpTemplateSyntax(t *testing.T) {
 		{"VariableWithDoubleWildcardFollowedByLiteral", "/v1/{field=**/books}", true},
 		{"VariableWithLiteralFollowedBySingleWildcard", "/v1/{field=books/*}", true},
 		{"VariableWithLiteralFollowedByDoubleWildcard", "/v1/{field=books/**}", true},
+		{"VariableWithKebabCaseLiteralFollowedBySingleWildcard", "/v1/{field=user-events/*}", true},
 		{"VariableFollowedByLiteral", "/v1/{field}/books", true},
 		{"VariableFollowedByVariable", "/v1/{field}/{otherField}", true},
 		{"VariableWithTemplateFollowedByLiteral", "/v1/{field=books/*}/shelves", true},
@@ -64,7 +66,6 @@ func TestHttpTemplateSyntax(t *testing.T) {
 		// Invalid cases
 		{"LiteralWithoutLeadingSlash", "v1", false},
 		{"LiteralFollowedBySlash", "/v1/", false},
-		{"WrongVerbDelimiter", "/v1-verb", false},
 		{"MultipleVerbs", "/v1:verb:verb", false},
 		{"VerbFollowedBySlash", "/v1:verb/", false},
 		{"MultipleLiteralsWithWrongDelimiter", "/v1|books", false},
