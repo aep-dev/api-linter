@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
-	"github.com/jhump/protoreflect/desc/builder"
+
 )
 
 func TestFileLayout(t *testing.T) {
@@ -60,8 +60,8 @@ func TestFileLayout(t *testing.T) {
 	})
 
 	t.Run("NoSourceInfo", func(t *testing.T) {
-		f, err := builder.NewFile("test.proto").AddMessage(
-			builder.NewMessage("Book"),
+		f, err := testutils.NewFile(t, "test.proto").AddMessage(
+			testutils.NewMessage(t, "Book"),
 		).AddService(
 			builder.NewService("Library"),
 		).Build()

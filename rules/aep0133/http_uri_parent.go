@@ -17,7 +17,7 @@ package aep0133
 import (
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 // Create methods should have a parent variable if the resource isn't top-level.

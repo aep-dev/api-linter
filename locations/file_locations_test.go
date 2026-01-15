@@ -18,8 +18,8 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+	"github.com/aep-dev/api-linter/internal/desc"
+
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
 
@@ -128,7 +128,7 @@ func TestLocations(t *testing.T) {
 }
 
 func TestMissingLocations(t *testing.T) {
-	m, err := builder.NewMessage("Foo").Build()
+	m, err := testutils.NewMessage(t, "Foo").Build()
 	if err != nil {
 		t.Fatalf("%v", err)
 	}

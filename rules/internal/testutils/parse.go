@@ -21,8 +21,8 @@ import (
 	"testing"
 	"text/template"
 
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/protoparse"
+	"github.com/aep-dev/api-linter/internal/desc"
+	"github.com/aep-dev/api-linter/internal/protoparse"
 	"github.com/lithammer/dedent"
 
 	// These imports cause the common protos to be registered with
@@ -34,6 +34,7 @@ import (
 	_ "google.golang.org/genproto/googleapis/type/date"
 	_ "google.golang.org/genproto/googleapis/type/datetime"
 	_ "google.golang.org/genproto/googleapis/type/timeofday"
+	_ "google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // ParseProtoStrings parses a map representing a proto files, and returns

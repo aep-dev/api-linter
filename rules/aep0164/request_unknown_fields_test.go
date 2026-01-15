@@ -18,7 +18,6 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
-	"github.com/jhump/protoreflect/desc/builder"
 )
 
 func TestRequestUnknownFields(t *testing.T) {
@@ -27,30 +26,29 @@ func TestRequestUnknownFields(t *testing.T) {
 		testName    string
 		messageName string
 		fieldName   string
-		fieldType   *builder.FieldType
+		fieldType   string
 		problems    testutils.Problems
 	}{
-		{"Etag", "UndeleteBookRequest", "etag", builder.FieldTypeString(), testutils.Problems{}},
-		{"RequestId", "UndeleteBookRequest", "request_id", builder.FieldTypeString(), testutils.Problems{}},
-		{"ValidateOnly", "UndeleteBookRequest", "validate_only", builder.FieldTypeBool(), testutils.Problems{}},
-		{"Invalid", "UndeleteBookRequest", "application_id", builder.FieldTypeString(), testutils.Problems{{
+		{"Etag", "UndeleteBookRequest", "etag", "string", testutils.Problems{}},
+		{"RequestId", "UndeleteBookRequest", "request_id", "string", testutils.Problems{}},
+		{"ValidateOnly", "UndeleteBookRequest", "validate_only", "bool", testutils.Problems{}},
+		{"Invalid", "UndeleteBookRequest", "application_id", "string", testutils.Problems{{
 			Message: "Unexpected field",
 		}}},
-		{"Irrelevant", "RemoveBookRequest", "application_id", builder.FieldTypeString(), testutils.Problems{}},
+		{"Irrelevant", "RemoveBookRequest", "application_id", "string", testutils.Problems{}},
 	}
 
 	// Run each test individually.
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Create an appropriate message descriptor.
-			message, err := builder.NewMessage(test.messageName).AddField(
-				builder.NewField("name", builder.FieldTypeString()),
-			).AddField(
-				builder.NewField(test.fieldName, test.fieldType),
-			).Build()
-			if err != nil {
-				t.Fatalf("Could not build UndeleteBookRequest message.")
-			}
+			f := testutils.ParseProto3Tmpl(t, `
+				message {{.messageName}} {
+					string name = 1;
+					{{.fieldType}} {{.fieldName}} = 2;
+				}
+			`, test)
+			message := f.GetMessageTypes()[0]
 
 			// Run the lint rule, and establish that it returns the correct problems.
 			wantProblems := test.problems.SetDescriptor(message.FindFieldByName(test.fieldName))

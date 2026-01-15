@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
-	"github.com/jhump/protoreflect/desc/builder"
+
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
@@ -39,7 +39,7 @@ func TestSyntax(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Build an appropriate file descriptor.
-			f, err := builder.NewFile("library.proto").SetEdition(test.edition).Build()
+			f, err := testutils.NewFile(t, "library.proto").SetEdition(test.edition).Build()
 			if err != nil {
 				t.Fatalf("Could not build file descriptor.")
 			}

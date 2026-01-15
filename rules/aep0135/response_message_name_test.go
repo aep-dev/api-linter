@@ -73,7 +73,7 @@ func TestResponseMessageName(t *testing.T) {
 			"sync": {{Suggestion: "google.protobuf.Empty", Message: "of Empty or the resource"}},
 			"lro":  {{Message: "of Empty or the resource"}},
 		},
-		"none": {"sync": nil, "lro": nil},
+		"none": {"sync": {}, "lro": nil},
 	}
 
 	// Set up the testing permutations.

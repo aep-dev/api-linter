@@ -19,7 +19,7 @@ import (
 	"strings"
 
 	"github.com/aep-dev/api-linter/lint"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 // AddRules accepts a register function and registers each of this AIP's rules to it.

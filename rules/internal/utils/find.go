@@ -18,7 +18,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 

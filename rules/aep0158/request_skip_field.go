@@ -17,8 +17,8 @@ package aep0158
 import (
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/locations"
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+	"github.com/aep-dev/api-linter/internal/desc"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 var requestSkipField = &lint.FieldRule{
@@ -29,7 +29,7 @@ var requestSkipField = &lint.FieldRule{
 	},
 	LintField: func(f *desc.FieldDescriptor) (problems []lint.Problem) {
 		// Rule check: Ensure that the name page_size is the correct type.
-		if f.GetType() != builder.FieldTypeInt32().GetType() || f.IsRepeated() {
+		if f.GetType() != descriptorpb.FieldDescriptorProto_TYPE_INT32 || f.IsRepeated() {
 			return []lint.Problem{{
 				Message:    "`skip` field on List RPCs should be a singular int32",
 				Suggestion: "int32",

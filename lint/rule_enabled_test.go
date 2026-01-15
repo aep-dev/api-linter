@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+	"github.com/aep-dev/api-linter/internal/desc"
+
 	dpb "google.golang.org/protobuf/types/descriptorpb"
 )
 
@@ -70,10 +70,10 @@ func TestRuleIsEnabled(t *testing.T) {
 	// Run the specific tests individually.
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
-			f, err := builder.NewFile("test.proto").SetSyntaxComments(builder.Comments{
+			f, err := testutils.NewFile(t, "test.proto").SetSyntaxComments(Comments{
 				LeadingComment: test.fileComment,
 			}).AddMessage(
-				builder.NewMessage("MyMessage").SetComments(builder.Comments{
+				testutils.NewMessage(t, "MyMessage").SetComments(Comments{
 					LeadingComment: test.messageComment,
 				}),
 			).Build()
@@ -93,10 +93,10 @@ func TestRuleIsEnabled(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("MustRule/%s", test.testName), func(t *testing.T) {
-			f, err := builder.NewFile("test.proto").SetSyntaxComments(builder.Comments{
+			f, err := testutils.NewFile(t, "test.proto").SetSyntaxComments(Comments{
 				LeadingComment: test.fileComment,
 			}).AddMessage(
-				builder.NewMessage("MyMessage").SetComments(builder.Comments{
+				testutils.NewMessage(t, "MyMessage").SetComments(Comments{
 					LeadingComment: test.messageComment,
 				}),
 			).Build()
@@ -120,12 +120,12 @@ func TestRuleIsEnabledFirstMessage(t *testing.T) {
 	}
 
 	// Build a proto and check that ruleIsEnabled does the right thing.
-	f, err := builder.NewFile("test.proto").AddMessage(
-		builder.NewMessage("FirstMessage").SetComments(builder.Comments{
+	f, err := testutils.NewFile(t, "test.proto").AddMessage(
+		testutils.NewMessage(t, "FirstMessage").SetComments(Comments{
 			LeadingComment: "api-linter: test=disabled",
 		}),
 	).AddMessage(
-		builder.NewMessage("SecondMessage"),
+		testutils.NewMessage(t, "SecondMessage"),
 	).Build()
 	if err != nil {
 		t.Fatalf("Error building test file: %q", err)
@@ -148,12 +148,12 @@ func TestRuleIsEnabledParent(t *testing.T) {
 	}
 
 	// Build a proto with two messages, one of which disables the rule.
-	f, err := builder.NewFile("test.proto").AddMessage(
-		builder.NewMessage("Foo").SetComments(builder.Comments{
+	f, err := testutils.NewFile(t, "test.proto").AddMessage(
+		testutils.NewMessage(t, "Foo").SetComments(Comments{
 			LeadingComment: "api-linter: test=disabled",
-		}).AddField(builder.NewField("foo", builder.FieldTypeBool())),
+		}).AddField(newField("foo", "bool", 1)),
 	).AddMessage(
-		builder.NewMessage("Bar").AddField(builder.NewField("bar", builder.FieldTypeBool())),
+		testutils.NewMessage(t, "Bar").AddField(newField("bar", "bool", 1)),
 	).Build()
 	if err != nil {
 		t.Fatalf("Error building test file: %q", err)
@@ -188,10 +188,10 @@ func TestRuleIsEnabledDeprecated(t *testing.T) {
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			// Build a proto with a message and field, possibly deprecated.
-			f, err := builder.NewFile("test.proto").AddMessage(
-				builder.NewMessage("Foo").SetOptions(&dpb.MessageOptions{
+			f, err := testutils.NewFile(t, "test.proto").AddMessage(
+				testutils.NewMessage(t, "Foo").SetOptions(&dpb.MessageOptions{
 					Deprecated: &test.msgDeprecated,
-				}).AddField(builder.NewField("bar", builder.FieldTypeBool()).SetOptions(
+				}).AddField(newField("bar", "bool", 1).SetOptions(
 					&dpb.FieldOptions{Deprecated: &test.fieldDeprecated},
 				)),
 			).Build()

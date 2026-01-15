@@ -18,7 +18,7 @@ import (
 	"fmt"
 
 	"github.com/aep-dev/api-linter/lint"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 )
 
 // Undelete methods should not have unrecognized fields.

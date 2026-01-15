@@ -20,7 +20,7 @@ import (
 	"bitbucket.org/creachadair/stringset"
 	aepapi "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
 	lrpb "cloud.google.com/go/longrunning/autogen/longrunningpb"
-	"github.com/jhump/protoreflect/desc"
+	"github.com/aep-dev/api-linter/internal/desc"
 	apb "google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 )

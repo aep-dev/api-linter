@@ -18,8 +18,8 @@ import (
 	"testing"
 
 	"github.com/aep-dev/api-linter/rules/internal/testutils"
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+	"github.com/aep-dev/api-linter/internal/desc"
+
 	fpb "google.golang.org/genproto/protobuf/field_mask"
 )
 
@@ -35,31 +35,31 @@ func TestUnknownFields(t *testing.T) {
 		testName    string
 		messageName string
 		fieldName   string
-		fieldType   *builder.FieldType
+		fieldType   *testutils.FieldType
 		problems    testutils.Problems
 	}{
-		{"PageSize", "ListBooksRequest", "max_page_size", builder.FieldTypeInt32(), testutils.Problems{}},
-		{"PageToken", "ListBooksRequest", "page_token", builder.FieldTypeString(), testutils.Problems{}},
-		{"Skip", "ListBooksRequest", "skip", builder.FieldTypeInt32(), testutils.Problems{}},
-		{"Filter", "ListBooksRequest", "filter", builder.FieldTypeString(), testutils.Problems{}},
-		{"OrderBy", "ListBooksRequest", "order_by", builder.FieldTypeString(), testutils.Problems{}},
-		{"ShowDeleted", "ListBooksRequest", "show_deleted", builder.FieldTypeBool(), testutils.Problems{}},
-		{"RequestId", "ListBooksRequest", "request_id", builder.FieldTypeImportedMessage(fieldMask), testutils.Problems{}},
-		{"ReadMask", "ListBooksRequest", "read_mask", builder.FieldTypeImportedMessage(fieldMask), testutils.Problems{}},
-		{"View", "ListBooksRequest", "view", builder.FieldTypeEnum(builder.NewEnum("View").AddValue(builder.NewEnumValue("BASIC"))), testutils.Problems{}},
-		{"Invalid", "ListBooksRequest", "application_id", builder.FieldTypeString(), testutils.Problems{{Message: "explicitly described"}}},
-		{"Irrelevant", "EnumerteBooksRequest", "application_id", builder.FieldTypeString(), testutils.Problems{}},
-		{"IrrelevantAEP162", "ListBookRevisionsRequest", "name", builder.FieldTypeString(), testutils.Problems{}},
+		{"PageSize", "ListBooksRequest", "max_page_size", testutils.FieldTypeInt32(), testutils.Problems{}},
+		{"PageToken", "ListBooksRequest", "page_token", testutils.FieldTypeString(), testutils.Problems{}},
+		{"Skip", "ListBooksRequest", "skip", testutils.FieldTypeInt32(), testutils.Problems{}},
+		{"Filter", "ListBooksRequest", "filter", testutils.FieldTypeString(), testutils.Problems{}},
+		{"OrderBy", "ListBooksRequest", "order_by", testutils.FieldTypeString(), testutils.Problems{}},
+		{"ShowDeleted", "ListBooksRequest", "show_deleted", testutils.FieldTypeBool(), testutils.Problems{}},
+		{"RequestId", "ListBooksRequest", "request_id", testutils.FieldTypeImportedMessage(fieldMask), testutils.Problems{}},
+		{"ReadMask", "ListBooksRequest", "read_mask", testutils.FieldTypeImportedMessage(fieldMask), testutils.Problems{}},
+		{"View", "ListBooksRequest", "view", testutils.FieldTypeEnum(/* enum: "View" */.AddValue(/* enum_value: "BASIC" */)), testutils.Problems{}},
+		{"Invalid", "ListBooksRequest", "application_id", testutils.FieldTypeString(), testutils.Problems{{Message: "explicitly described"}}},
+		{"Irrelevant", "EnumerteBooksRequest", "application_id", testutils.FieldTypeString(), testutils.Problems{}},
+		{"IrrelevantAEP162", "ListBookRevisionsRequest", "name", testutils.FieldTypeString(), testutils.Problems{}},
 	}
 
 	// Run each test individually.
 	for _, test := range tests {
 		t.Run(test.testName, func(t *testing.T) {
 			// Create an appropriate message descriptor.
-			message, err := builder.NewMessage(test.messageName).AddField(
-				builder.NewField("parent", builder.FieldTypeString()),
+			message, err := testutils.NewMessage(t, test.messageName).AddField(
+				/* field: "parent", testutils.FieldTypeString( */),
 			).AddField(
-				builder.NewField(test.fieldName, test.fieldType),
+				/* field: test.fieldName, test.fieldType */,
 			).Build()
 			if err != nil {
 				t.Fatalf("Could not build GetBookRequest message: %s", err)

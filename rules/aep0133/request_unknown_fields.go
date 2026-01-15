@@ -19,8 +19,8 @@ import (
 
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/builder"
+	"github.com/aep-dev/api-linter/internal/desc"
+
 )
 
 // The create request message should not have unrecognized fields.
@@ -32,11 +32,11 @@ var unknownFields = &lint.MessageRule{
 		resourceMsgName := getResourceMsgNameFromReq(m)
 
 		// Rule check: Establish that there are no unexpected fields.
-		allowedFields := map[string]*builder.FieldType{
-			"parent":        nil, // AEP-133
-			"request_id":    nil, // AEP-155
-			"validate_only": nil, // AEP-163
-			"id":            nil,
+		allowedFields := map[string]struct{}{
+			"parent":        {}, // AEP-133
+			"request_id":    {}, // AEP-155
+			"validate_only": {}, // AEP-163
+			"id":            {},
 		}
 
 		for _, field := range m.GetFields() {
