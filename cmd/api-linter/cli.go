@@ -20,15 +20,11 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"sync"
 
 	"github.com/aep-dev/api-linter/internal"
 	"github.com/aep-dev/api-linter/lint"
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/protoparse"
+	lint_v2 "github.com/aep-dev/api-linter/lint/v2"
 	"github.com/spf13/pflag"
-	"google.golang.org/protobuf/proto"
-	dpb "google.golang.org/protobuf/types/descriptorpb"
 	"gopkg.in/yaml.v2"
 )
 
@@ -106,7 +102,7 @@ func newCli(args []string) *cli {
 	}
 }
 
-func (c *cli) lint(rules lint.RuleRegistry, configs lint.Configs) error {
+func (c *cli) lint(rulesV1 lint.RuleRegistry, rulesV2 lint_v2.RuleRegistry, configs lint.Configs) error {
 	// Print version and exit if asked.
 	if c.VersionFlag {
 		fmt.Printf("api-linter %s\n", internal.Version)
@@ -137,60 +133,30 @@ func (c *cli) lint(rules lint.RuleRegistry, configs lint.Configs) error {
 	configs = append(configs, lint.Config{
 		DisabledRules: c.DisabledRules,
 	})
-	// Prepare proto import lookup.
-	fs, err := loadFileDescriptors(c.ProtoDescPath...)
+
+	// V1 Pipeline
+	resultsV1, err := c.runV1(rulesV1, configs)
 	if err != nil {
-		return err
-	}
-	lookupImport := func(name string) (*desc.FileDescriptor, error) {
-		if f, found := fs[name]; found {
-			return f, nil
-		}
-		return nil, fmt.Errorf("%q is not found", name)
-	}
-	var errorsWithPos []protoparse.ErrorWithPos
-	var lock sync.Mutex
-	// Parse proto files into `protoreflect` file descriptors.
-	p := protoparse.Parser{
-		ImportPaths:           c.ProtoImportPaths,
-		IncludeSourceCodeInfo: true,
-		LookupImport:          lookupImport,
-		ErrorReporter: func(errorWithPos protoparse.ErrorWithPos) error {
-			// Protoparse isn't concurrent right now but just to be safe for the future.
-			lock.Lock()
-			errorsWithPos = append(errorsWithPos, errorWithPos)
-			lock.Unlock()
-			// Continue parsing. The error returned will be protoparse.ErrInvalidSource.
-			return nil
-		},
-	}
-	// Resolve file absolute paths to relative ones.
-	protoFiles, err := protoparse.ResolveFilenames(c.ProtoImportPaths, c.ProtoFiles...)
-	if err != nil {
-		return err
-	}
-	fd, err := p.ParseFiles(protoFiles...)
-	if err != nil {
-		if err == protoparse.ErrInvalidSource {
-			if len(errorsWithPos) == 0 {
-				return errors.New("got protoparse.ErrInvalidSource but no ErrorWithPos errors")
-			}
-			// TODO: There's multiple ways to deal with this but this prints all the errors at least
-			errStrings := make([]string, len(errorsWithPos))
-			for i, errorWithPos := range errorsWithPos {
-				errStrings[i] = errorWithPos.Error()
-			}
-			return errors.New(strings.Join(errStrings, "\n"))
-		}
 		return err
 	}
 
-	// Create a linter to lint the file descriptors.
-	l := lint.New(rules, configs, lint.Debug(c.DebugFlag), lint.IgnoreCommentDisables(c.IgnoreCommentDisablesFlag))
-	results, err := l.LintProtos(fd...)
-	if err != nil {
-		return err
+	// V2 Pipeline
+	var configsV2 lint_v2.Configs
+	for _, cfg := range configs {
+		configsV2 = append(configsV2, lint_v2.Config{
+			IncludedPaths: cfg.IncludedPaths,
+			ExcludedPaths: cfg.ExcludedPaths,
+			EnabledRules:  cfg.EnabledRules,
+			DisabledRules: cfg.DisabledRules,
+		})
 	}
+	resultsV2, err := c.runV2(rulesV2, configsV2)
+	if err != nil {
+		return fmt.Errorf("V2 pipeline failed: %w", err)
+	}
+
+	// Combine results from both pipelines, preserving file order.
+	results := combineResponses(resultsV1, resultsV2)
 
 	// Determine the output for writing the results.
 	// Stdout is the default output.
@@ -226,37 +192,124 @@ func (c *cli) lint(rules lint.RuleRegistry, configs lint.Configs) error {
 	return nil
 }
 
-func anyProblems(results []lint.Response) bool {
-	for i := range results {
-		if len(results[i].Problems) > 0 {
+func anyProblems(results []combinedResponse) bool {
+	for _, r := range results {
+		if r.hasProblems() {
 			return true
 		}
 	}
 	return false
 }
 
-func loadFileDescriptors(filePaths ...string) (map[string]*desc.FileDescriptor, error) {
-	fds := []*dpb.FileDescriptorProto{}
-	for _, filePath := range filePaths {
-		fs, err := readFileDescriptorSet(filePath)
-		if err != nil {
-			return nil, err
-		}
-		fds = append(fds, fs.GetFile()...)
-	}
-	return desc.CreateFileDescriptors(fds)
+// combinedResponse holds lint results from both V1 and V2 pipelines for a
+// single file. It preserves the concrete problem types so that custom
+// MarshalJSON/MarshalYAML methods on each Problem type are invoked correctly.
+type combinedResponse struct {
+	FilePath   string
+	ProblemsV1 []lint.Problem
+	ProblemsV2 []lint_v2.Problem
 }
 
-func readFileDescriptorSet(filePath string) (*dpb.FileDescriptorSet, error) {
-	in, err := os.ReadFile(filePath)
-	if err != nil {
-		return nil, err
+// MarshalJSON produces output compatible with the original lint.Response format.
+func (r combinedResponse) MarshalJSON() ([]byte, error) {
+	problems := make([]interface{}, 0, len(r.ProblemsV1)+len(r.ProblemsV2))
+	for _, p := range r.ProblemsV1 {
+		problems = append(problems, p)
 	}
-	fs := &dpb.FileDescriptorSet{}
-	if err := proto.Unmarshal(in, fs); err != nil {
-		return nil, err
+	for _, p := range r.ProblemsV2 {
+		problems = append(problems, p)
 	}
-	return fs, nil
+	return json.Marshal(struct {
+		FilePath string        `json:"file_path"`
+		Problems []interface{} `json:"problems"`
+	}{r.FilePath, problems})
+}
+
+// MarshalYAML produces output compatible with the original lint.Response format.
+func (r combinedResponse) MarshalYAML() (interface{}, error) {
+	problems := make([]interface{}, 0, len(r.ProblemsV1)+len(r.ProblemsV2))
+	for _, p := range r.ProblemsV1 {
+		problems = append(problems, p)
+	}
+	for _, p := range r.ProblemsV2 {
+		problems = append(problems, p)
+	}
+	return struct {
+		FilePath string        `yaml:"file_path"`
+		Problems []interface{} `yaml:"problems"`
+	}{r.FilePath, problems}, nil
+}
+
+func (r combinedResponse) hasProblems() bool {
+	return len(r.ProblemsV1) > 0 || len(r.ProblemsV2) > 0
+}
+
+// problemInfo provides a unified view of a problem for format functions
+// (github, summary) that need to access problem fields directly.
+type problemInfo struct {
+	RuleID  string
+	Message string
+	Span    []int32 // From Location.Span; nil if no location.
+	RuleURI string
+}
+
+// allProblems returns a unified list of problem info from both V1 and V2 problems.
+func (r combinedResponse) allProblems() []problemInfo {
+	result := make([]problemInfo, 0, len(r.ProblemsV1)+len(r.ProblemsV2))
+	for _, p := range r.ProblemsV1 {
+		var span []int32
+		if p.Location != nil {
+			span = p.Location.Span
+		}
+		result = append(result, problemInfo{
+			RuleID:  string(p.RuleID),
+			Message: p.Message,
+			Span:    span,
+			RuleURI: p.GetRuleURI(),
+		})
+	}
+	for _, p := range r.ProblemsV2 {
+		var span []int32
+		if p.Location != nil {
+			span = p.Location.Span
+		}
+		result = append(result, problemInfo{
+			RuleID:  string(p.RuleID),
+			Message: p.Message,
+			Span:    span,
+			RuleURI: p.GetRuleURI(),
+		})
+	}
+	return result
+}
+
+// combineResponses merges V1 and V2 responses by file path, preserving
+// the input file ordering (V1 order first, then any V2-only files).
+func combineResponses(v1 []lint.Response, v2 []lint_v2.Response) []combinedResponse {
+	order := make([]string, 0)
+	byFile := make(map[string]*combinedResponse)
+
+	for _, r := range v1 {
+		if _, ok := byFile[r.FilePath]; !ok {
+			order = append(order, r.FilePath)
+			byFile[r.FilePath] = &combinedResponse{FilePath: r.FilePath}
+		}
+		byFile[r.FilePath].ProblemsV1 = append(byFile[r.FilePath].ProblemsV1, r.Problems...)
+	}
+
+	for _, r := range v2 {
+		if _, ok := byFile[r.FilePath]; !ok {
+			order = append(order, r.FilePath)
+			byFile[r.FilePath] = &combinedResponse{FilePath: r.FilePath}
+		}
+		byFile[r.FilePath].ProblemsV2 = append(byFile[r.FilePath].ProblemsV2, r.Problems...)
+	}
+
+	result := make([]combinedResponse, 0, len(order))
+	for _, fp := range order {
+		result = append(result, *byFile[fp])
+	}
+	return result
 }
 
 var outputFormatFuncs = map[string]formatFunc{
@@ -265,7 +318,7 @@ var outputFormatFuncs = map[string]formatFunc{
 	"json": json.Marshal,
 	"github": func(i interface{}) ([]byte, error) {
 		switch v := i.(type) {
-		case []lint.Response:
+		case []combinedResponse:
 			return formatGitHubActionOutput(v), nil
 		default:
 			return json.Marshal(v)
@@ -273,7 +326,7 @@ var outputFormatFuncs = map[string]formatFunc{
 	},
 	"summary": func(i interface{}) ([]byte, error) {
 		switch v := i.(type) {
-		case []lint.Response:
+		case []combinedResponse:
 			return printSummaryTable(v)
 		case listedRules:
 			return v.printSummaryTable()

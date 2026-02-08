@@ -19,12 +19,11 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/aep-dev/api-linter/lint"
 	"github.com/olekukonko/tablewriter"
 )
 
 // printSummaryTable returns a summary table of violation counts.
-func printSummaryTable(responses []lint.Response) ([]byte, error) {
+func printSummaryTable(responses []combinedResponse) ([]byte, error) {
 	s := createSummary(responses)
 
 	data := []summary{}
@@ -53,16 +52,14 @@ func printSummaryTable(responses []lint.Response) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func createSummary(responses []lint.Response) map[string]map[string]int {
+func createSummary(responses []combinedResponse) map[string]map[string]int {
 	summary := make(map[string]map[string]int)
 	for _, r := range responses {
-		filePath := string(r.FilePath)
-		for _, p := range r.Problems {
-			ruleID := string(p.RuleID)
-			if summary[ruleID] == nil {
-				summary[ruleID] = make(map[string]int)
+		for _, p := range r.allProblems() {
+			if summary[p.RuleID] == nil {
+				summary[p.RuleID] = make(map[string]int)
 			}
-			summary[ruleID][filePath]++
+			summary[p.RuleID][r.FilePath]++
 		}
 	}
 	return summary

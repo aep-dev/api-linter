@@ -39,7 +39,7 @@ func (r listedRules) printSummaryTable() ([]byte, error) {
 
 func outputRules(formatType string) error {
 	rules := listedRules{}
-	for id := range globalRules {
+	for id := range globalRulesV1 {
 		rules = append(rules, listedRule{
 			Name: id,
 		})

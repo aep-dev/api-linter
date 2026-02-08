@@ -24,38 +24,38 @@ import (
 func TestCreateSummary(t *testing.T) {
 	tests := []struct {
 		name        string
-		data        []lint.Response
+		data        []combinedResponse
 		wantSummary map[string]map[string]int
 	}{{
 		name:        "Empty input",
-		data:        []lint.Response{},
+		data:        []combinedResponse{},
 		wantSummary: make(map[string]map[string]int),
 	}, {
 		name: "Example with a couple of responses",
-		data: []lint.Response{
+		data: []combinedResponse{
 			{
 				FilePath: "example.proto",
-				Problems: []lint.Problem{
+				ProblemsV1: []lint.Problem{
 					{RuleID: "core::naming_formats::field_names"},
 					{RuleID: "core::naming_formats::field_names"},
 				},
 			},
 			{
 				FilePath: "example2.proto",
-				Problems: []lint.Problem{
+				ProblemsV1: []lint.Problem{
 					{RuleID: "core::0131::request_message::name"},
 					{RuleID: "core::0132::response_message::name"},
 				},
 			},
 			{
 				FilePath: "example3.proto",
-				Problems: []lint.Problem{
+				ProblemsV1: []lint.Problem{
 					{RuleID: "core::naming_formats::field_names"},
 				},
 			},
 			{
 				FilePath: "example4.proto",
-				Problems: []lint.Problem{
+				ProblemsV1: []lint.Problem{
 					{RuleID: "core::naming_formats::field_names"},
 					{RuleID: "core::0132::response_message::name"},
 				},

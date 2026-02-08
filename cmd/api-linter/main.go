@@ -21,17 +21,23 @@ import (
 	"os"
 
 	"github.com/aep-dev/api-linter/lint"
+	lint_v2 "github.com/aep-dev/api-linter/lint/v2"
 	"github.com/aep-dev/api-linter/rules"
+	rules_v2 "github.com/aep-dev/api-linter/rules/v2"
 )
 
 var (
-	globalRules   = lint.NewRuleRegistry()
+	globalRulesV1 = lint.NewRuleRegistry()
+	globalRulesV2 = lint_v2.NewRuleRegistry()
 	globalConfigs = defaultConfigs()
 )
 
 func init() {
-	if err := rules.Add(globalRules); err != nil {
+	if err := rules.Add(globalRulesV1); err != nil {
 		log.Fatalf("error when registering rules: %v", err)
+	}
+	if err := rules_v2.Add(globalRulesV2); err != nil {
+		log.Fatalf("error when registering V2 rules: %v", err)
 	}
 }
 
@@ -43,7 +49,7 @@ func main() {
 
 func runCLI(args []string) error {
 	c := newCli(args)
-	return c.lint(globalRules, globalConfigs)
+	return c.lint(globalRulesV1, globalRulesV2, globalConfigs)
 }
 
 // Enable all rules by default.

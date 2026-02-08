@@ -6,8 +6,10 @@ require (
 	bitbucket.org/creachadair/stringset v0.0.14
 	buf.build/gen/go/aep/api/protocolbuffers/go v1.36.10-20251109183837-26a011a354ee.1
 	buf.build/go/bufplugin v0.9.0
+	cloud.google.com/go/iam v1.5.3
 	cloud.google.com/go/longrunning v0.7.0
 	github.com/bmatcuk/doublestar/v4 v4.9.1
+	github.com/bufbuild/protocompile v0.14.1
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/google/go-cmp v0.7.0
 	github.com/jhump/protoreflect v1.17.0
@@ -19,6 +21,7 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20251014184007-4626949a642f
 	google.golang.org/protobuf v1.36.10
 	gopkg.in/yaml.v2 v2.4.0
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -29,7 +32,6 @@ require (
 	buf.build/go/spdx v0.2.0 // indirect
 	cel.dev/expr v0.24.0 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.1 // indirect
-	github.com/bufbuild/protocompile v0.14.1 // indirect
 	github.com/clipperhouse/uax29/v2 v2.2.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/cel-go v0.26.1 // indirect

@@ -1,0 +1,129 @@
+// Copyright 2019 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// 		https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package testutils
+
+import (
+	"testing"
+
+	. "github.com/aep-dev/api-linter/lint/v2"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/reflect/protodesc"
+	dpb "google.golang.org/protobuf/types/descriptorpb"
+)
+
+func TestDiffEquivalent(t *testing.T) {
+	// Build a message for the descriptor test.
+	fileProto := &dpb.FileDescriptorProto{
+		Name: proto.String("test.proto"),
+		MessageType: []*dpb.DescriptorProto{
+			{
+				Name: proto.String("Foo"),
+			},
+		},
+	}
+	file, err := protodesc.NewFile(fileProto, nil)
+	if err != nil {
+		t.Fatalf("Failed to create file descriptor: %v", err)
+	}
+	m := file.Messages().Get(0)
+
+	// Declare a series of tests that should all be equal.
+	tests := []struct {
+		name string
+		x    Problems
+		y    []Problem
+	}{
+		{"NilNil", nil, nil},
+		{"ProblemNil", Problems{}, nil},
+		{"Descriptor", Problems{{Descriptor: m}}, []Problem{{Descriptor: m}}},
+		{"Suggestion", Problems{{Suggestion: "foo"}}, []Problem{{Suggestion: "foo"}}},
+		{"MessageExact", Problems{{Message: "foo"}}, []Problem{{Message: "foo"}}},
+		{"MessageSubstr", Problems{{Message: "foo"}}, []Problem{{Message: "foo bar"}}},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if diff := test.x.Diff(test.y); diff != "" {
+				t.Errorf("Problems were unequal (x, y):\n%v", diff)
+			}
+		})
+	}
+}
+
+func TestDiffNotEquivalent(t *testing.T) {
+	// Build a message for the descriptor test.
+	fileProto := &dpb.FileDescriptorProto{
+		Name: proto.String("test.proto"),
+		MessageType: []*dpb.DescriptorProto{
+			{
+				Name: proto.String("Foo"),
+			},
+			{
+				Name: proto.String("Bar"),
+			},
+		},
+	}
+	file, err := protodesc.NewFile(fileProto, nil)
+	if err != nil {
+		t.Fatalf("Failed to create file descriptor: %v", err)
+	}
+	m1 := file.Messages().Get(0)
+	m2 := file.Messages().Get(1)
+
+	// Declare a series of tests that should all be equal.
+	tests := []struct {
+		name string
+		x    Problems
+		y    []Problem
+	}{
+		{"ProblemNil", Problems{{Descriptor: m1}}, nil},
+		{"EmptyProblemNil", Problems{{}}, nil},
+		{"LengthMismatch", Problems{{}}, []Problem{{}, {}}},
+		{"Descriptor", Problems{{Descriptor: m1}}, []Problem{{Descriptor: m2}}},
+		{"Suggestion", Problems{{Suggestion: "foo"}}, []Problem{{Suggestion: "bar"}}},
+		{"Message", Problems{{Message: "foo"}}, []Problem{{Message: "bar"}}},
+		{"MessageSuperstr", Problems{{Message: "foo bar"}}, []Problem{{Message: "foo"}}},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if diff := test.x.Diff(test.y); diff == "" {
+				t.Errorf("Got no diff (x, y); expected one.")
+			}
+		})
+	}
+}
+
+func TestSetDescriptor(t *testing.T) {
+	fileProto := &dpb.FileDescriptorProto{
+		Name: proto.String("test.proto"),
+		MessageType: []*dpb.DescriptorProto{
+			{
+				Name: proto.String("Foo"),
+			},
+		},
+	}
+	file, err := protodesc.NewFile(fileProto, nil)
+	if err != nil {
+		t.Fatalf("Failed to create file descriptor: %v", err)
+	}
+	m := file.Messages().Get(0)
+	problems := Problems{{}, {}, {}}.SetDescriptor(m)
+	for _, p := range problems {
+		if p.Descriptor != m {
+			t.Errorf("Got %v, expected %v", p.Descriptor, m)
+		}
+	}
+}
