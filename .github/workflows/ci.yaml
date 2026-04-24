@@ -16,5 +16,13 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: 1.23.x
+      - name: Install buf
+        uses: bufbuild/buf-action@91da6f6a1a2c877c182debad24ca0a8a9d848be7 # v1
+        with:
+          setup_only: true
+      - name: Install protoc-gen-go
+        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.10
+      - name: Check generated code
+        run: make checkgenerate
       - name: Make
         run: make all

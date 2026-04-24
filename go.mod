@@ -6,7 +6,6 @@ require (
 	bitbucket.org/creachadair/stringset v0.0.14
 	buf.build/gen/go/aep/api/protocolbuffers/go v1.36.10-20251109183837-26a011a354ee.1
 	buf.build/go/bufplugin v0.9.0
-	cloud.google.com/go/longrunning v0.7.0
 	github.com/bmatcuk/doublestar/v4 v4.9.1
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/google/go-cmp v0.7.0
@@ -17,6 +16,7 @@ require (
 	github.com/stoewer/go-strcase v1.3.1
 	google.golang.org/genproto v0.0.0-20251014184007-4626949a642f
 	google.golang.org/genproto/googleapis/api v0.0.0-20251014184007-4626949a642f
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251014184007-4626949a642f
 	google.golang.org/protobuf v1.36.10
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -40,7 +40,6 @@ require (
 	golang.org/x/sync v0.17.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
 	golang.org/x/text v0.30.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20251014184007-4626949a642f // indirect
 	google.golang.org/grpc v1.76.0 // indirect
 	pluginrpc.com/pluginrpc v0.5.0 // indirect
 )

@@ -52,6 +52,18 @@ lint: $(BIN)/golangci-lint ## Lint
 lintfix: $(BIN)/golangci-lint ## Automatically fix some lint errors
 	GOTOOLCHAIN=$(GOLANGCI_LINT_GOTOOLCHAIN) golangci-lint run --fix --modules-download-mode=readonly --timeout=3m0s
 
+.PHONY: generate
+generate: ## Regenerate proto-only longrunningpb from googleapis
+	buf generate --template internal/longrunningpb/buf.gen.yaml
+
+.PHONY: checkgenerate
+checkgenerate: generate ## Verify generated code is up-to-date
+	@if [ -n "$$(git status --porcelain internal/longrunningpb/)" ]; then \
+		echo "error: generated code is out of date, run 'make generate' and commit the result"; \
+		git diff internal/longrunningpb/; \
+		exit 1; \
+	fi
+
 .PHONY: upgrade
 upgrade: ## Upgrade dependencies
 	go mod edit -toolchain=$(GO_MOD_GOTOOLCHAIN)

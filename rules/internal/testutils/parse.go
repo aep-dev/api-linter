@@ -29,7 +29,7 @@ import (
 	// the protocol buffer registry, and therefore make the call to
 	// `proto.FileDescriptor` work for the imported files.
 	_ "buf.build/gen/go/aep/api/protocolbuffers/go/aep/api"
-	_ "cloud.google.com/go/longrunning/autogen/longrunningpb"
+	_ "github.com/aep-dev/api-linter/internal/longrunningpb"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	_ "google.golang.org/genproto/googleapis/type/date"
 	_ "google.golang.org/genproto/googleapis/type/datetime"

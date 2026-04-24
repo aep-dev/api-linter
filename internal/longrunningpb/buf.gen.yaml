@@ -1,0 +1,16 @@
+version: v2
+inputs:
+  - module: buf.build/googleapis/googleapis
+    paths:
+      - google/longrunning/operations.proto
+managed:
+  enabled: true
+  override:
+    - file_option: go_package
+      path: google/longrunning/operations.proto
+      value: github.com/aep-dev/api-linter/internal/longrunningpb
+plugins:
+  - local: protoc-gen-go
+    out: .
+    opt:
+      - module=github.com/aep-dev/api-linter
