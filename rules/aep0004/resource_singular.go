@@ -21,6 +21,7 @@ import (
 	"github.com/aep-dev/api-linter/locations"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
+	"github.com/stoewer/go-strcase"
 )
 
 var resourceSingular = &lint.MessageRule{
@@ -32,7 +33,7 @@ var resourceSingular = &lint.MessageRule{
 		l := locations.MessageResource(m)
 		s := r.GetSingular()
 		_, typeName, ok := utils.SplitResourceTypeName(r.GetType())
-		lowerTypeName := utils.ToKebabCase(typeName)
+		lowerTypeName := strcase.KebabCase(typeName)
 		if s == "" {
 			return []lint.Problem{{
 				Message:    fmt.Sprintf("Resources should declare singular: %q", lowerTypeName),

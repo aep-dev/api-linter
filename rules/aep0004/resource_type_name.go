@@ -16,11 +16,13 @@ package aep0004
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/aep-dev/api-linter/lint"
 	"github.com/aep-dev/api-linter/locations"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
+	"github.com/stoewer/go-strcase"
 )
 
 var resourceTypeName = &lint.MessageRule{
@@ -32,7 +34,6 @@ var resourceTypeName = &lint.MessageRule{
 	LintMessage: func(m *desc.MessageDescriptor) []lint.Problem {
 		resource := utils.GetResource(m)
 		_, typeName, ok := utils.SplitResourceTypeName(resource.GetType())
-		kebabCase := utils.ToKebabCase(typeName)
 		if !ok {
 			return []lint.Problem{{
 				Message:    "Resource type names must be of the form {Service Name}/{Type}.",
@@ -40,13 +41,20 @@ var resourceTypeName = &lint.MessageRule{
 				Location:   locations.MessageResource(m),
 			}}
 		}
+		kebabCase := removeNonAlphanumeric(strcase.KebabCase(typeName))
 		if kebabCase != typeName {
 			return []lint.Problem{{
-				Message:    fmt.Sprintf("Type must be kebob-case with alphanumeric characters: %q", kebabCase),
+				Message:    fmt.Sprintf("Type must be kebab-case with alphanumeric characters: %q", kebabCase),
 				Descriptor: m,
 				Location:   locations.MessageResource(m),
 			}}
 		}
 		return nil
 	},
+}
+
+var notAlphaNumericReg = regexp.MustCompile(`[^a-zA-Z0-9-]+`)
+
+func removeNonAlphanumeric(s string) string {
+	return notAlphaNumericReg.ReplaceAllString(s, "")
 }

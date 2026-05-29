@@ -27,10 +27,12 @@ func TestResourcePattern(t *testing.T) {
 		problems testutils.Problems
 	}{
 		{"Valid", `pattern: "publishers/{publisher}/books/{book}"`, testutils.Problems{}},
-		{"ValidCamel", `pattern: "publishers/{publisher}/electronicBooks/{electronic_book}"`, testutils.Problems{}},
+		{"InvalidCamel", `pattern: "publishers/{publisher}/electronicBooks/{electronic_book}"`, testutils.Problems{{
+			Message: "Resource patterns should use kebab case (apart from the variable names), such as \"publishers/{publisher}/electronic-books/{electronic_book}\".",
+		}}},
 		{"Missing", "", testutils.Problems{{Message: "declare resource name pattern"}}},
 		{"SnakeCase", `pattern: "book_publishers/{book_publisher}/books/{book}"`, testutils.Problems{{
-			Message: "bookPublishers/{book_publisher}/books/{book}",
+			Message: `Resource patterns should use kebab case (apart from the variable names), such as "book-publishers/{book_publisher}/books/{book}".`,
 		}}},
 		{"HasSpaces", `pattern: "publishers/{publisher}/ books /{book}"`, testutils.Problems{{
 			Message: "Resource patterns should not have spaces",

@@ -41,14 +41,14 @@ func TestResourcePlural(t *testing.T) {
 			"InvalidUpperCamel",
 			`plural: "BookShelves"`,
 			testutils.Problems{{
-				Message: "Resource plural should be lowerCamelCase",
+				Message: `Resource plural should be kebab-case: "book-shelves"`,
 			}},
 		},
 		{
 			"InvalidDash",
 			`plural: "Book-Shelves"`,
 			testutils.Problems{{
-				Message: "Resource plural should be lowerCamelCase",
+				Message: `Resource plural should be kebab-case: "book-shelves"`,
 			}},
 		},
 	} {

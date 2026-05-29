@@ -29,7 +29,7 @@ func TestResourceVariables(t *testing.T) {
 		{"Valid", "publishers/{publisher}/electronicBooks/{electronic_book}", testutils.Problems{}},
 		{"ValidWithIdSuffix", "publishers/{publisher_id}/electronicBooks/{electronic_book_id}", testutils.Problems{}},
 		{"CamelCase", "publishers/{publisher}/electronicBooks/{electronicBook}", testutils.Problems{{
-			Message: "publishers/{publisher}/electronicBooks/{electronic_book}",
+			Message: `Variable names in patterns should use snake case, such as "publishers/{publisher}/electronic-books/{electronic_book}".`,
 		}}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
