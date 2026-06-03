@@ -19,12 +19,10 @@ import (
 	"os"
 	"regexp"
 	"strings"
-
-	"github.com/stoewer/go-strcase"
 )
 
 func checkRuleRegistered(aep int, name string) []error {
-	path := fmt.Sprintf("rules/aep%04d/%s.go", aep, strcase.SnakeCase(name))
+	path := fmt.Sprintf("rules/aep%04d/%s.go", aep, strings.ReplaceAll(name, "-", "_"))
 
 	// Read in the file.
 	contents, err := os.ReadFile(path)

@@ -29,13 +29,13 @@ func TestResourceTypeName(t *testing.T) {
 		{"Valid", "library.googleapis.com/book", testutils.Problems{}},
 		{"InvalidTooMany", "library.googleapis.com/shelf/Book", testutils.Problems{{Message: "{Service Name}/{Type}"}}},
 		{"InvalidNotEnough", "library.googleapis.com~Book", testutils.Problems{{Message: "{Service Name}/{Type}"}}},
-		{"InvalidWithUnicode", "library.googleapis.com/BoØkLibre", testutils.Problems{{Message: `Type must be kebob-case`}}},
-		{"InvalidLowerCamelCase", "library.googleapis.com/bookLoan", testutils.Problems{{Message: `Type must be kebob-case with alphanumeric characters: "book-loan"`}}},
+		{"InvalidWithUnicode", "library.googleapis.com/BoØkLibre", testutils.Problems{{Message: `Type must be kebab-case`}}},
+		{"InvalidLowerCamelCase", "library.googleapis.com/bookLoan", testutils.Problems{{Message: `Type must be kebab-case with alphanumeric characters: "book-loan"`}}},
 		{"ValidLowerCamelCase", "library.googleapis.com/book-loan", testutils.Problems{}},
-		{"InvalidTypeNotAlphaNumeric", "library.googleapis.com/Book.:3", testutils.Problems{{Message: `Type must be kebob-case with alphanumeric characters: "book-:3"`}}},
-		{"InvalidTypeContainsEmoji", "library.googleapis.com/Book♥️", testutils.Problems{{Message: `Type must be kebob-case with alphanumeric characters: "book♥️"`}}},
-		{"InvalidTypeContainsDashes", "library.googleapis.com/Book-Shelf️", testutils.Problems{{Message: `Type must be kebob-case with alphanumeric characters: "book--she`}}},
-		{"InvalidTypeContainsUnderscore", "library.googleapis.com/Book_Shelf️", testutils.Problems{{Message: `Type must be kebob-case with alphanumeric characters: "book--she`}}},
+		{"InvalidTypeNotAlphaNumeric", "library.googleapis.com/Book.:3", testutils.Problems{{Message: `Type must be kebab-case with alphanumeric characters: "book3"`}}},
+		{"InvalidTypeContainsEmoji", "library.googleapis.com/Book♥️", testutils.Problems{{Message: `Type must be kebab-case with alphanumeric characters: "book"`}}},
+		{"InvalidTypeContainsDashes", "library.googleapis.com/Book-Shelf️", testutils.Problems{{Message: `Type must be kebab-case with alphanumeric characters: "book-she`}}},
+		{"InvalidTypeContainsUnderscore", "library.googleapis.com/Book_Shelf️", testutils.Problems{{Message: `Type must be kebab-case with alphanumeric characters: "book-she`}}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			f := testutils.ParseProto3Tmpl(t, `

@@ -86,7 +86,7 @@ func getDesiredPattern(pattern string) string {
 			varname := token[1 : len(token)-1]
 			want = append(want, fmt.Sprintf("{%s}", strcase.SnakeCase(varname)))
 		} else {
-			want = append(want, strcase.LowerCamelCase(token))
+			want = append(want, strcase.KebabCase(token))
 		}
 	}
 	return strings.Join(want, "/")

@@ -21,6 +21,7 @@ import (
 	"github.com/aep-dev/api-linter/locations"
 	"github.com/aep-dev/api-linter/rules/internal/utils"
 	"github.com/jhump/protoreflect/desc"
+	"github.com/stoewer/go-strcase"
 )
 
 var resourcePlural = &lint.MessageRule{
@@ -31,7 +32,7 @@ var resourcePlural = &lint.MessageRule{
 		r := utils.GetResource(m)
 		l := locations.MessageResource(m)
 		p := r.GetPlural()
-		pLower := utils.ToKebabCase(p)
+		pKebab := strcase.KebabCase(p)
 		if p == "" {
 			return []lint.Problem{{
 				Message:    "Resources should declare plural.",
@@ -39,10 +40,10 @@ var resourcePlural = &lint.MessageRule{
 				Location:   l,
 			}}
 		}
-		if pLower != p {
+		if pKebab != p {
 			return []lint.Problem{{
 				Message: fmt.Sprintf(
-					"Resource plural should be lowerCamelCase: %q", pLower,
+					"Resource plural should be kebab-case: %q", pKebab,
 				),
 				Descriptor: m,
 				Location:   l,

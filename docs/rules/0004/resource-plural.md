@@ -27,8 +27,8 @@ verifies the `plural` field exists.
 message Book {
   // no plural annotation
   option (aep.api.resource) = {
-    type: "library.googleapis.com/BookShelf"
-    pattern: "publishers/{publisher}/bookShelves/{book_shelf}"
+    type: "library.googleapis.com/book-shelf"
+    pattern: "publishers/{publisher}/book-shelves/{book_shelf}"
   };
 
   string path = 1;
@@ -41,9 +41,9 @@ message Book {
 // Correct.
 message Book {
   option (aep.api.resource) = {
-    type: "library.googleapis.com/BookShelf"
-    pattern: "publishers/{publisher}/bookShelves/{book_shelf}"
-    plural: "bookShelves",
+    type: "library.googleapis.com/book-shelf"
+    pattern: "publishers/{publisher}/book-shelves/{book_shelf}"
+    plural: "book-shelves",
   };
 
   string path = 1;
